@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class OrderedProducts
+public class OrderProducts
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
