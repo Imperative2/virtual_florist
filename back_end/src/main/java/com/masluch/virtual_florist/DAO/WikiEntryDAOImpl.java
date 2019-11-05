@@ -7,10 +7,11 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.stereotype.Repository;
 
 import com.masluch.virtual_florist.entities.WikiEntry;
 
+@Repository
 public class WikiEntryDAOImpl implements WikiEntryDAO
 {
 	@Autowired

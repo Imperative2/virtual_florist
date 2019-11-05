@@ -13,7 +13,7 @@ public interface PhotoDAO
 	
 	public List<Photo> findByProductId(int productId);
 	
-	public void save(Photo photo);
+	public Photo save(Photo photo);
 	
 	public void update(Photo photo);
 	

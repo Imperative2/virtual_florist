@@ -1,6 +1,7 @@
 package com.masluch.virtual_florist.controllers;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,9 +9,15 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,12 +46,23 @@ public class PhotoController
 	}
 	
 	@PostMapping("/upload")
-	public ResponseEntity uploadToLocalFileSystem(@RequestParam("file") MultipartFile file , @RequestParam(name = "productId", required = false) Integer productId, @RequestParam("type") String type, @RequestParam("description") String description)
+	public ResponseEntity<Photo> uploadToLocalFileSystem(@RequestParam("file") MultipartFile file , @RequestParam(name = "productId", required = false) Integer productId,@RequestParam(name = "wikiEntryId", required = false) Integer wikiEntryId, @RequestParam("type") String type, @RequestParam("description") String description, @RequestParam("enabled") boolean enabled)
 	{
 		
 		System.out.println("uplaod params: productId: "+productId);
 		
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		Photo newPhoto = new Photo();
+		
+		newPhoto.setDescription(description);
+		newPhoto.setEnabled(enabled);
+		newPhoto.setType(type);
+		newPhoto.setPath("");
+		
+		Photo savedPhoto = photoService.save(newPhoto);
+		System.out.println("saved photo id: "+savedPhoto.getPhotoId());
+		
+		
+		String fileName = StringUtils.cleanPath(savedPhoto.getPhotoId()+".png");
 		Path path = Paths.get("..//Photos//" + fileName);
 		try
 			{
@@ -55,8 +73,30 @@ public class PhotoController
 			{
 				e.printStackTrace();
 			}
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/download/")
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/photo/download/")
 				.path(fileName).toUriString();
-		return ResponseEntity.ok(fileDownloadUri);
+		
+		savedPhoto.setPath(fileDownloadUri);
+		photoService.update(savedPhoto);
+		
+		System.out.println(savedPhoto);
+		
+		return  new ResponseEntity<>(savedPhoto, HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/download/{fileName:.+}")
+	public ResponseEntity downloadFileFromLocal(@PathVariable String fileName) {
+		Path path = Paths.get("..//Photos//" + fileName);
+		Resource resource = null;
+		try {
+			resource = new UrlResource(path.toUri());
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.ok()
+				.contentType(MediaType.IMAGE_PNG)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+				.body(resource);
 	}
 }

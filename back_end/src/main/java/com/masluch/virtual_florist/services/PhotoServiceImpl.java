@@ -39,16 +39,19 @@ public class PhotoServiceImpl implements PhotoService
 	}
 
 	@Override
-	public void save(Photo photo)
+	@Transactional
+	public Photo save(Photo photo)
 	{
-		// TODO Auto-generated method stub
+		
+			return photoDAO.save(photo);
 
 	}
 
 	@Override
+	@Transactional
 	public void update(Photo photo)
 	{
-		// TODO Auto-generated method stub
+		photoDAO.update(photo);
 
 	}
 

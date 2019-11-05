@@ -1,10 +1,14 @@
 package com.masluch.virtual_florist.entities;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class WikiEntry
@@ -35,6 +39,10 @@ public class WikiEntry
 	
 	@Column(name = "tags")
 	private String tags;
+	
+	@OneToMany()
+	@JoinColumn(name = "wiki_entry_id")
+	private List<Photo> photos;
 
 	public int getWikiEntryId()
 	{
@@ -114,6 +122,18 @@ public class WikiEntry
 	public void setTags(String tags)
 	{
 		this.tags = tags;
+	}
+	
+	
+
+	public List<Photo> getPhotos()
+	{
+		return photos;
+	}
+
+	public void setPhotos(List<Photo> photos)
+	{
+		this.photos = photos;
 	}
 
 	@Override

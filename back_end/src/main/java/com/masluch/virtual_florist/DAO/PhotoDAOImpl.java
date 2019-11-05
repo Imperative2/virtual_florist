@@ -50,10 +50,11 @@ public class PhotoDAOImpl implements PhotoDAO
 	}
 
 	@Override
-	public void save(Photo photo)
+	public Photo save(Photo photo)
 	{
 		Session session = entityManager.unwrap(Session.class);
 		session.save(photo);
+		return photo;
 	}
 
 	@Override

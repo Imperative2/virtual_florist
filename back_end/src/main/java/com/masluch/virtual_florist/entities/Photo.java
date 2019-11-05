@@ -46,7 +46,7 @@ public class Photo
 		this.photoId = photoId;
 	}
 
-	public int getProductId()
+	public Integer getProductId()
 	{
 		return productId;
 	}
