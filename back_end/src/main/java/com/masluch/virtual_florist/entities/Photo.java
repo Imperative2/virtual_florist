@@ -15,26 +15,24 @@ public class Photo
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name ="photo_id")
+	@Column(name = "photo_id")
 	private int photoId;
-	
 
 	@Column(name = "product_id")
-	private int productId;
-	
-	
+	private Integer productId;
+
 	@Column(name = "wiki_entry_id")
-	private int wikiEntryId;
-	
+	private Integer wikiEntryId;
+
 	@Column(name = "type")
 	private String type;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "path")
 	private String path;
-	
+
 	@Column(name = "enabled", columnDefinition = "BOOLEAN")
 	private boolean enabled;
 
@@ -58,7 +56,7 @@ public class Photo
 		this.productId = productId;
 	}
 
-	public int getWikiEntryId()
+	public Integer getWikiEntryId()
 	{
 		return wikiEntryId;
 	}
@@ -111,9 +109,8 @@ public class Photo
 	@Override
 	public String toString()
 	{
-		return "Photo [photoId=" + photoId + ", productId="+ productId  + ", wikiEntry=" + wikiEntryId + ", type=" + type
-				+ ", description=" + description + ", path=" + path + ", enabled=" + enabled + "]";
+		return "Photo [photoId=" + photoId + ", productId=" + productId + ", wikiEntry=" + wikiEntryId + ", type="
+				+ type + ", description=" + description + ", path=" + path + ", enabled=" + enabled + "]";
 	}
-	
-	
+
 }

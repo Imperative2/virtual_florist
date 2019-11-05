@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+
 import com.masluch.virtual_florist.entities.Photo;
 import com.masluch.virtual_florist.entities.Product;
 
@@ -37,6 +38,16 @@ public class PhotoDAOImpl implements PhotoDAO
 		Photo photo = session.get(Photo.class, photoId);
 		return photo;
 	}
+	
+	@Override
+	public List<Photo> findByProductId(int productId)
+	{
+		Session session = entityManager.unwrap(Session.class);
+		Query<Photo> query = session.createQuery("FROM Photo p WHERE p.productId=:productId",Photo.class);
+		query.setParameter("productId", productId);
+		List<Photo> photoList = query.getResultList();
+		return photoList;
+	}
 
 	@Override
 	public void save(Photo photo)
@@ -59,5 +70,7 @@ public class PhotoDAOImpl implements PhotoDAO
 		Photo photo = session.get(Photo.class, photoId);
 		session.delete(photo);
 	}
+
+
 
 }

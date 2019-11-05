@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.masluch.Home_funds_managment.entity.User;
+
 import com.masluch.virtual_florist.entities.WikiEntry;
 
 public class WikiEntryDAOImpl implements WikiEntryDAO

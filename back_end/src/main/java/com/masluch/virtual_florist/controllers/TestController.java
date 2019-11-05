@@ -60,7 +60,7 @@ public class TestController
 		return productList;
 	}
 	
-	@GetMapping(path = "/photo")
+	@GetMapping(path = "/photoccvb")
 	public List<Photo> listPhotos()
 	{
 		List<Photo> adressList = photoDAOImpl.findAll();
@@ -68,24 +68,24 @@ public class TestController
 	}
 	
 
-	@PostMapping("/upload")
-	public ResponseEntity uploadToLocalFileSystem(@RequestParam("file") MultipartFile file)
-	{
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		Path path = Paths.get("D:\\" + fileName);
-		try
-			{
-				System.out.println(path.toString());
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			}
-		catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/download/")
-				.path(fileName).toUriString();
-		return ResponseEntity.ok(fileDownloadUri);
-	}
+//	@PostMapping("/upload")
+//	public ResponseEntity uploadToLocalFileSystem(@RequestParam("file") MultipartFile file)
+//	{
+//		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+//		Path path = Paths.get("D:\\" + fileName);
+//		try
+//			{
+//				System.out.println(path.toString());
+//				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+//			}
+//		catch (IOException e)
+//			{
+//				e.printStackTrace();
+//			}
+//		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/download/")
+//				.path(fileName).toUriString();
+//		return ResponseEntity.ok(fileDownloadUri);
+//	}
 	
 	
 	@GetMapping("/download/{fileName:.+}")

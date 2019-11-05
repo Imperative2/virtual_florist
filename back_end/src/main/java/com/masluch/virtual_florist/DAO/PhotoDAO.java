@@ -11,6 +11,8 @@ public interface PhotoDAO
 	
 	public Photo findById(int photoId);
 	
+	public List<Photo> findByProductId(int productId);
+	
 	public void save(Photo photo);
 	
 	public void update(Photo photo);
