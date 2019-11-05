@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import com.masluch.virtual_florist.entities.Product;
 
 @Repository
@@ -34,29 +33,42 @@ public class ProductDAOImpl implements ProductDAO
 	@Override
 	public Product findById(int productId)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session session = entityManager.unwrap(Session.class);
+		Product product = session.get(Product.class, productId);
+		return product;
+	}
+	
+	@Override
+	public List<Product> findProducts(int numOfProducts)
+	{
+		Session session = entityManager.unwrap(Session.class);
+		Query<Product> query = session.createQuery("FROM Product p LIMIT :numOfProducts",Product.class);
+		query.setParameter("numOfProducts", numOfProducts);
+		List<Product> productList = query.getResultList();
+		return productList;
 	}
 
 	@Override
 	public void save(Product product)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		session.save(product);	
 	}
 
 	@Override
 	public void update(Product product)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		session.update(product);
 	}
 
 	@Override
 	public void deleteById(int productId)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		Product product = session.get(Product.class, productId);
+		session.delete(product);
 	}
+
 
 }

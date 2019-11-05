@@ -10,6 +10,8 @@ public interface AdressDAO
 	
 	public Adress findById(int adressId);
 	
+	public Adress findByValues(String country, String city, String localNumber);
+	
 	public void save(Adress adress);
 	
 	public void update(Adress adress);

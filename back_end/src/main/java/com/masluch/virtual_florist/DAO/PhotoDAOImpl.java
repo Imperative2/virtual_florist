@@ -33,29 +33,31 @@ public class PhotoDAOImpl implements PhotoDAO
 	@Override
 	public Photo findById(int photoId)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session session = entityManager.unwrap(Session.class);
+		Photo photo = session.get(Photo.class, photoId);
+		return photo;
 	}
 
 	@Override
-	public void save(Photo photoId)
+	public void save(Photo photo)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		session.save(photo);
 	}
 
 	@Override
 	public void update(Photo photo)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		session.update(photo);
 	}
 
 	@Override
-	public void deleteById(int photo)
+	public void deleteById(int photoId)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		Photo photo = session.get(Photo.class, photoId);
+		session.delete(photo);
 	}
 
 }

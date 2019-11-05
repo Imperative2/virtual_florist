@@ -11,9 +11,9 @@ public interface PhotoDAO
 	
 	public Photo findById(int photoId);
 	
-	public void save(Photo photoId);
+	public void save(Photo photo);
 	
 	public void update(Photo photo);
 	
-	public void deleteById(int photo);
+	public void deleteById(int photoId);
 }

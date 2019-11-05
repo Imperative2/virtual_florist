@@ -12,11 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.masluch.virtual_florist.entities.Adress;
 
-
 @Repository
 public class AdressDAOImpl implements AdressDAO
 {
-	
+
 	@Autowired
 	private EntityManager entityManager;
 
@@ -25,7 +24,7 @@ public class AdressDAOImpl implements AdressDAO
 	public List<Adress> findAll()
 	{
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		Query<Adress> query = session.createQuery("FROM Adress", Adress.class);
 		List<Adress> result = query.getResultList();
 		return result;
@@ -34,29 +33,47 @@ public class AdressDAOImpl implements AdressDAO
 	@Override
 	public Adress findById(int adressId)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session session = entityManager.unwrap(Session.class);
+		Adress adress = session.get(Adress.class, adressId);
+		return adress;
+	}
+
+	@Override
+	public Adress findByValues(String country, String city, String localNumber)
+	{
+		Session session = entityManager.unwrap(Session.class);
+		Query<Adress> query = session.createQuery(
+				"FROM Adress a WHERE a.country=:country AND a.city=:city AND a.localNumber=:localNumber", Adress.class);
+		query.setParameter("country", country);
+		query.setParameter("city", city);
+		query.setParameter("localNumber", localNumber);
+		List<Adress> adressList = query.getResultList();
+		if (adressList.size() > 0)
+			return adressList.get(0);
+		else
+			return null;
 	}
 
 	@Override
 	public void save(Adress adress)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		session.save(adress);
 	}
 
 	@Override
 	public void update(Adress adress)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		session.update(adress);
 	}
 
 	@Override
 	public void deleteById(int adressId)
 	{
-		// TODO Auto-generated method stub
-
+		Session session = entityManager.unwrap(Session.class);
+		Adress adress = session.get(Adress.class, adressId);
+		session.delete(adress);
 	}
 
 }
