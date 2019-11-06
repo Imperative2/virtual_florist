@@ -3,7 +3,9 @@
 }
 
 .topLogo img {
-  margin-top: 60px;
+  margin-top: 0px;
   width: 100%;
   height: auto;
+  object-fit: cover;
+  align-content: center;
 }

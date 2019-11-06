@@ -10,6 +10,7 @@ const navigationItems = () => {
         Main Menu
       </NavigationItem>
       <NavigationItem link="/Wiki">Wiki</NavigationItem>
+      <NavigationItem link="/login">Login</NavigationItem>
     </ul>
   );
 };

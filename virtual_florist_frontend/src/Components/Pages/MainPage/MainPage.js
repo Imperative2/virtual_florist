@@ -1,5 +1,5 @@
 import React from "react";
-import TopLogo from "../TopLogo/topLogo";
+import TopLogo from "../../TopLogo/topLogo";
 
 const mainPage = props => {
   return (

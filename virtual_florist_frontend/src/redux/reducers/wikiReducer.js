@@ -1,9 +1,10 @@
 import * as actionTypes from "../actions/actionTypes";
+import noImg from "../../Assets/noImage.png";
 
 const initialState = {
   wikiEntries: [
     {
-      wikiEntryId: 1,
+      wikiEntryId: 0,
       name: "asas",
       latinName: "asdasdasd",
       shortDescription: "asdfasdf",
@@ -15,9 +16,9 @@ const initialState = {
         photoId: 0,
         productId: null,
         wikiEntryId: 1,
-        type: "MAIN",
+        type: "SIDE",
         description: "asdsdf",
-        path: "..",
+        path: noImg,
         enabled: true
       }
     }
@@ -27,7 +28,6 @@ const initialState = {
 const wikiReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_WIKI_ENTRIES: {
-      console.log(action.entries);
       return {
         ...state,
         wikiEntries: action.entries

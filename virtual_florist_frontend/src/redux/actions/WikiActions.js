@@ -4,7 +4,6 @@ import axios from "../../axios";
 export const fetchWikiEntries = () => {
   return dispatch => {
     axios.get("/wiki/").then(response => {
-      console.log(response.data);
       dispatch(setWikiEntries(response.data));
     });
   };

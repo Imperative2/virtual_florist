@@ -5,10 +5,20 @@
   text-align: center;
 }
 
-.p {
+.P {
+  margin-top: 72px;
   color: red;
   font-family: "Helvetica Neue", Arial, sans-serif;
-  text-align: left;
+  text-align: center;
   font-size: 28px;
   font-weight: 300;
+}
+
+.fab {
+  margin: 0px;
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
 }
