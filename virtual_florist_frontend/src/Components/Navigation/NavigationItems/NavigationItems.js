@@ -6,10 +6,10 @@ import Router from "react-dom";
 const navigationItems = () => {
   return (
     <ul className={styleClasses.NavigationItems}>
-      <NavigationItem link="/" exact>
-        Burger Builder
+      <NavigationItem link="/mainPage" exact>
+        Main Menu
       </NavigationItem>
-      <NavigationItem link="/orders">Orders</NavigationItem>
+      <NavigationItem link="/Wiki">Wiki</NavigationItem>
     </ul>
   );
 };

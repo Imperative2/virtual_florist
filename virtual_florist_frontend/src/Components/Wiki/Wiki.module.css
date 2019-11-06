@@ -1,0 +1,14 @@
+.Wiki {
+  padding: auto;
+  display: inline-flexbox;
+  margin-left: auto;
+  text-align: center;
+}
+
+.p {
+  color: red;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  text-align: left;
+  font-size: 28px;
+  font-weight: 300;
+}

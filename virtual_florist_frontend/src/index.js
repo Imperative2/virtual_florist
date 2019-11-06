@@ -5,11 +5,24 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import { BrowserRouter } from "react-router-dom";
+import { createStore, applyMiddleware, combineReducers } from "redux";
+import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+
+import wikiReducer from "./redux/reducers/wikiReducer";
+
+const rootReducer = combineReducers({
+  wiki: wikiReducer
+});
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const app = (
-  <BrowserRouter>
-    <App></App>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App></App>
+    </BrowserRouter>
+  </Provider>
 );
 
 ReactDOM.render(app, document.getElementById("root"));

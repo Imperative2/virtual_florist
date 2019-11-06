@@ -1,0 +1,9 @@
+.topLogo {
+  background-color: rgb(70, 60, 60);
+}
+
+.topLogo img {
+  margin-top: 60px;
+  width: 100%;
+  height: auto;
+}

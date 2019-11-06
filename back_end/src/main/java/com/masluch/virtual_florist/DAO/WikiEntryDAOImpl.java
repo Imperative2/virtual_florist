@@ -22,7 +22,7 @@ public class WikiEntryDAOImpl implements WikiEntryDAO
 	{
 		Session session = entityManager.unwrap(Session.class);
 		
-		Query<WikiEntry> query = session.createQuery("FROM WikiEntry", WikiEntry.class);
+		Query<WikiEntry> query = session.createQuery("FROM WikiEntry ORDER BY name", WikiEntry.class);
 		List<WikiEntry> result = query.getResultList();
 		return result;
 	}
