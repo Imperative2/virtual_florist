@@ -1,11 +1,10 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 import Layout from "./Components/Layout/Layout";
 import Wiki from "./Components/Wiki/Wiki";
 import MainPage from "./Components/Pages/MainPage/MainPage";
-import WikiPage from "./Components/Wiki/WikiPage/WikiPage";
+import WikiPage from "./Components/Pages/WikiPage/WikiPage";
 import LoginPage from "./Components/Pages/LoginPage/LoginPage";
 import SignUpPage from "./Components/Pages/SignUpPage/SignUpPage";
 

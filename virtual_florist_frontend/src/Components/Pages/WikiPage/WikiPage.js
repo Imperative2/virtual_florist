@@ -31,7 +31,7 @@ class WikiPage extends Component {
       return (
         <div>
           <h1>
-            {wikiEntry.name} - {wikiEntry.name}
+            {wikiEntry.name} - {wikiEntry.latinName}
           </h1>
           <p>Description:</p>
           <p>{wikiEntry.longDescription}</p>

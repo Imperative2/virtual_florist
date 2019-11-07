@@ -3,7 +3,7 @@ import Aux from "../hoc/AUXX/Auxiliary";
 import styleClasses from "../Layout/Layout.module.css";
 import Toolbar from "../Navigation/Toolbar/Toolbar.js";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer.js";
-import TopLogo from "../TopLogo/topLogo";
+import TopLogo from "../Pages/MainPage/TopLogo/topLogo";
 
 class Layout extends Component {
   state = {

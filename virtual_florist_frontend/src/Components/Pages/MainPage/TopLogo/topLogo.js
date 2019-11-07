@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../../Assets/2.png";
+import image from "../../../../Assets/2.png";
 import styleClass from "./topLogo.module.css";
 
 const topLogo = () => {

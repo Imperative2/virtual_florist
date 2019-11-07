@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Fab from "@material-ui/core/Fab";
+import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 
 import noImage from "../../Assets/noImage.png";
@@ -10,7 +11,6 @@ import * as actions from "../../redux/actions/index";
 import styleClass from "./Wiki.module.css";
 
 import WikiEntry from "./WikiEntry/WikiEntry";
-import WikiPage from "./WikiPage/WikiPage";
 
 class Wiki extends Component {
   componentWillMount() {
@@ -33,15 +33,17 @@ class Wiki extends Component {
       }
 
       return (
-        <WikiEntry
-          key={index}
-          id={wikiEntry.wikiEntryId}
-          name={wikiEntry.name}
-          latinName={wikiEntry.latinName}
-          shortDescription={wikiEntry.shortDescription}
-          history={this.props.history}
-          mainPhoto={mainPhoto}
-        ></WikiEntry>
+        <Grid item xs={12} sm={4}>
+          <WikiEntry
+            key={index}
+            id={wikiEntry.wikiEntryId}
+            name={wikiEntry.name}
+            latinName={wikiEntry.latinName}
+            shortDescription={wikiEntry.shortDescription}
+            history={this.props.history}
+            mainPhoto={mainPhoto}
+          ></WikiEntry>
+        </Grid>
       );
     });
 
@@ -66,7 +68,9 @@ class Wiki extends Component {
         </Fab>
 
         <p className={styleClass.P}>Wiki</p>
-        {wikiEntries}
+        <Grid container spacing={3}>
+          {wikiEntries}
+        </Grid>
       </div>
     );
   }
