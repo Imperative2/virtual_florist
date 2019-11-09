@@ -33,9 +33,8 @@ class Wiki extends Component {
       }
 
       return (
-        <Grid item xs={12} sm={4}>
+        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
           <WikiEntry
-            key={index}
             id={wikiEntry.wikiEntryId}
             name={wikiEntry.name}
             latinName={wikiEntry.latinName}
@@ -68,7 +67,7 @@ class Wiki extends Component {
         </Fab>
 
         <p className={styleClass.P}>Wiki</p>
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
           {wikiEntries}
         </Grid>
       </div>

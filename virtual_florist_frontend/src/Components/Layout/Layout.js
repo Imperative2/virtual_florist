@@ -3,7 +3,7 @@ import Aux from "../hoc/AUXX/Auxiliary";
 import styleClasses from "../Layout/Layout.module.css";
 import Toolbar from "../Navigation/Toolbar/Toolbar.js";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer.js";
-import TopLogo from "../Pages/MainPage/TopLogo/topLogo";
+import Footer from "../UI/Footer/Footer";
 
 class Layout extends Component {
   state = {
@@ -30,6 +30,7 @@ class Layout extends Component {
         ></SideDrawer>
         <div>Toolbar, SideDrawer, Backdrop</div>
         <main className={styleClasses.Content}>{this.props.children}</main>
+        <Footer></Footer>
       </Aux>
     );
   }

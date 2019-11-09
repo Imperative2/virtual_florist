@@ -14,7 +14,7 @@ public interface  ProductDAO
 	
 	public List<Product> findProducts(int numOfProducts);
 	
-	public void save(Product product);
+	public Product save(Product product);
 	
 	public void update(Product product);
 	

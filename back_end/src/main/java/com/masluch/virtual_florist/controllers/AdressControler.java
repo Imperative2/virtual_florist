@@ -41,38 +41,4 @@ public class AdressControler
 		return adressList;
 	}
 
-	@PostMapping("/upload")
-	public ResponseEntity uploadToLocalFileSystem(@RequestParam("file") MultipartFile file)
-	{
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		Path path = Paths.get("D:\\" + fileName);
-		try
-			{
-				System.out.println(path.toString());
-				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-			}
-		catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/files/download/")
-				.path(fileName).toUriString();
-		return ResponseEntity.ok(fileDownloadUri);
-	}
-	
-	
-	@GetMapping("/download/{fileName:.+}")
-	public ResponseEntity downloadFileFromLocal(@PathVariable String fileName) {
-		Path path = Paths.get("D:\\" + fileName);
-		Resource resource = null;
-		try {
-			resource = new UrlResource(path.toUri());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.ok()
-				.contentType(MediaType.IMAGE_PNG)
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-				.body(resource);
-	}
 }

@@ -7,6 +7,8 @@ import MainPage from "./Components/Pages/MainPage/MainPage";
 import WikiPage from "./Components/Pages/WikiPage/WikiPage";
 import LoginPage from "./Components/Pages/LoginPage/LoginPage";
 import SignUpPage from "./Components/Pages/SignUpPage/SignUpPage";
+import ContactPage from "./Components/Pages/ContactPage/ContactPage";
+import NewWikiEntryPage from "./Components/Pages/NewWikiEntryPage/NewWIkiEntryPage";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -17,9 +19,11 @@ function App() {
         <Switch>
           <Route path="/mainPage" component={MainPage} />
           <Route exact path="/wiki" component={Wiki} />
+          <Route exact path="/wiki/newPage" component={NewWikiEntryPage} />
           <Route exact path="/wiki/:id" component={WikiPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signUp" component={SignUpPage} />
+          <Route exact path="/contact" component={ContactPage} />
         </Switch>
       </Layout>
     </div>

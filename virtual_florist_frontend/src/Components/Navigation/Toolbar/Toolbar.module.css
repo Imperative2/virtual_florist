@@ -3,12 +3,7 @@
   width: 100%;
 
   left: 0;
-  background-image: linear-gradient(
-    rgb(38, 96, 159),
-    rgb(95, 129, 165),
-    rgb(71, 115, 163),
-    rgb(38, 96, 159)
-  );
+  background-image: linear-gradient(#25b1f1, #25b1f1);
   position: fixed;
   display: flex;
   justify-content: space-between;

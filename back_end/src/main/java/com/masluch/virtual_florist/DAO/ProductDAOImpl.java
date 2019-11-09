@@ -20,7 +20,6 @@ public class ProductDAOImpl implements ProductDAO
 	private EntityManager entityManager;
 
 	@Override
-	@Transactional
 	public List<Product> findAll()
 	{
 		Session session = entityManager.unwrap(Session.class);
@@ -49,10 +48,11 @@ public class ProductDAOImpl implements ProductDAO
 	}
 
 	@Override
-	public void save(Product product)
+	public Product save(Product product)
 	{
 		Session session = entityManager.unwrap(Session.class);
 		session.save(product);	
+		return product;
 	}
 
 	@Override

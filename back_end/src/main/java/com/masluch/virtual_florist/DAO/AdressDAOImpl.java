@@ -20,7 +20,6 @@ public class AdressDAOImpl implements AdressDAO
 	private EntityManager entityManager;
 
 	@Override
-	@Transactional
 	public List<Adress> findAll()
 	{
 		Session session = entityManager.unwrap(Session.class);
