@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import { MDBBtn } from "mdbreact";
 
-const ButtonPage = () => {
+const ButtonPage = props => {
   return (
     <Fragment>
-      <MDBBtn color="primary" rounded>
-        Primary
+      <MDBBtn color="primary" rounded onClick={props.onClickAction}>
+        {props.name}
       </MDBBtn>
     </Fragment>
   );

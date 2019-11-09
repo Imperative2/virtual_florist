@@ -52,7 +52,8 @@ class Wiki extends Component {
       right: 20,
       bottom: 20,
       left: "auto",
-      position: "fixed"
+      position: "fixed",
+      zIndex: 1000
     };
 
     return (
@@ -66,7 +67,7 @@ class Wiki extends Component {
           <AddIcon />
         </Fab>
 
-        <p className={styleClass.P}>Wiki</p>
+        <h1 className={styleClass.H1}>Wiki</h1>
         <Grid container spacing={1}>
           {wikiEntries}
         </Grid>

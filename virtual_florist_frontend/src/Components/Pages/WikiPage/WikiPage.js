@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
+import Grid from "@material-ui/core/Grid";
+import styleClass from "./WikiPage.module.css";
 
 class WikiPage extends Component {
   componentWillMount() {
@@ -24,23 +26,50 @@ class WikiPage extends Component {
       let photos = "No photos";
       if (wikiEntry.photos !== null) {
         photos = wikiEntry.photos.map((photo, index) => {
-          return <img key={index} src={photo.path}></img>;
+          return (
+            <Grid lg={4} item key={index}>
+              <img className={styleClass.Image} src={photo.path}></img>
+            </Grid>
+          );
         });
       }
 
       return (
-        <div>
-          <h1>
-            {wikiEntry.name} - {wikiEntry.latinName}
-          </h1>
-          <p>Description:</p>
-          <p>{wikiEntry.longDescription}</p>
-          <p>Treatment:</p>
-          <p>{wikiEntry.treatment}</p>
-          <p>Tips:</p>
-          {tips}
-          <p>Gallery</p>
-          {photos}
+        <div className={styleClass.All}>
+          <Grid container spacing={1}>
+            <Grid item lg={12}>
+              <h1>
+                {wikiEntry.name} - {wikiEntry.latinName}
+              </h1>
+            </Grid>
+
+            <Grid item lg={9}>
+              <h3 className={styleClass.H3}>Description:</h3>
+              <p className={styleClass.Text}>{wikiEntry.longDescription}</p>
+            </Grid>
+            <Grid item lg={3}>
+              {photos[0] != null ? photos[0] : ""}
+            </Grid>
+            <Grid item lg={9}>
+              <h3 className={styleClass.H3}>Treatment:</h3>
+              <p className={styleClass.Text}>{wikiEntry.treatment}</p>
+            </Grid>
+            <Grid item lg={3}>
+              {photos[1] != null ? photos[1] : ""}
+            </Grid>
+            <Grid item lg={9}>
+              <h3 className={styleClass.H3}>Tips:</h3>
+              {tips}
+            </Grid>
+            <Grid item lg={3}>
+              {photos[2] != null ? photos[2] : ""}
+            </Grid>
+            <Grid item lg={9}>
+              <h3 className={styleClass.H3}>Gallery</h3>
+            </Grid>
+
+            {photos}
+          </Grid>
         </div>
       );
     }

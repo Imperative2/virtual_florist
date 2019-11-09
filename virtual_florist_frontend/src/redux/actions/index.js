@@ -1,1 +1,1 @@
-export { fetchWikiEntries } from "./WikiActions";
+export { fetchWikiEntries, addWikiEntry } from "./WikiActions";

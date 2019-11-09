@@ -63,15 +63,7 @@ const ContactPage = () => {
                   id="form-subject"
                 />
               </div>
-              <div className="md-form">
-                <MDBInput
-                  icon="pencil-alt"
-                  label="Icon Prefix"
-                  iconClass="grey-text"
-                  type="textarea"
-                  id="form-text"
-                />
-              </div>
+
               <div className="text-center">
                 <MDBBtn color="light-blue">Submit</MDBBtn>
               </div>
@@ -99,15 +91,15 @@ const ContactPage = () => {
               <MDBBtn tag="a" floating color="blue" className="accent-1">
                 <MDBIcon icon="map-marker-alt" />
               </MDBBtn>
-              <p>New York, 94126</p>
-              <p className="mb-md-0">United States</p>
+              <p>Wrocław, 51-419</p>
+              <p className="mb-md-0">Polska</p>
             </MDBCol>
             <MDBCol md="4">
               <MDBBtn tag="a" floating color="blue" className="accent-1">
                 <MDBIcon icon="phone" />
               </MDBBtn>
-              <p>+ 01 234 567 89</p>
-              <p className="mb-md-0">Mon - Fri, 8:00-22:00</p>
+              <p>+ 22 49 49 491</p>
+              <p className="mb-md-0">Pon - Pią, 8:00-22:00</p>
             </MDBCol>
             <MDBCol md="4">
               <MDBBtn tag="a" floating color="blue" className="accent-1">

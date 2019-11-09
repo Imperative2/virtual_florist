@@ -9,6 +9,15 @@ export const fetchWikiEntries = () => {
   };
 };
 
+export const addWikiEntry = newWikiEntry => {
+  console.log(newWikiEntry);
+  return dispatch => {
+    axios.put("/wiki/newEntry", newWikiEntry).then(res => {
+      console.log(res.status);
+    });
+  };
+};
+
 export const setWikiEntries = entries => {
   return {
     type: actionTypes.SET_WIKI_ENTRIES,

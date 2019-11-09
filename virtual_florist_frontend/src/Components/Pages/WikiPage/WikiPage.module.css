@@ -1,0 +1,17 @@
+.Image {
+  max-height: 300px;
+  height: 100%;
+}
+
+.All {
+  margin-left: 20px;
+}
+
+.Text {
+  text-align: justify;
+}
+
+.H3 {
+  background-color: rgb(175, 196, 253);
+  border-radius: 15px 50px 30px 5px;
+}

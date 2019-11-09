@@ -9,7 +9,10 @@ const navigationItems = () => {
       <NavigationItem link="/mainPage" exact>
         Main Menu
       </NavigationItem>
-      <NavigationItem link="/Wiki">Wiki</NavigationItem>
+      <NavigationItem link="/wiki">Wiki</NavigationItem>
+      <NavigationItem link="/product">Products</NavigationItem>
+      <NavigationItem link="/order">Orders</NavigationItem>
+      <NavigationItem link="/shop">Shop</NavigationItem>
       <NavigationItem link="/login">Login</NavigationItem>
     </ul>
   );

@@ -10,6 +10,8 @@ import SignUpPage from "./Components/Pages/SignUpPage/SignUpPage";
 import ContactPage from "./Components/Pages/ContactPage/ContactPage";
 import NewWikiEntryPage from "./Components/Pages/NewWikiEntryPage/NewWIkiEntryPage";
 
+import Products from "./Components/Products/Products";
+
 import { Route, Switch } from "react-router-dom";
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/signUp" component={SignUpPage} />
           <Route exact path="/contact" component={ContactPage} />
+          <Route exact path="/product" component={Products} />
         </Switch>
       </Layout>
     </div>

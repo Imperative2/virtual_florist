@@ -18,4 +18,6 @@ public interface WikiEntryService
 	public void update(WikiEntry wikiEntry);
 	
 	public ResponseEntity<String> deleteById(int wikiEntryId);
+	
+	public ResponseEntity<WikiEntry> addWikiEntry(WikiEntry wikiEntry);
 }

@@ -12,7 +12,7 @@ public interface WikiEntryDAO
 	
 	public WikiEntry findById(int wikiEntryId);
 	
-	public void save(WikiEntry wikiEntry);
+	public WikiEntry save(WikiEntry wikiEntry);
 	
 	public void update(WikiEntry wikiEntry);
 	

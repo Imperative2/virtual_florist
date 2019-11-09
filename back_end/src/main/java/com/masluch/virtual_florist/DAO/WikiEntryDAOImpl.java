@@ -36,10 +36,11 @@ public class WikiEntryDAOImpl implements WikiEntryDAO
 	}
 
 	@Override
-	public void save(WikiEntry wikiEntry)
+	public WikiEntry save(WikiEntry wikiEntry)
 	{
 		Session session = entityManager.unwrap(Session.class);
 		session.save(wikiEntry);	
+		return wikiEntry;
 
 	}
 

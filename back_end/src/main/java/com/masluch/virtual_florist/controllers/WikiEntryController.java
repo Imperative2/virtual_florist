@@ -33,10 +33,10 @@ public class WikiEntryController
 	}
 	
 	@PutMapping("/newEntry")
-	public ResponseEntity<String> addWikiEntry(@RequestBody WikiEntry wikiEntry)
+	public ResponseEntity<WikiEntry> addWikiEntry(@RequestBody WikiEntry wikiEntry)
 	{
-		System.out.println(wikiEntry);
-		return new ResponseEntity("OK",HttpStatus.OK);
+
+		return wikiEntryService.addWikiEntry(wikiEntry);
 	}
 	
 	@PostMapping("/update")
