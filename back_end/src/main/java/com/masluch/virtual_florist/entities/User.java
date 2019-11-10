@@ -44,8 +44,8 @@ public class User
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
-	@Column(name = "buisness_client", columnDefinition = "BOOLEAN")
-	private boolean buisnessClient;
+	@Column(name = "business_client", columnDefinition = "BOOLEAN")
+	private boolean businessClient;
 
 	public int getUserId()
 	{
@@ -137,14 +137,14 @@ public class User
 		this.phoneNumber = phoneNumber;
 	}
 
-	public boolean isBuisnessClient()
+	public boolean isBusinessClient()
 	{
-		return buisnessClient;
+		return businessClient;
 	}
 
-	public void setBuisnessClient(boolean buisnessClient)
+	public void setBusinessClient(boolean businessClient)
 	{
-		this.buisnessClient = buisnessClient;
+		this.businessClient = businessClient;
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class User
 	{
 		return "User [userId=" + userId + ", name=" + name + ", surname=" + surname + ", email=" + email + ", password="
 				+ password + ", enabled=" + enabled + ", adress=" + adress + ", phoneNumber=" + phoneNumber
-				+ ", buisnessClient=" + buisnessClient + "]";
+				+ ", businessClient=" + businessClient + "]";
 	}
 	
 	

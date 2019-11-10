@@ -83,7 +83,11 @@ class WikiPage extends Component {
             show={this.state.showAddFotoModal}
             modalClosed={this.closePhotoAddModal}
           >
-            <PhotoUpload wikiEntryId={this.props.match.params.id}></PhotoUpload>
+            <PhotoUpload
+              history={this.props.history}
+              wikiEntryId={this.props.match.params.id}
+              isWikiEntry={true}
+            ></PhotoUpload>
           </Modal>
           <Fab
             color="primary"
