@@ -4,7 +4,6 @@ import axios from "../../axios";
 export const fetchProducts = () => {
   return dispatch => {
     axios.get("/product/").then(response => {
-      console.log(response.data);
       dispatch(setProducts(response.data));
     });
   };

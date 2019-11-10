@@ -112,7 +112,8 @@ public class WikiEntryServiceImpl implements WikiEntryService
 		Product product = productDAO.findByWikiEntry(wikiEntry);
 		if(product != null)
 			{
-				productDAO.deleteById(product.getProductId());
+				product.setWikiEntry(null);
+				productDAO.update(product);
 			}
 		
 		deleteById(wikiEntry.getWikiEntryId());

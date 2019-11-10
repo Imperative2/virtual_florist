@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import com.masluch.virtual_florist.services.PhotoService;
 
 @RestController
 @RequestMapping(path = "/photo")
+@CrossOrigin
 public class PhotoController
 {
 	
@@ -45,11 +47,16 @@ public class PhotoController
 		return photoService.findAll();
 	}
 	
-	@PostMapping("/upload")
-	public ResponseEntity<Photo> uploadToLocalFileSystem(@RequestParam("file") MultipartFile file , @RequestParam(name = "productId", required = false) Integer productId,@RequestParam(name = "wikiEntryId", required = false) Integer wikiEntryId, @RequestParam("type") String type, @RequestParam("description") String description, @RequestParam("enabled") boolean enabled)
+	@PostMapping(path="/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Photo> uploadToLocalFileSystem(@RequestParam("file") MultipartFile file , @RequestParam(name = "productId", required = false) Integer productId,@RequestParam(name = "wikiEntryId",  required = false) Integer wikiEntryId, @RequestParam("type") String type, @RequestParam("description") String description, @RequestParam("enabled") boolean enabled)
 	{
 		
 		Photo newPhoto = new Photo();
+		
+		if(wikiEntryId != null && wikiEntryId>0)
+			{
+				newPhoto.setWikiEntryId(wikiEntryId);
+			}
 		
 		newPhoto.setDescription(description);
 		newPhoto.setEnabled(enabled);

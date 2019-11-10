@@ -7,7 +7,14 @@ import AddIcon from "@material-ui/icons/AddPhotoAlternate";
 import DeleteIcon from "@material-ui/icons/Delete";
 import styleClass from "./WikiPage.module.css";
 
+import Modal from "../../UI/Modal/Modal";
+import PhotoUpload from "../../Forms/PhotoUpload/PhotoUpload";
+
 class WikiPage extends Component {
+  state = {
+    showAddFotoModal: false
+  };
+
   componentWillMount() {
     this.props.onDataFetch();
   }
@@ -15,6 +22,14 @@ class WikiPage extends Component {
   deleteButtonHandler = () => {
     this.props.onEntryDelete(this.props.match.params.id);
     this.props.history.replace("/wiki");
+  };
+
+  addPictureButtonHandler = () => {
+    this.setState({ showAddFotoModal: true });
+  };
+
+  closePhotoAddModal = () => {
+    this.setState({ showAddFotoModal: false });
   };
 
   render() {
@@ -64,11 +79,17 @@ class WikiPage extends Component {
 
       return (
         <div className={styleClass.All}>
+          <Modal
+            show={this.state.showAddFotoModal}
+            modalClosed={this.closePhotoAddModal}
+          >
+            <PhotoUpload wikiEntryId={this.props.match.params.id}></PhotoUpload>
+          </Modal>
           <Fab
             color="primary"
             aria-label="add"
             style={buttonAddStyle}
-            onClick={this.addClickHandler}
+            onClick={this.addPictureButtonHandler}
           >
             <AddIcon></AddIcon>
           </Fab>
