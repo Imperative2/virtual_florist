@@ -10,13 +10,15 @@ import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 
 import wikiReducer from "./redux/reducers/wikiReducer";
+import productsReducer from "./redux/reducers/productsReducer";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 
 const rootReducer = combineReducers({
-  wiki: wikiReducer
+  wiki: wikiReducer,
+  products: productsReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

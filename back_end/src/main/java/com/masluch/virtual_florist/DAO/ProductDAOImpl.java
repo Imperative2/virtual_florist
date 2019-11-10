@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.masluch.virtual_florist.entities.Product;
+import com.masluch.virtual_florist.entities.WikiEntry;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO
@@ -68,6 +69,18 @@ public class ProductDAOImpl implements ProductDAO
 		Session session = entityManager.unwrap(Session.class);
 		Product product = session.get(Product.class, productId);
 		session.delete(product);
+	}
+
+	@Override
+	public Product findByWikiEntry(WikiEntry wikiEntry)
+	{
+		Session session = entityManager.unwrap(Session.class);
+		Query<Product> query = session.createQuery("FROM Product p WHERE p.wikiEntry=:wikiEntry",Product.class);
+		query.setParameter("wikiEntry", wikiEntry);
+		List<Product> productsList = query.getResultList();
+		if(productsList.isEmpty())
+			return null;
+		return productsList.get(0);
 	}
 
 

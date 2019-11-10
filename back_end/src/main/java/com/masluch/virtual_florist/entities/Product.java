@@ -21,6 +21,9 @@ public class Product
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
 	private int productId;
+	
+	@Column(name = "price")
+	private Double price;
 
 	@Column(name = "name")
 	private String name;
@@ -40,11 +43,11 @@ public class Product
 	@Column(name = "available", columnDefinition = "BOOLEAN")
 	private boolean available;
 
-	@OneToOne(optional = true)
+	@OneToOne(optional = true, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "wiki_entry_id")
 	private WikiEntry wikiEntry;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "product_id")
 	private List<Photo> photos;
 
@@ -56,6 +59,16 @@ public class Product
 	public void setProductId(int productId)
 	{
 		this.productId = productId;
+	}
+
+	public Double getPrice()
+	{
+		return price;
+	}
+
+	public void setPrice(Double price)
+	{
+		this.price = price;
 	}
 
 	public String getName()
@@ -138,4 +151,14 @@ public class Product
 		this.photos = photos;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "Product [productId=" + productId + ", price=" + price + ", name=" + name + ", latinName=" + latinName
+				+ ", description=" + description + ", type=" + type + ", tags=" + tags + ", available=" + available
+				+ ", wikiEntry=" + wikiEntry + ", photos=" + photos + "]";
+	}
+
+	
+	
 }

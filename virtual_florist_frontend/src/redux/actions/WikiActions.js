@@ -18,6 +18,15 @@ export const addWikiEntry = newWikiEntry => {
   };
 };
 
+export const deleteWikiEntry = wikiEntryId => {
+  const path = "/wiki/" + wikiEntryId;
+  return dispatch => {
+    axios.delete(path).then(res => {
+      console.log("Deleted :" + " " + wikiEntryId + "   " + res.status);
+    });
+  };
+};
+
 export const setWikiEntries = entries => {
   return {
     type: actionTypes.SET_WIKI_ENTRIES,

@@ -2,6 +2,7 @@ package com.masluch.virtual_florist.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.ForeignKey;
 
 @Entity
 public class WikiEntry
@@ -40,7 +43,7 @@ public class WikiEntry
 	@Column(name = "tags")
 	private String tags;
 	
-	@OneToMany()
+	@OneToMany(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "wiki_entry_id")
 	private List<Photo> photos;
 

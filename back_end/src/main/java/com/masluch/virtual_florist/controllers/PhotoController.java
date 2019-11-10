@@ -49,8 +49,6 @@ public class PhotoController
 	public ResponseEntity<Photo> uploadToLocalFileSystem(@RequestParam("file") MultipartFile file , @RequestParam(name = "productId", required = false) Integer productId,@RequestParam(name = "wikiEntryId", required = false) Integer wikiEntryId, @RequestParam("type") String type, @RequestParam("description") String description, @RequestParam("enabled") boolean enabled)
 	{
 		
-		System.out.println("uplaod params: productId: "+productId);
-		
 		Photo newPhoto = new Photo();
 		
 		newPhoto.setDescription(description);
@@ -59,7 +57,6 @@ public class PhotoController
 		newPhoto.setPath("");
 		
 		Photo savedPhoto = photoService.save(newPhoto);
-		System.out.println("saved photo id: "+savedPhoto.getPhotoId());
 		
 		
 		String fileName = StringUtils.cleanPath(savedPhoto.getPhotoId()+".png");
@@ -78,8 +75,6 @@ public class PhotoController
 		
 		savedPhoto.setPath(fileDownloadUri);
 		photoService.update(savedPhoto);
-		
-		System.out.println(savedPhoto);
 		
 		return  new ResponseEntity<>(savedPhoto, HttpStatus.OK);
 		

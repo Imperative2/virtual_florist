@@ -11,6 +11,7 @@ import * as actions from "../../redux/actions/index";
 import styleClass from "./Wiki.module.css";
 
 import WikiEntry from "./WikiEntry/WikiEntry";
+import TitleLabel from "../UI/Label/TitleLabel";
 
 class Wiki extends Component {
   componentWillMount() {
@@ -66,8 +67,8 @@ class Wiki extends Component {
         >
           <AddIcon />
         </Fab>
+        <TitleLabel name="Wiki"></TitleLabel>
 
-        <h1 className={styleClass.H1}>Wiki</h1>
         <Grid container spacing={1}>
           {wikiEntries}
         </Grid>

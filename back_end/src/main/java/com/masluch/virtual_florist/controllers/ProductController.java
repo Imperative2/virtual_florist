@@ -33,8 +33,7 @@ public class ProductController
 	{
 		
 		return	productService.addNewProduct(newProduct);
-		
-		
+
 	}
 	
 	

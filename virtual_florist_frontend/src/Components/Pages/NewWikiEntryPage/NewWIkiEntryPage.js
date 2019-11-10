@@ -6,6 +6,8 @@ import styleClass from "./NewWikiEntryPage.module.css";
 import ButtonGood from "../../UI/Button/ButtonGood/ButtonGood";
 import ButtonBad from "../../UI/Button/ButtonBad/ButtonBad";
 
+import TitleLabel from "../../UI/Label/TitleLabel";
+
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 
@@ -50,7 +52,8 @@ class NewWikiEntryPage extends Component {
   render() {
     return (
       <div className={styleClass.NewWikiEntryPage}>
-        newWikiPage
+        <TitleLabel name="New Wiki Page"></TitleLabel>
+
         <Grid container spacing={1} justify="center">
           <Grid item xs={12} md={9} lg={9}>
             <TextInput

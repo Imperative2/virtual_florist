@@ -1,0 +1,9 @@
+.H1 {
+  margin-top: 72px;
+
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  text-align: center;
+  font-weight: 700;
+  background-color: rgb(175, 196, 253);
+  border-radius: 50px 50px 50px 50px;
+}

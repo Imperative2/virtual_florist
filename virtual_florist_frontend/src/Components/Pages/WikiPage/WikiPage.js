@@ -2,13 +2,41 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/AddPhotoAlternate";
+import DeleteIcon from "@material-ui/icons/Delete";
 import styleClass from "./WikiPage.module.css";
 
 class WikiPage extends Component {
   componentWillMount() {
     this.props.onDataFetch();
   }
+
+  deleteButtonHandler = () => {
+    this.props.onEntryDelete(this.props.match.params.id);
+    this.props.history.replace("/wiki");
+  };
+
   render() {
+    const buttonAddStyle = {
+      margin: 0,
+      top: "auto",
+      right: 20,
+      bottom: 20,
+      left: "auto",
+      position: "fixed",
+      zIndex: 1000
+    };
+    const buttonDeleteStyle = {
+      margin: 0,
+      top: "auto",
+      right: 80,
+      bottom: 20,
+      left: "auto",
+      position: "fixed",
+      zIndex: 1000
+    };
+
     let wikiEntry = null;
 
     for (let i = 0; i < this.props.wiki.wikiEntries.length; i++) {
@@ -36,6 +64,22 @@ class WikiPage extends Component {
 
       return (
         <div className={styleClass.All}>
+          <Fab
+            color="primary"
+            aria-label="add"
+            style={buttonAddStyle}
+            onClick={this.addClickHandler}
+          >
+            <AddIcon></AddIcon>
+          </Fab>
+          <Fab
+            color="secondary"
+            aria-label="add"
+            style={buttonDeleteStyle}
+            onClick={this.deleteButtonHandler}
+          >
+            <DeleteIcon />
+          </Fab>
           <Grid container spacing={1}>
             <Grid item lg={12}>
               <h1>
@@ -91,7 +135,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDataFetch: () => dispatch(actions.fetchWikiEntries())
+    onDataFetch: () => dispatch(actions.fetchWikiEntries()),
+    onEntryDelete: wikiEntryId => dispatch(actions.deleteWikiEntry(wikiEntryId))
   };
 };
 

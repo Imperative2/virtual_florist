@@ -11,6 +11,7 @@ const navigationItems = () => {
       </NavigationItem>
       <NavigationItem link="/wiki">Wiki</NavigationItem>
       <NavigationItem link="/product">Products</NavigationItem>
+      <NavigationItem link="/store">Store</NavigationItem>
       <NavigationItem link="/order">Orders</NavigationItem>
       <NavigationItem link="/shop">Shop</NavigationItem>
       <NavigationItem link="/login">Login</NavigationItem>

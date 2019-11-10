@@ -51,7 +51,7 @@ public class Photo
 		return productId;
 	}
 
-	public void setProductId(int productId)
+	public void setProductId(Integer productId)
 	{
 		this.productId = productId;
 	}
@@ -61,7 +61,7 @@ public class Photo
 		return wikiEntryId;
 	}
 
-	public void setWikiEntryId(int wikiEntryId)
+	public void setWikiEntryId(Integer wikiEntryId)
 	{
 		this.wikiEntryId = wikiEntryId;
 	}

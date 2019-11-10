@@ -1,4 +1,14 @@
+//wikiEnties
 export const FETCH_WIKI_ENTRIES = "FETCH_WIKI_ENTRIES";
 export const SET_WIKI_ENTRIES = "SET_WIKI_ENTRIES";
 export const ADD_WIKI_ENTRY = "ADD_WIKI_ENTRY";
 export const MODIFY_WIKI_ENTRY = "MODIFY_WIKI_ENTRY";
+export const DELETE_WIKI_ENTRY = "DELETE_WIKI_ENTRY";
+
+//products
+
+export const FETCH_PRODUCTS = "FETCH_PRODUCTS";
+export const SET_PRODUCTS = "SET_PRODUCTS";
+export const ADD_PRODUCT = "ADD_PRODUCT";
+export const MODIFY_PRODUCT = "MODIFY_PRODUCT";
+export const CHANGE_VISIBILITY = "CHANGE_VISIBILITY";

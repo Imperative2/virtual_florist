@@ -8,7 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.masluch.virtual_florist.DAO.PhotoDAO;
+import com.masluch.virtual_florist.DAO.ProductDAO;
 import com.masluch.virtual_florist.DAO.WikiEntryDAO;
+import com.masluch.virtual_florist.entities.Photo;
+import com.masluch.virtual_florist.entities.Product;
 import com.masluch.virtual_florist.entities.WikiEntry;
 
 @Service
@@ -17,6 +21,12 @@ public class WikiEntryServiceImpl implements WikiEntryService
 	
 	@Autowired
 	private WikiEntryDAO wikiEntryDAO;
+	
+	@Autowired
+	private PhotoDAO photoDAO;
+	
+	@Autowired 
+	private ProductDAO productDAO;
 
 	@Override
 	@Transactional
@@ -49,11 +59,12 @@ public class WikiEntryServiceImpl implements WikiEntryService
 	@Override
 	public ResponseEntity<String> deleteById(int wikiEntryId)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		wikiEntryDAO.deleteById(wikiEntryId);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<WikiEntry> addWikiEntry(WikiEntry wikiEntry)
 	{
 		if(checkWikiEntry(wikiEntry) == false)
@@ -72,6 +83,43 @@ public class WikiEntryServiceImpl implements WikiEntryService
 		if(wikiEntry.getWikiEntryId() == 0)
 			return true;
 		return false;
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<String> deleteWikiEntry(String wikiEntryId)
+	{
+		Integer entryId;
+		try {
+			entryId = Integer.decode(wikiEntryId);
+		}
+		catch(Exception ex) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		if(entryId<1)
+			{
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			}
+		
+		WikiEntry wikiEntry = wikiEntryDAO.findById(entryId);
+		List<Photo> photosList = wikiEntry.getPhotos();
+		for(Photo photo: photosList)
+			{
+				photo.setWikiEntryId(0);
+				photoDAO.update(photo);
+			}
+		
+		Product product = productDAO.findByWikiEntry(wikiEntry);
+		if(product != null)
+			{
+				productDAO.deleteById(product.getProductId());
+			}
+		
+		deleteById(wikiEntry.getWikiEntryId());
+		
+
+		
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 }
