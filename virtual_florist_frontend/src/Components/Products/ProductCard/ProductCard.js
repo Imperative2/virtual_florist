@@ -38,16 +38,18 @@ const ProductCard = props => {
     );
   }
 
+  const path = "/product/" + props.id;
+
   return (
     <div className="card-group my-5">
       <MDBCard personal className="mb-md-0 mb-4">
         <MDBCardImage top src={props.mainPhoto} alt="MDBCard image cap" />
-        <a href="#!">
+        <a href={path}>
           <MDBMask overlay="white-slight" />
         </a>
 
         <MDBCardBody>
-          <a href="#!">
+          <a href={path}>
             <MDBCardTitle>
               {props.name}-{props.latinName}
             </MDBCardTitle>

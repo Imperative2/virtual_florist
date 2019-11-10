@@ -10,6 +10,7 @@ import SignUpPage from "./Components/Pages/SignUpPage/SignUpPage";
 import ContactPage from "./Components/Pages/ContactPage/ContactPage";
 import NewWikiEntryPage from "./Components/Pages/NewWikiEntryPage/NewWIkiEntryPage";
 import ProductPage from "./Components/Pages/ProductPage/ProductPage";
+import NewProductPage from "./Components/Pages/NewProductPage/NewProductPage";
 
 import Products from "./Components/Products/Products";
 
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/signUp" component={SignUpPage} />
           <Route exact path="/contact" component={ContactPage} />
           <Route exact path="/product" component={Products} />
+          <Route exact path="/product/newProduct" component={NewProductPage} />
           <Route exact path="/product/:id" component={ProductPage} />
         </Switch>
       </Layout>

@@ -7,12 +7,23 @@ import ShopFoto1 from "../../../Assets/shop1.jpg";
 import ShopFoto2 from "../../../Assets/shop2.jpg";
 import ShopFoto3 from "../../../Assets/shop3.jpg";
 
+import MainPicture from "../../../Assets/mainScreen.jpg";
+
+import { MDBMask, MDBView, MDBContainer } from "mdbreact";
+
 import styleClass from "./MainPage.module.css";
 
 const mainPage = props => {
   return (
     <div className={styleClass.All}>
-      <TopLogo></TopLogo>
+      <MDBView>
+        <img src={MainPicture} className="img-fluid" alt="" />
+        <MDBMask overlay="warning-color-light" className="flex-center">
+          <p className={styleClass.P}>Flowers</p>
+        </MDBMask>
+      </MDBView>
+      {/* 
+      <TopLogo></TopLogo> */}
       <div className={styleClass.Carousel}>
         <Carousel>
           <Carousel.Item>

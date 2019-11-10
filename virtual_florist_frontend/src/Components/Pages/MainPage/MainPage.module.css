@@ -10,8 +10,21 @@
   left: 500px;
 }
 
+.P {
+  font-weight: 1000;
+  font-size: 100px;
+  color: rgb(246, 99, 0);
+  font-family: "Apple Chancery", cursive, monospace;
+}
+
 .All {
   background-color: rgb(37, 37, 37);
-  padding-left: 5%;
-  padding-right: 5%;
+}
+
+@media (max-width: 600px) {
+  .P {
+    font-weight: 1000;
+    font-size: 40px;
+    color: rgb(250, 242, 204);
+  }
 }
