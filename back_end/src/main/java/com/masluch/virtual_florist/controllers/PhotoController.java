@@ -58,6 +58,11 @@ public class PhotoController
 				newPhoto.setWikiEntryId(wikiEntryId);
 			}
 		
+		if(productId != null && productId>0)
+			{
+				newPhoto.setProductId(productId);
+			}
+		
 		newPhoto.setDescription(description);
 		newPhoto.setEnabled(enabled);
 		newPhoto.setType(type);

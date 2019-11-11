@@ -9,6 +9,20 @@ export const fetchProducts = () => {
   };
 };
 
+export const addProduct = newProduct => {
+  console.log(newProduct);
+  return dispatch => {
+    let path = "/product/newProduct";
+    if (newProduct.wikiEntryId !== null) {
+      path = "/product/newProduct?wikiEntryId=" + newProduct.wikiEntryId;
+    }
+
+    axios.put(path, newProduct).then(res => {
+      console.log(res.status);
+    });
+  };
+};
+
 export const setProducts = products => {
   return {
     type: actionTypes.SET_PRODUCTS,

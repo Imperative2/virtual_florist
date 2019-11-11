@@ -19,4 +19,6 @@ public interface ProductService
 	public ResponseEntity<String> deleteById(int productId);
 	
 	public ResponseEntity<Product> addNewProduct(Product newProduct);
+	
+	public ResponseEntity<Product> addNewProductWithWiki(Product newProduct, String wikiEntryId);
 }

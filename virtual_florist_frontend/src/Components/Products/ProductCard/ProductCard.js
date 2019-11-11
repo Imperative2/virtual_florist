@@ -12,6 +12,8 @@ import {
   MDBCardText
 } from "mdbreact";
 
+import styleClass from "./ProductCard.module.css";
+
 const ProductCard = props => {
   let isAvailable = {
     icon: "eye-slash",
@@ -41,15 +43,20 @@ const ProductCard = props => {
   const path = "/product/" + props.id;
 
   return (
-    <div className="card-group my-5">
+    <div className="card-group my-1">
       <MDBCard personal className="mb-md-0 mb-4">
-        <MDBCardImage top src={props.mainPhoto} alt="MDBCard image cap" />
-        <a href={path}>
+        <MDBCardImage
+          className={styleClass.Photo}
+          top
+          src={props.mainPhoto}
+          alt="MDBCard image cap"
+        />
+        <a>
           <MDBMask overlay="white-slight" />
         </a>
 
         <MDBCardBody>
-          <a href={path}>
+          <a onClick={e => props.history.replace(path)}>
             <MDBCardTitle>
               {props.name}-{props.latinName}
             </MDBCardTitle>

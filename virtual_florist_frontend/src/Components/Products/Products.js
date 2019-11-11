@@ -17,6 +17,10 @@ class Products extends Component {
     this.props.onDataFetch();
   }
 
+  addClickHandler = () => {
+    this.props.history.replace("/product/newProduct");
+  };
+
   render() {
     const buttonStyle = {
       margin: 0,
@@ -57,7 +61,12 @@ class Products extends Component {
 
     return (
       <div className={styleClass.All}>
-        <Fab color="primary" aria-label="add" style={buttonStyle}>
+        <Fab
+          color="primary"
+          aria-label="add"
+          style={buttonStyle}
+          onClick={this.addClickHandler}
+        >
           <AddIcon />
         </Fab>
         <TitleLabel name="Products"></TitleLabel>

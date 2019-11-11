@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.masluch.virtual_florist.DAO.ProductDAO;
+import com.masluch.virtual_florist.DAO.WikiEntryDAO;
 import com.masluch.virtual_florist.entities.Product;
+import com.masluch.virtual_florist.entities.WikiEntry;
 
 @Service
 public class ProductServiceImpl implements ProductService
@@ -16,6 +18,9 @@ public class ProductServiceImpl implements ProductService
 
 	@Autowired
 	private ProductDAO productDAO;
+	
+	@Autowired
+	private WikiEntryDAO wikiEntryDAO;
 	
 	@Override
 	public List<Product> findAll()
@@ -57,6 +62,34 @@ public class ProductServiceImpl implements ProductService
 		Product savedProduct = productDAO.save(newProduct);
 		ResponseEntity<Product> response = new ResponseEntity<Product>(savedProduct, HttpStatus.OK);
 		return response;
+	}
+
+	@Override
+	public ResponseEntity<Product> addNewProductWithWiki(Product newProduct, String wikiEntryId)
+	{
+		Integer entryId;
+		try {
+			entryId = Integer.decode(wikiEntryId);
+		}
+		catch(Exception ex) {
+			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
+		}
+		if(entryId<1)
+			{
+				return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
+			}
+		WikiEntry wikiEntry =  wikiEntryDAO.findById(entryId);
+		if(wikiEntry == null)
+			{
+				return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
+			}
+		
+		newProduct.setWikiEntry(wikiEntry);
+		
+		productDAO.save(newProduct);
+		
+		return new ResponseEntity<Product>(newProduct, HttpStatus.OK);
+		
 	}
 
 }

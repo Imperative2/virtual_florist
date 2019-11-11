@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.masluch.virtual_florist.entities.Product;
@@ -29,10 +30,12 @@ public class ProductController
 	}
 	
 	@PutMapping(path ="/newProduct")
-	private ResponseEntity<Product> addProduct(@RequestBody Product newProduct)
+	private ResponseEntity<Product> addProduct(@RequestBody Product newProduct,@RequestParam(name = "wikiEntryId",required = false) String wikiEntryId )
 	{
-		
-		return	productService.addNewProduct(newProduct);
+		if(wikiEntryId == null)
+			return productService.addNewProduct(newProduct);
+		else
+			return	productService.addNewProductWithWiki(newProduct, wikiEntryId);
 
 	}
 	
