@@ -12,6 +12,7 @@ export const SET_PRODUCTS = "SET_PRODUCTS";
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const MODIFY_PRODUCT = "MODIFY_PRODUCT";
 export const CHANGE_VISIBILITY = "CHANGE_VISIBILITY";
+export const CHANGE_PRICE = "CHANGE_PRICE";
 
 //photos
 export const UPLOAD_PHOTO = "UPLOAD_PHOTO";

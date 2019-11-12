@@ -102,10 +102,16 @@ public class WikiEntryServiceImpl implements WikiEntryService
 			}
 		
 		WikiEntry wikiEntry = wikiEntryDAO.findById(entryId);
+		if(wikiEntry == null)
+			{
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+
+			}
+		
 		List<Photo> photosList = wikiEntry.getPhotos();
 		for(Photo photo: photosList)
 			{
-				photo.setWikiEntryId(0);
+				photo.setWikiEntryId(null);
 				photoDAO.update(photo);
 			}
 		

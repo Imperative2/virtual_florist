@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.masluch.virtual_florist.DAO.PhotoDAO;
 import com.masluch.virtual_florist.DAO.ProductDAO;
 import com.masluch.virtual_florist.DAO.WikiEntryDAO;
+import com.masluch.virtual_florist.entities.Photo;
 import com.masluch.virtual_florist.entities.Product;
 import com.masluch.virtual_florist.entities.WikiEntry;
 
@@ -21,6 +24,9 @@ public class ProductServiceImpl implements ProductService
 	
 	@Autowired
 	private WikiEntryDAO wikiEntryDAO;
+	
+	@Autowired
+	private PhotoDAO photoDAO;
 	
 	@Override
 	public List<Product> findAll()
@@ -91,5 +97,92 @@ public class ProductServiceImpl implements ProductService
 		return new ResponseEntity<Product>(newProduct, HttpStatus.OK);
 		
 	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<String> deleteProduct(String productId)
+	{
+		Integer id;
+		try {
+			id = Integer.decode(productId);
+		}
+		catch(Exception ex) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		if(id<1)
+			{
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			}
+		
+		Product product = productDAO.findById(id);
+		if(product == null)
+			{
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			}
+		
+		System.out.println(product);
+		
+		List<Photo> photosList = product.getPhotos();
+		for(Photo photo: photosList)
+			{
+				photo.setProductId(null);
+				photoDAO.update(photo);
+				System.out.println(photo);
+			}
+		
+		productDAO.deleteById(product.getProductId());
+		
+		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Product> updateProduct(String productId, Product product, String wikiEntryId)
+	{
+		
+		Integer id;
+		Integer wikiId;
+		try {
+			id = Integer.decode(productId);
+			wikiId = Integer.decode(wikiEntryId);
+		}
+		catch(Exception ex) {
+			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Product productToUpdate = productDAO.findById(id);
+		if(productToUpdate == null)
+			{
+				return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
+			}
+		
+		if(product.getPrice()<0)
+			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
+		
+		productToUpdate.setPrice(product.getPrice());
+		productToUpdate.setName(product.getName());
+		productToUpdate.setLatinName(product.getLatinName());
+		productToUpdate.setDescription(product.getDescription());
+		productToUpdate.setType(product.getType());
+		productToUpdate.setTags(product.getTags());
+		productToUpdate.setAvailable(product.isAvailable());
+		
+		if(wikiId != null)
+			{
+				WikiEntry wikiEntry = wikiEntryDAO.findById(wikiId);
+				productToUpdate.setWikiEntry(wikiEntry);
+			}
+		
+		productDAO.update(productToUpdate);
+		
+		return new ResponseEntity<Product>(productToUpdate, HttpStatus.OK)
+		
+
+		
+;
+	}
+	
+	
+	
 
 }

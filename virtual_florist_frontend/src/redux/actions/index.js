@@ -1,3 +1,8 @@
 export { fetchWikiEntries, addWikiEntry, deleteWikiEntry } from "./WikiActions";
-export { fetchProducts, addProduct } from "./ProductActions";
+export {
+  fetchProducts,
+  addProduct,
+  deleteProduct,
+  updateProduct
+} from "./ProductActions";
 export { uploadFiles } from "./PhotoActions";

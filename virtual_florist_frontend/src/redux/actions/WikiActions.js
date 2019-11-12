@@ -10,20 +10,15 @@ export const fetchWikiEntries = () => {
 };
 
 export const addWikiEntry = newWikiEntry => {
-  console.log(newWikiEntry);
   return dispatch => {
-    axios.put("/wiki/newEntry", newWikiEntry).then(res => {
-      console.log(res.status);
-    });
+    axios.put("/wiki/newEntry", newWikiEntry).then(res => {});
   };
 };
 
 export const deleteWikiEntry = wikiEntryId => {
   const path = "/wiki/" + wikiEntryId;
   return dispatch => {
-    axios.delete(path).then(res => {
-      console.log("Deleted :" + " " + wikiEntryId + "   " + res.status);
-    });
+    axios.delete(path).then(res => {});
   };
 };
 

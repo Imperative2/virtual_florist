@@ -23,7 +23,7 @@ class NewWikiEntryPage extends Component {
     type: "SINGLE",
     tags: "",
     available: false,
-    wikiEntryId: null
+    wikiEntryId: ""
   };
 
   componentWillMount() {

@@ -1,0 +1,22 @@
+package com.masluch.virtual_florist.services;
+
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
+import com.masluch.virtual_florist.entities.User;
+import com.masluch.virtual_florist.entities.WikiEntry;
+
+public interface UserService
+{
+	public List<User> findAll();
+	
+	public User findById(int userId);
+	
+	public User save(User user);
+	
+	public void update(User user);
+	
+	public ResponseEntity<User> deleteById(int user);
+	
+}
