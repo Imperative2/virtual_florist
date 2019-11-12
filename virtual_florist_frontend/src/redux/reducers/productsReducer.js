@@ -1,5 +1,4 @@
 import * as actionTypes from "../actions/actionTypes";
-import noImg from "../../Assets/noImage.png";
 
 const initialState = {
   products: [

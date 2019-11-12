@@ -14,6 +14,150 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
 class signUp extends Component {
+  state = {
+    form: {
+      firstName: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      lastName: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      email1: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      email2: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      password1: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      password2: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      phoneNumber: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+
+      country: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      city: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      street: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      localNumber: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      },
+      zipCode: {
+        value: "",
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false
+      }
+    },
+
+    formIsValid: false
+  };
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedForm = {
+      ...this.state.form
+    };
+
+    const updatedFormElement = { ...updatedForm[inputIdentifier] };
+    updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = this.checkIfValid(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+
+    updatedFormElement.touched = true;
+    updatedForm[inputIdentifier] = updatedFormElement;
+    console.log(updatedFormElement);
+    let formIsValid = true;
+    for (let inputIdentifiers in updatedForm) {
+      formIsValid = updatedForm[inputIdentifiers].valid && formIsValid;
+    }
+    this.setState({ form: updatedForm, formIsValid: formIsValid });
+    console.log(this.state);
+  };
+
+  checkIfValid = (value, rules) => {
+    let isValid = true;
+    if (!rules) {
+      return true;
+    }
+
+    if (rules.required) {
+      isValid = value.trim() !== "" && isValid;
+    }
+
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+
+    return isValid;
+  };
+
   render() {
     const classes = makeStyles(theme => ({
       body: {
@@ -53,6 +197,7 @@ class signUp extends Component {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "firstName")}
                   autoComplete="fname"
                   name="firstName"
                   variant="outlined"
@@ -65,6 +210,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "lastName")}
                   variant="outlined"
                   required
                   fullWidth
@@ -76,6 +222,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "email1")}
                   variant="outlined"
                   required
                   fullWidth
@@ -88,6 +235,7 @@ class signUp extends Component {
 
               <Grid item xs={12}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "email2")}
                   variant="outlined"
                   required
                   fullWidth
@@ -98,6 +246,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "password1")}
                   variant="outlined"
                   required
                   fullWidth
@@ -110,6 +259,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "password2")}
                   variant="outlined"
                   required
                   fullWidth
@@ -122,6 +272,7 @@ class signUp extends Component {
               <Grid item xs={12}>
                 <hr></hr>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "country")}
                   variant="outlined"
                   required
                   fullWidth
@@ -134,6 +285,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "city")}
                   variant="outlined"
                   required
                   fullWidth
@@ -146,6 +298,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "street")}
                   variant="outlined"
                   required
                   fullWidth
@@ -158,6 +311,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "localNumber")}
                   variant="outlined"
                   required
                   fullWidth
@@ -170,6 +324,7 @@ class signUp extends Component {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "zipCode")}
                   variant="outlined"
                   required
                   fullWidth
@@ -183,6 +338,7 @@ class signUp extends Component {
               <Grid item xs={12}>
                 <hr></hr>
                 <TextField
+                  onChange={e => this.inputChangedHandler(e, "phoneNumber")}
                   variant="outlined"
                   required
                   fullWidth
@@ -206,6 +362,7 @@ class signUp extends Component {
               fullWidth
               variant="contained"
               color="primary"
+              disabled={!this.props.formIsValid}
               className={classes.submit}
             >
               Sign Up

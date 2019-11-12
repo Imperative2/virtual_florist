@@ -17,7 +17,7 @@ public class User
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY )
 	@Column(name = "user_id")
-	private int userId;
+	private Integer userId;
 	
 	@Column(name = "name")
 	private String name;
@@ -47,12 +47,12 @@ public class User
 	@Column(name = "business_client", columnDefinition = "BOOLEAN")
 	private boolean businessClient;
 
-	public int getUserId()
+	public Integer getUserId()
 	{
 		return userId;
 	}
 
-	public void setUserId(int userId)
+	public void setUserId(Integer userId)
 	{
 		this.userId = userId;
 	}
