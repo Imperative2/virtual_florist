@@ -6,3 +6,4 @@ export {
   updateProduct
 } from "./ProductActions";
 export { uploadFiles } from "./PhotoActions";
+export { registerUser } from "./UserActions";

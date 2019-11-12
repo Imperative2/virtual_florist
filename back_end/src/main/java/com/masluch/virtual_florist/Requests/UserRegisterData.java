@@ -1,8 +1,10 @@
 package com.masluch.virtual_florist.Requests;
 
+import javax.persistence.Entity;
+
+
 public class UserRegisterData
 {
-	private Integer userId;
 	private String name;
 	private String surname;
 	private String email;
@@ -15,14 +17,7 @@ public class UserRegisterData
 	private String zipCode;
 	
 	
-	public Integer getUserId()
-	{
-		return userId;
-	}
-	public void setUserId(Integer userId)
-	{
-		this.userId = userId;
-	}
+
 	public String getName()
 	{
 		return name;
@@ -98,7 +93,7 @@ public class UserRegisterData
 	@Override
 	public String toString()
 	{
-		return "UserRegisterData [userId=" + userId + ", name=" + name + ", surname=" + surname + ", email=" + email
+		return "UserRegisterData ["   + "name=" + name + ", surname=" + surname + ", email=" + email
 				+ ", password=" + password + ", phoneNumber=" + phoneNumber + ", city=" + city + ", street=" + street
 				+ ", localNumber=" + localNumber + ", zipCode=" + zipCode + "]";
 	}

@@ -1,6 +1,5 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
-import ProductCard from "../../Components/Products/ProductCard/ProductCard";
 
 export const fetchProducts = () => {
   return dispatch => {

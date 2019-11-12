@@ -3,6 +3,7 @@ package com.masluch.virtual_florist.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class UserController
 	@PutMapping("/register")
 	public ResponseEntity<String> registerUser(@RequestBody UserRegisterData userRegisterData )
 	{
-		return null;
+		System.out.println(userRegisterData);
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 }

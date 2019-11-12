@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "orders")
 public class User
@@ -28,6 +30,7 @@ public class User
 	@Column(name = "email")
 	private String email;
 	
+	@JsonIgnore
 	@Column(name = "password")
 	private String password;
 	

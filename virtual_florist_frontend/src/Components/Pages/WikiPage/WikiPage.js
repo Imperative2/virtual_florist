@@ -154,7 +154,7 @@ class WikiPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    wiki: state.wiki
+    user: state.user
   };
 };
 
