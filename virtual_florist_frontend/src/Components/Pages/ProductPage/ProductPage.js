@@ -13,6 +13,8 @@ import PhotoUpload from "../../Forms/PhotoUpload/PhotoUpload";
 import TextAreaInput from "../../UI/Input/TextArea/TextArea";
 import TextInput from "../../UI/Input/TextInput/TextInput";
 
+import IMG from "../../UI/LightBox/ImageLightBox";
+
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 
@@ -141,7 +143,7 @@ class ProductPage extends Component {
         photos = product.photos.map((photo, index) => {
           return (
             <Grid item key={index} xs={12} xl={6} lg={4}>
-              <img src={photo.path}></img>
+              <IMG photo={photo}></IMG>
             </Grid>
           );
         });
@@ -317,7 +319,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ProductPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);

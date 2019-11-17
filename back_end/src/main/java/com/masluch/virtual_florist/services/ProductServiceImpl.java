@@ -140,11 +140,12 @@ public class ProductServiceImpl implements ProductService
 	public ResponseEntity<Product> updateProduct(String productId, Product product, String wikiEntryId)
 	{
 		
-		Integer id;
-		Integer wikiId;
+		Integer id = null;
+		Integer wikiId = null;
 		try {
 			id = Integer.decode(productId);
-			wikiId = Integer.decode(wikiEntryId);
+			if(wikiEntryId!=null)
+				wikiId = Integer.decode(wikiEntryId);
 		}
 		catch(Exception ex) {
 			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
@@ -158,7 +159,6 @@ public class ProductServiceImpl implements ProductService
 		
 		if(product.getPrice()<0)
 			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
-		
 		productToUpdate.setPrice(product.getPrice());
 		productToUpdate.setName(product.getName());
 		productToUpdate.setLatinName(product.getLatinName());

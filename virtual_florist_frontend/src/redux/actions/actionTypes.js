@@ -14,6 +14,11 @@ export const MODIFY_PRODUCT = "MODIFY_PRODUCT";
 export const CHANGE_VISIBILITY = "CHANGE_VISIBILITY";
 export const CHANGE_PRICE = "CHANGE_PRICE";
 
+export const FETCH_STORAGE = "FETCH_STORAGE";
+export const SET_STORAGE = "SET_STORAGE";
+export const ADD_STORAGE = "ADD_STORAGE";
+export const MODIFY_STORAGE = "MODIFY_STORAGE";
+
 //photos
 export const UPLOAD_PHOTO = "UPLOAD_PHOTO";
 

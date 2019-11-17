@@ -47,6 +47,7 @@ public class ProductController
 	{
 		System.out.println(wikiEntryId);
 		System.out.println(product);
+		System.out.println(productId);
 		return productService.updateProduct(productId, product, wikiEntryId);
 	}
 	

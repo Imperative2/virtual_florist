@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 
 public class UserRegisterData
 {
+
 	private String name;
 	private String surname;
 	private String email;
@@ -17,7 +18,6 @@ public class UserRegisterData
 	private String zipCode;
 	
 	
-
 	public String getName()
 	{
 		return name;

@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
 
-import Layout from "./Components/Layout/Layout";
-import Wiki from "./Components/Wiki/Wiki";
 import MainPage from "./Components/Pages/MainPage/MainPage";
 import WikiPage from "./Components/Pages/WikiPage/WikiPage";
 import LoginPage from "./Components/Pages/LoginPage/LoginPage";
@@ -12,7 +10,10 @@ import NewWikiEntryPage from "./Components/Pages/NewWikiEntryPage/NewWIkiEntryPa
 import ProductPage from "./Components/Pages/ProductPage/ProductPage";
 import NewProductPage from "./Components/Pages/NewProductPage/NewProductPage";
 
+import Layout from "./Components/Layout/Layout";
+import Wiki from "./Components/Wiki/Wiki";
 import Products from "./Components/Products/Products";
+import Storage from "./Components/Storage/Storage";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -31,6 +32,7 @@ function App() {
           <Route exact path="/product" component={Products} />
           <Route exact path="/product/newProduct" component={NewProductPage} />
           <Route exact path="/product/:id" component={ProductPage} />
+          <Route exact path="/store/" component={Storage} />
         </Switch>
       </Layout>
     </div>
