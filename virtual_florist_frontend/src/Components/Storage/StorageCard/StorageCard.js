@@ -27,20 +27,9 @@ const ProductCard = props => {
     };
   }
 
-  let wiki = null;
-  if (props.wikiEntry !== null) {
-    const redirect = "/wiki/" + props.wikiEntry.wikiEntryId;
+  const path = "/storage/" + props.id;
 
-    wiki = (
-      <a href={redirect} className="card-meta m-2">
-        <span>
-          <MDBIcon fab icon="wikipedia-w" />
-        </span>
-      </a>
-    );
-  }
-
-  const path = "/product/" + props.id;
+  const redirect = "product/" + props.productId;
 
   return (
     <div className="card-group my-1">
@@ -63,8 +52,13 @@ const ProductCard = props => {
           </a>
           <MDBCardText>{props.description}</MDBCardText>
           <hr />
-          {wiki}
-          <a className="card-meta float-center">
+          <a href={redirect} className="card-meta m-2">
+            <span>
+              <MDBIcon fab icon="product-hunt" />
+            </span>
+          </a>
+          quantity:{props.quantity}
+          <a className="card-meta float-center ml-4">
             <span>
               <MDBIcon icon="dollar-sign" />
               {props.price}

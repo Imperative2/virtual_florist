@@ -5,14 +5,20 @@ import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/AddPhotoAlternate";
 import DeleteIcon from "@material-ui/icons/Delete";
+import EditIcon from "@material-ui/icons/Edit";
 import styleClass from "./WikiPage.module.css";
+import IMG from "../../UI/LightBox/ImageLightBox";
+
+import { MDBModal } from "mdbreact";
 
 import Modal from "../../UI/Modal/Modal";
 import PhotoUpload from "../../Forms/PhotoUpload/PhotoUpload";
+import WikiModify from "../../Forms/WikiEntryModify/WikiEntryModify";
 
 class WikiPage extends Component {
   state = {
-    showAddFotoModal: false
+    showAddFotoModal: false,
+    showModifyEntryModal: false
   };
 
   componentWillMount() {
@@ -28,8 +34,15 @@ class WikiPage extends Component {
     this.setState({ showAddFotoModal: true });
   };
 
+  modifyButtonHandler = () => {
+    this.setState({ showModifyEntryModal: true });
+  };
+
   closePhotoAddModal = () => {
     this.setState({ showAddFotoModal: false });
+  };
+  toggleModifyModal = () => {
+    this.setState({ showModifyEntryModal: false });
   };
 
   render() {
@@ -46,6 +59,15 @@ class WikiPage extends Component {
       margin: 0,
       top: "auto",
       right: 80,
+      bottom: 20,
+      left: "auto",
+      position: "fixed",
+      zIndex: 1000
+    };
+    const buttonModifyStyle = {
+      margin: 0,
+      top: "auto",
+      right: 140,
       bottom: 20,
       left: "auto",
       position: "fixed",
@@ -72,7 +94,8 @@ class WikiPage extends Component {
         photos = wikiEntry.photos.map((photo, index) => {
           return (
             <Grid xl={12} sm={8} md={6} lg={4} item key={index}>
-              <img className={styleClass.Image} src={photo.path}></img>
+              {/* <img className={styleClass.Image} src={photo.path}></img> */}
+              <IMG photo={photo}></IMG>
             </Grid>
           );
         });
@@ -90,6 +113,15 @@ class WikiPage extends Component {
               isWikiEntry={true}
             ></PhotoUpload>
           </Modal>
+          <MDBModal
+            isOpen={this.state.showModifyEntryModal}
+            toggle={this.toggleModifyModal}
+          >
+            <WikiModify
+              history={this.props.history}
+              entryToModify={wikiEntry}
+            ></WikiModify>
+          </MDBModal>
           <Fab
             color="primary"
             aria-label="add"
@@ -100,11 +132,18 @@ class WikiPage extends Component {
           </Fab>
           <Fab
             color="secondary"
-            aria-label="add"
+            aria-label="delete"
             style={buttonDeleteStyle}
             onClick={this.deleteButtonHandler}
           >
             <DeleteIcon />
+          </Fab>
+          <Fab
+            aria-label="modify"
+            style={buttonModifyStyle}
+            onClick={this.modifyButtonHandler}
+          >
+            <EditIcon />
           </Fab>
           <Grid container spacing={1}>
             <Grid item md={12}>

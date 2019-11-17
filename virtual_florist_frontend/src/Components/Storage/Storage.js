@@ -8,17 +8,19 @@ import styleClass from "./Storage.module.css";
 
 import TitleLabel from "../UI/Label/TitleLabel";
 import noImage from "../../Assets/noImage.png";
+import StorageCard from "./StorageCard/StorageCard";
 
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
 
 class Store extends Component {
   componentWillMount() {
-    this.props.onDataFetch();
+    this.props.onStorageFetch();
+    this.props.onProductFetch();
   }
 
   addClickHandler = () => {
-    this.props.history.replace("/product/newProduct");
+    this.props.history.replace("/storage/newStorage");
   };
 
   render() {
@@ -32,32 +34,35 @@ class Store extends Component {
       zIndex: 1000
     };
 
-    // let products = this.props.products.products.map((product, index) => {
-    //   let mainPhoto = noImage;
+    console.log(this.props);
 
-    //   for (let i = 0; i < product.photos.length; i++) {
-    //     let photo = product.photos[i];
-    //     if (photo.type == "MAIN") {
-    //       mainPhoto = photo.path;
-    //     }
-    //   }
+    let storages = this.props.storages.storages.map((storage, index) => {
+      let mainPhoto = noImage;
 
-    //   return (
-    //     <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-    //       <ProductCard
-    //         id={product.productId}
-    //         name={product.name}
-    //         latinName={product.latinName}
-    //         description={product.description}
-    //         history={this.props.history}
-    //         mainPhoto={mainPhoto}
-    //         available={product.available}
-    //         price={product.price}
-    //         wikiEntry={product.wikiEntry}
-    //       ></ProductCard>
-    //     </Grid>
-    //   );
-    // });
+      for (let i = 0; i < storage.product.photos.length; i++) {
+        let photo = storage.product.photos[i];
+        if (photo.type == "MAIN") {
+          mainPhoto = photo.path;
+        }
+      }
+
+      return (
+        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+          <StorageCard
+            id={storage.storageId}
+            productId={storage.product.productId}
+            name={storage.product.name}
+            latinName={storage.product.latinName}
+            description={storage.product.description}
+            history={this.props.history}
+            mainPhoto={mainPhoto}
+            available={storage.enabled}
+            price={storage.product.price}
+            quantity={storage.quantity}
+          ></StorageCard>
+        </Grid>
+      );
+    });
 
     return (
       <div className={styleClass.All}>
@@ -69,9 +74,9 @@ class Store extends Component {
         >
           <AddIcon />
         </Fab>
-        <TitleLabel name="Store"></TitleLabel>
+        <TitleLabel name="Storage"></TitleLabel>
         <Grid container spacing={2}>
-          {/* {products} */}
+          {storages}
         </Grid>
       </div>
     );
@@ -80,13 +85,15 @@ class Store extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    storages: state.storages
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDataFetch: () => dispatch(actions.fetchProducts())
+    onProductFetch: () => dispatch(actions.fetchProducts()),
+    onStorageFetch: () => dispatch(actions.fetchStorages())
   };
 };
 

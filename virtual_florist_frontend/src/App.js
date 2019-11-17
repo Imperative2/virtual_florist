@@ -14,6 +14,7 @@ import Layout from "./Components/Layout/Layout";
 import Wiki from "./Components/Wiki/Wiki";
 import Products from "./Components/Products/Products";
 import Storage from "./Components/Storage/Storage";
+import Orders from "./Components/Orders/Orders";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -32,7 +33,8 @@ function App() {
           <Route exact path="/product" component={Products} />
           <Route exact path="/product/newProduct" component={NewProductPage} />
           <Route exact path="/product/:id" component={ProductPage} />
-          <Route exact path="/store/" component={Storage} />
+          <Route exact path="/storage/" component={Storage} />
+          <Route exact path="/order/" component={Orders} />
         </Switch>
       </Layout>
     </div>

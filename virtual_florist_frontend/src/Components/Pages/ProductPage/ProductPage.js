@@ -20,6 +20,8 @@ import * as actions from "../../../redux/actions/index";
 
 import styleClass from "./ProductPage.module.css";
 
+import { MDBBtn } from "mdbreact";
+
 class ProductPage extends Component {
   state = {
     showAddFotoModal: false,
@@ -54,6 +56,20 @@ class ProductPage extends Component {
       this.setState({ product });
     }
   }
+
+  refreshHandler = () => {
+    let product = null;
+    for (let i = 0; i < this.props.products.products.length; i++) {
+      if (
+        this.props.products.products[i].productId == this.props.match.params.id
+      ) {
+        product = this.props.products.products[i];
+      }
+    }
+    if (product !== null) {
+      this.setState({ product });
+    }
+  };
 
   deleteButtonHandler = () => {
     this.props.onProductDelete(this.props.match.params.id);
@@ -234,7 +250,7 @@ class ProductPage extends Component {
                   rows={1}
                 ></TextInput>
               </Grid>
-              <Grid item xs={12} md={3} lg={3}>
+              <Grid item xs={11} md={3} lg={3}>
                 <FormControlLabel
                   onClick={event => this.onTextInputHandler(event, "available")}
                   control={
@@ -256,7 +272,7 @@ class ProductPage extends Component {
                   rows={1}
                 ></TextInput>
               </Grid>
-              <Grid item xs={12} md={8} lg={8}>
+              <Grid item xs={11} md={8} lg={8}>
                 <label>Type:</label>
                 <select
                   value={this.state.product.type}
@@ -280,12 +296,17 @@ class ProductPage extends Component {
                 </select>
               </Grid>
             </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               <div className={styleClass.Button}>
                 <ButtonGood
                   name={"Modify"}
                   onClickAction={event => this.onModifyButtonClicked()}
                 ></ButtonGood>
+              </div>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <div className={styleClass.Button}>
+                <MDBBtn onClick={this.refreshHandler}>Refresh</MDBBtn>
               </div>
             </Grid>
             {photos}

@@ -6,7 +6,6 @@ const initialState = {
     name: "",
     surname: "",
     email: "",
-    role: "",
     phoneNumber: "",
     businessClient: false,
     adress: {

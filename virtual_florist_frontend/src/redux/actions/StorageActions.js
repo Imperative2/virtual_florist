@@ -4,6 +4,7 @@ import axios from "../../axios";
 export const fetchStorages = () => {
   return dispatch => {
     axios.get("/storage/").then(response => {
+      console.log(response.data);
       dispatch(setStorages(response.data));
     });
   };
@@ -12,6 +13,6 @@ export const fetchStorages = () => {
 export const setStorages = storages => {
   return {
     type: actionTypes.SET_STORAGE,
-    storage: storages
+    storages: storages
   };
 };

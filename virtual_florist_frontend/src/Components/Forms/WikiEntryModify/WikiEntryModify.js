@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import TextAreaInput from "../../UI/Input/TextArea/TextArea";
 import TextInput from "../../UI/Input/TextInput/TextInput";
-import Grid from "@material-ui/core/Grid";
-import styleClass from "./NewWikiEntryPage.module.css";
 import ButtonGood from "../../UI/Button/ButtonGood/ButtonGood";
 import ButtonBad from "../../UI/Button/ButtonBad/ButtonBad";
 
-import TitleLabel from "../../UI/Label/TitleLabel";
+import Grid from "@material-ui/core/Grid";
+
+import styleClass from "./WikiEntryModify.module.css";
 
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 
-class NewWikiEntryPage extends Component {
+class WikiEntryModify extends Component {
   state = {
+    wikiEntryId: 0,
     name: "",
     latinName: "",
     shortDescription: "",
@@ -40,6 +41,10 @@ class NewWikiEntryPage extends Component {
     }
   };
 
+  componentWillMount() {
+    this.setState({ ...this.props.entryToModify });
+  }
+
   onFormSubmitHandler = () => {
     const newWikiEntry = {
       ...this.state
@@ -51,26 +56,27 @@ class NewWikiEntryPage extends Component {
 
   render() {
     return (
-      <div className={styleClass.NewWikiEntryPage}>
-        <TitleLabel name="New Wiki Page"></TitleLabel>
-
+      <div className={styleClass.All}>
         <Grid container spacing={1} justify="center">
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid item xs={12} md={12}>
             <TextInput
               name={"Name:"}
+              value={this.state.name}
               onChangeAction={event => this.onTextInputHandler(event, "name")}
             ></TextInput>
           </Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid item xs={12}>
             <TextInput
               name={"Latin name:"}
+              value={this.state.latinName}
               onChangeAction={event =>
                 this.onTextInputHandler(event, "latinName")
               }
             ></TextInput>
           </Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid item xs={12}>
             <TextAreaInput
+              value={this.state.shortDescription}
               name={"Short Description:"}
               onChangeAction={event =>
                 this.onTextInputHandler(event, "shortDescription")
@@ -78,49 +84,47 @@ class NewWikiEntryPage extends Component {
               rows={2}
             ></TextAreaInput>
           </Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid item xs={12}>
             <TextAreaInput
               name={"Long description:"}
+              value={this.state.longDescription}
               onChangeAction={event =>
                 this.onTextInputHandler(event, "longDescription")
               }
               rows={7}
             ></TextAreaInput>
           </Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid item xs={12}>
             <TextAreaInput
               name={"Treatment:"}
+              value={this.state.treatment}
               onChangeAction={event =>
                 this.onTextInputHandler(event, "treatment")
               }
               rows={7}
             ></TextAreaInput>
           </Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid item xs={12}>
             <TextAreaInput
               name={"Tips:"}
+              value={this.state.tips}
               onChangeAction={event => this.onTextInputHandler(event, "tips")}
               rows={2}
             ></TextAreaInput>
           </Grid>
-          <Grid item xs={12} md={9} lg={9}>
+          <Grid item xs={12}>
             <TextAreaInput
               name={"Tags:"}
+              value={this.state.tags}
               onChangeAction={event => this.onTextInputHandler(event, "tags")}
               rows={1}
             ></TextAreaInput>
           </Grid>{" "}
-          <Grid item xs={6} sm={6} md={6} lg={6}>
+          <Grid item xs={12}>
             <ButtonGood
-              name={"Add"}
+              name={"Modify"}
               onClickAction={event => this.onFormSubmitHandler()}
             ></ButtonGood>
-          </Grid>
-          <Grid item xs={6} sm={6} md={6} lg={6}>
-            <ButtonBad
-              name={"Cancel"}
-              onClickAction={() => this.props.history.replace("/wiki")}
-            ></ButtonBad>
           </Grid>
         </Grid>
       </div>
@@ -141,4 +145,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewWikiEntryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(WikiEntryModify);

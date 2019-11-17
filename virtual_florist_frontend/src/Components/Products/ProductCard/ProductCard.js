@@ -12,6 +12,8 @@ import {
   MDBCardText
 } from "mdbreact";
 
+import IMG from "../../UI/LightBox/ImageLightBox";
+
 import styleClass from "./ProductCard.module.css";
 
 const ProductCard = props => {

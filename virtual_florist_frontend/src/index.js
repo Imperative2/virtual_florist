@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
   wiki: wikiReducer,
   products: productsReducer,
   user: userReducer,
-  storage: storageReducer
+  storages: storageReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
