@@ -43,10 +43,11 @@ public class ProductController
 	}
 	
 	@PostMapping(path="/{id}")
-	public ResponseEntity<Product> updateProduct(@PathVariable(name= "id") String productId, @RequestBody Product product)
+	public ResponseEntity<Product> updateProduct(@PathVariable(name= "id") String productId, @RequestBody Product product,@RequestParam(name = "wikiEntryId",required = false) String wikiEntryId )
 	{
+		System.out.println(wikiEntryId);
 		System.out.println(product);
-		return productService.updateProduct(productId, product, "3");
+		return productService.updateProduct(productId, product, wikiEntryId);
 	}
 	
 	@DeleteMapping(path="/{id}")

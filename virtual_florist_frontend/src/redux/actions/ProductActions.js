@@ -13,7 +13,7 @@ export const addProduct = newProduct => {
   console.log(newProduct);
   return dispatch => {
     let path = "/product/newProduct";
-    if (newProduct.wikiEntryId !== null) {
+    if (newProduct.wikiEntryId !== null && newProduct.wikiEntryId !== "") {
       path = "/product/newProduct?wikiEntryId=" + newProduct.wikiEntryId;
     }
 
@@ -49,11 +49,16 @@ export const updateProduct = product => {
     available: product.available
   };
 
+  let wikiId = null;
+  if (product.wikiEntry !== null) {
+    wikiId = product.wikiEntry.wikiEntryId;
+  }
+
   return dispatch => {
     axios
       .post(path, productToSent, {
         params: {
-          wikiEntryId: product.wikiEntry.wikiEntryId
+          wikiEntryId: wikiId
         }
       })
       .then(res => {
