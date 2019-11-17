@@ -22,7 +22,7 @@ import "mdbreact/dist/css/mdb.css";
 const rootReducer = combineReducers({
   wiki: wikiReducer,
   products: productsReducer,
-  userReducer
+  user: userReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

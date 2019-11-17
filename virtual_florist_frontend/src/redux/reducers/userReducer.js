@@ -17,7 +17,8 @@ const initialState = {
       localNumber: "",
       zipCode: ""
     },
-    logged: false
+    logged: false,
+    role: "ADMIN"
   }
 };
 

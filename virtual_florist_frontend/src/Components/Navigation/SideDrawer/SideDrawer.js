@@ -19,7 +19,7 @@ const sideDrawer = props => {
           <Logo></Logo>
         </div>
         <nav>
-          <NavigationItems></NavigationItems>
+          <NavigationItems role={props.role}></NavigationItems>
         </nav>
       </div>
     </Aux>

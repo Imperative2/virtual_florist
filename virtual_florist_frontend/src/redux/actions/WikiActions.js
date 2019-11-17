@@ -11,14 +11,18 @@ export const fetchWikiEntries = () => {
 
 export const addWikiEntry = newWikiEntry => {
   return dispatch => {
-    axios.put("/wiki/newEntry", newWikiEntry).then(res => {});
+    axios.put("/wiki/newEntry", newWikiEntry).then(res => {
+      dispatch(fetchWikiEntries());
+    });
   };
 };
 
 export const deleteWikiEntry = wikiEntryId => {
   const path = "/wiki/" + wikiEntryId;
   return dispatch => {
-    axios.delete(path).then(res => {});
+    axios.delete(path).then(res => {
+      dispatch(fetchWikiEntries());
+    });
   };
 };
 

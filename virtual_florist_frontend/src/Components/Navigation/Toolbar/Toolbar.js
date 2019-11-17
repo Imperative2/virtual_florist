@@ -10,7 +10,7 @@ const toolbar = props => {
       <DrawerToggle clicked={props.drawerToggleClicked}></DrawerToggle>
       <Logo height="80%"></Logo>
       <nav className={styleClasses.DesktopOnly}>
-        <NavigationItems></NavigationItems>
+        <NavigationItems role={props.role}></NavigationItems>
       </nav>
     </header>
   );

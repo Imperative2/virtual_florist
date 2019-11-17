@@ -53,6 +53,7 @@ class WikiPage extends Component {
     };
 
     let wikiEntry = null;
+    console.log(this.props.wiki);
 
     for (let i = 0; i < this.props.wiki.wikiEntries.length; i++) {
       if (
@@ -70,7 +71,7 @@ class WikiPage extends Component {
       if (wikiEntry.photos !== null) {
         photos = wikiEntry.photos.map((photo, index) => {
           return (
-            <Grid lg={4} item key={index}>
+            <Grid xl={12} sm={8} md={6} lg={4} item key={index}>
               <img className={styleClass.Image} src={photo.path}></img>
             </Grid>
           );
@@ -106,34 +107,34 @@ class WikiPage extends Component {
             <DeleteIcon />
           </Fab>
           <Grid container spacing={1}>
-            <Grid item lg={12}>
+            <Grid item md={12}>
               <h1>
                 {wikiEntry.name} - {wikiEntry.latinName}
               </h1>
             </Grid>
 
-            <Grid item lg={9}>
+            <Grid item md={9}>
               <h3 className={styleClass.H3}>Description:</h3>
               <p className={styleClass.Text}>{wikiEntry.longDescription}</p>
             </Grid>
-            <Grid item lg={3}>
+            <Grid item md={3}>
               {photos[0] != null ? photos[0] : ""}
             </Grid>
-            <Grid item lg={9}>
+            <Grid item md={9}>
               <h3 className={styleClass.H3}>Treatment:</h3>
               <p className={styleClass.Text}>{wikiEntry.treatment}</p>
             </Grid>
-            <Grid item lg={3}>
+            <Grid item md={3}>
               {photos[1] != null ? photos[1] : ""}
             </Grid>
-            <Grid item lg={9}>
+            <Grid item md={9}>
               <h3 className={styleClass.H3}>Tips:</h3>
               {tips}
             </Grid>
-            <Grid item lg={3}>
+            <Grid item md={3}>
               {photos[2] != null ? photos[2] : ""}
             </Grid>
-            <Grid item lg={9}>
+            <Grid item xs={12} md={9}>
               <h3 className={styleClass.H3}>Gallery</h3>
             </Grid>
 
@@ -154,7 +155,8 @@ class WikiPage extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    wiki: state.wiki
   };
 };
 
@@ -165,7 +167,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(WikiPage);
+export default connect(mapStateToProps, mapDispatchToProps)(WikiPage);

@@ -5,6 +5,9 @@ import Toolbar from "../Navigation/Toolbar/Toolbar.js";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer.js";
 import Footer from "../UI/Footer/Footer";
 
+import * as actions from "../../redux/actions/index";
+import { connect } from "react-redux";
+
 class Layout extends Component {
   state = {
     showSideDrawer: false
@@ -23,8 +26,12 @@ class Layout extends Component {
   render() {
     return (
       <Aux>
-        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler}></Toolbar>
+        <Toolbar
+          role={this.props.user.user.role}
+          drawerToggleClicked={this.sideDrawerToggleHandler}
+        ></Toolbar>
         <SideDrawer
+          role={this.props.user.user.role}
           open={this.state.showSideDrawer}
           closed={this.sideDrawerClosedHandler}
         ></SideDrawer>
@@ -36,4 +43,16 @@ class Layout extends Component {
   }
 }
 
-export default Layout;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUserRegister: form => dispatch(actions.registerUser(form))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

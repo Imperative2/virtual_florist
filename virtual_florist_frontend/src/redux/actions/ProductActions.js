@@ -18,6 +18,7 @@ export const addProduct = newProduct => {
     }
 
     axios.put(path, newProduct).then(res => {
+      dispatch(fetchProducts());
       console.log(res.status);
     });
   };
@@ -29,6 +30,7 @@ export const deleteProduct = productId => {
   return dispatch => {
     axios.delete(path).then(res => {
       console.log("Deleted :" + " " + productId + "   " + res.status);
+      dispatch(fetchProducts());
     });
   };
 };
@@ -56,6 +58,7 @@ export const updateProduct = product => {
       })
       .then(res => {
         console.log(res);
+        dispatch(fetchProducts());
       });
   };
 };

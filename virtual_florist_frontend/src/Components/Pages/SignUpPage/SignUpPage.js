@@ -166,6 +166,7 @@ class signUp extends Component {
       name: this.state.form.firstName.value,
       surname: this.state.form.lastName.value,
       email: this.state.form.email1.value,
+      password: this.state.form.password1.value,
       phoneNumber: this.state.form.phoneNumber.value,
       country: this.state.form.country.value,
       city: this.state.form.city.value,
@@ -463,7 +464,7 @@ class signUp extends Component {
 
 const mapStateToProps = state => {
   return {
-    wiki: state.wiki
+    user: state.user
   };
 };
 
@@ -473,7 +474,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(signUp);
+export default connect(mapStateToProps, mapDispatchToProps)(signUp);

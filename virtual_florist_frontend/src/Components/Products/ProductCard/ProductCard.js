@@ -64,16 +64,16 @@ const ProductCard = props => {
           <MDBCardText>{props.description}</MDBCardText>
           <hr />
           {wiki}
-          <a href="#!" className="card-meta float-center">
+          <a className="card-meta float-center">
             <span>
               <MDBIcon icon="dollar-sign" />
               {props.price}
             </span>
           </a>
-          <a href="#!" className="card-meta float-right">
+          <a className="card-meta float-right">
             <span>
               <MDBIcon icon={isAvailable.icon} />
-              {isAvailable.text}
+              {" " + isAvailable.text}
             </span>
           </a>
         </MDBCardBody>
