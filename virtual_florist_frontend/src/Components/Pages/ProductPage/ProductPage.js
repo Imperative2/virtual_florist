@@ -12,6 +12,7 @@ import Modal from "../../UI/Modal/Modal";
 import PhotoUpload from "../../Forms/PhotoUpload/PhotoUpload";
 import TextAreaInput from "../../UI/Input/TextArea/TextArea";
 import TextInput from "../../UI/Input/TextInput/TextInput";
+import NumberInput from "../../UI/Input/NumberInput/NumberInput";
 
 import IMG from "../../UI/LightBox/ImageLightBox";
 
@@ -263,14 +264,14 @@ class ProductPage extends Component {
                 />
               </Grid>
               <Grid item xs={12} md={9} lg={9}>
-                <TextInput
+                <NumberInput
                   name={"Price:"}
                   value={this.state.product.price}
                   onChangeAction={event =>
                     this.onTextInputHandler(event, "price")
                   }
                   rows={1}
-                ></TextInput>
+                ></NumberInput>
               </Grid>
               <Grid item xs={11} md={8} lg={8}>
                 <label>Type:</label>

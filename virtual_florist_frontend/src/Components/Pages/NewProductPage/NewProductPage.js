@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import TextAreaInput from "../../UI/Input/TextArea/TextArea";
 import TextInput from "../../UI/Input/TextInput/TextInput";
+import NumberInput from "../../UI/Input/NumberInput/NumberInput";
 import Grid from "@material-ui/core/Grid";
 
 import ButtonGood from "../../UI/Button/ButtonGood/ButtonGood";
@@ -114,11 +115,11 @@ class NewWikiEntryPage extends Component {
             />
           </Grid>
           <Grid item xs={12} md={9} lg={9}>
-            <TextInput
+            <NumberInput
               name={"Price:"}
               onChangeAction={event => this.onTextInputHandler(event, "price")}
               rows={1}
-            ></TextInput>
+            ></NumberInput>
           </Grid>
 
           <Grid item xs={12} md={8} lg={8}>
@@ -169,7 +170,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewWikiEntryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(NewWikiEntryPage);

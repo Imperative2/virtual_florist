@@ -45,41 +45,47 @@ const ProductCard = props => {
   const path = "/product/" + props.id;
 
   return (
-    <div className="card-group my-1">
-      <MDBCard personal className="mb-md-0 mb-4">
-        <MDBCardImage
-          className={styleClass.Photo}
-          top
-          src={props.mainPhoto}
-          alt="MDBCard image cap"
-        />
-        <a>
-          <MDBMask overlay="white-slight" />
-        </a>
+    <div className={styleClass.All}>
+      <div className="card-group my-1">
+        <MDBCard personal className="mb-md-0 mb-4">
+          <MDBCardImage
+            className={styleClass.Photo}
+            top
+            src={props.mainPhoto}
+            alt="mainPicture"
+          />
+          <a>
+            <MDBMask overlay="white-slight" />
+          </a>
 
-        <MDBCardBody>
-          <a onClick={e => props.history.replace(path)}>
-            <MDBCardTitle>
-              {props.name}-{props.latinName}
-            </MDBCardTitle>
-          </a>
-          <MDBCardText>{props.description}</MDBCardText>
-          <hr />
-          {wiki}
-          <a className="card-meta float-center">
-            <span>
-              <MDBIcon icon="dollar-sign" />
-              {props.price}
-            </span>
-          </a>
-          <a className="card-meta float-right">
-            <span>
-              <MDBIcon icon={isAvailable.icon} />
-              {" " + isAvailable.text}
-            </span>
-          </a>
-        </MDBCardBody>
-      </MDBCard>
+          <MDBCardBody>
+            <a onClick={e => props.history.replace(path)}>
+              <MDBCardTitle>
+                {props.name.substring(0, 25)}
+                {props.name.length > 25 ? "..." : ""}-{props.latinName}
+              </MDBCardTitle>
+            </a>
+            <MDBCardText>
+              {props.description.substring(0, 220)}
+              {props.description.length > 219 ? "..." : ""}
+            </MDBCardText>
+            <hr />
+            {wiki}
+            <a className="card-meta float-center">
+              <span>
+                <MDBIcon icon="dollar-sign" />
+                {props.price}
+              </span>
+            </a>
+            <a className="card-meta float-right">
+              <span>
+                <MDBIcon icon={isAvailable.icon} />
+                {" " + isAvailable.text}
+              </span>
+            </a>
+          </MDBCardBody>
+        </MDBCard>
+      </div>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const initialState = {
 const storageReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_STORAGE: {
-      console.log(action);
+      //   console.log(action);
       return {
         ...state,
         storages: action.storages

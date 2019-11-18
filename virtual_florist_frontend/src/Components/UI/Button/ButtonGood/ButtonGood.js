@@ -4,7 +4,12 @@ import { MDBBtn } from "mdbreact";
 const ButtonPage = props => {
   return (
     <Fragment>
-      <MDBBtn color="primary" rounded onClick={props.onClickAction}>
+      <MDBBtn
+        disabled={props.isDisabled}
+        color="primary"
+        rounded
+        onClick={props.onClickAction}
+      >
         {props.name}
       </MDBBtn>
     </Fragment>

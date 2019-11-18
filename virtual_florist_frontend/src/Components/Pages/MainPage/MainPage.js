@@ -16,16 +16,16 @@ import styleClass from "./MainPage.module.css";
 const mainPage = props => {
   return (
     <div className={styleClass.All}>
-      <MDBView>
+      {/* <MDBView>
         <img src={MainPicture} className="img-fluid" alt="" />
         <MDBMask overlay="warning-color-light" className="flex-center">
           <p className={styleClass.P}>Flowers</p>
         </MDBMask>
-      </MDBView>
+      </MDBView> */}
       {/* 
       <TopLogo></TopLogo> */}
       <div className={styleClass.Carousel}>
-        <Carousel>
+        {/* <Carousel>
           <Carousel.Item>
             <img className="d-block w-100" src={ShopFoto1} alt="First slide" />
             <Carousel.Caption>
@@ -51,7 +51,7 @@ const mainPage = props => {
               </p>
             </Carousel.Caption>
           </Carousel.Item>
-        </Carousel>
+        </Carousel> */}
       </div>
     </div>
   );

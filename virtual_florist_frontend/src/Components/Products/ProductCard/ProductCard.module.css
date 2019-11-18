@@ -1,3 +1,11 @@
 .Photo {
   max-height: 300px;
 }
+
+.Text {
+  width: 2ch;
+}
+
+.All {
+  height: 530px;
+}

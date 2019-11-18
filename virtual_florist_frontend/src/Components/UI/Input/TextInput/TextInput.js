@@ -1,7 +1,7 @@
 import React from "react";
 import styleClass from "./TextInput.module.css";
 
-const InputPage = props => {
+const TextInput = props => {
   return (
     <div className={styleClass.All}>
       <div className="form-group text-left">
@@ -20,4 +20,4 @@ const InputPage = props => {
   );
 };
 
-export default InputPage;
+export default TextInput;
