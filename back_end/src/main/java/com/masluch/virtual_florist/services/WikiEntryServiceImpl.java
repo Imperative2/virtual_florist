@@ -18,14 +18,14 @@ import com.masluch.virtual_florist.entities.WikiEntry;
 @Service
 public class WikiEntryServiceImpl implements WikiEntryService
 {
-	
+
 	@Autowired
 	private WikiEntryDAO wikiEntryDAO;
-	
+
 	@Autowired
 	private PhotoDAO photoDAO;
-	
-	@Autowired 
+
+	@Autowired
 	private ProductDAO productDAO;
 
 	@Override
@@ -67,22 +67,20 @@ public class WikiEntryServiceImpl implements WikiEntryService
 	@Transactional
 	public ResponseEntity<WikiEntry> addWikiEntry(WikiEntry wikiEntry)
 	{
-		if(checkWikiEntry(wikiEntry) == false)
+		if (checkWikiEntry(wikiEntry) == false)
 			{
 				return new ResponseEntity<WikiEntry>(HttpStatus.BAD_REQUEST);
 			}
-		WikiEntry savedEntry =  wikiEntryDAO.save(wikiEntry);
-		
+		WikiEntry savedEntry = wikiEntryDAO.save(wikiEntry);
+
 		return new ResponseEntity<WikiEntry>(savedEntry, HttpStatus.OK);
 	}
-	
-	
-	
+
 	private boolean checkWikiEntry(WikiEntry wikiEntry)
 	{
-		if(wikiEntry.getWikiEntryId() == 0)
-			return true;
-		return false;
+		if (wikiEntry.getWikiEntryId() != 0)
+			return false;
+		return true;
 	}
 
 	@Override
@@ -90,43 +88,78 @@ public class WikiEntryServiceImpl implements WikiEntryService
 	public ResponseEntity<String> deleteWikiEntry(String wikiEntryId)
 	{
 		Integer entryId;
-		try {
-			entryId = Integer.decode(wikiEntryId);
-		}
-		catch(Exception ex) {
-			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
-		}
-		if(entryId<1)
+		try
+			{
+				entryId = Integer.decode(wikiEntryId);
+			}
+		catch (Exception ex)
 			{
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 			}
-		
+		if (entryId < 1)
+			{
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			}
+
 		WikiEntry wikiEntry = wikiEntryDAO.findById(entryId);
-		if(wikiEntry == null)
+		if (wikiEntry == null)
 			{
 				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 
 			}
-		
+
 		List<Photo> photosList = wikiEntry.getPhotos();
-		for(Photo photo: photosList)
+		for (Photo photo : photosList)
 			{
 				photo.setWikiEntryId(null);
 				photoDAO.update(photo);
 			}
-		
+
 		Product product = productDAO.findByWikiEntry(wikiEntry);
-		if(product != null)
+		if (product != null)
 			{
 				product.setWikiEntry(null);
 				productDAO.update(product);
 			}
-		
-		deleteById(wikiEntry.getWikiEntryId());
-		
 
-		
+		deleteById(wikiEntry.getWikiEntryId());
+
 		return new ResponseEntity<String>(HttpStatus.OK);
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<WikiEntry> updateWikiEntry(String wikiEntryId, WikiEntry wikiEntry)
+	{
+		Integer id = null;
+		try
+			{
+				id = Integer.decode(wikiEntryId);
+			}
+		catch (Exception ex)
+			{
+				return new ResponseEntity<WikiEntry>(HttpStatus.BAD_REQUEST);
+			}
+
+		WikiEntry wikiEntryToUpdate = wikiEntryDAO.findById(id);
+
+		if (wikiEntryToUpdate == null)
+			{
+				return new ResponseEntity<WikiEntry>(HttpStatus.BAD_REQUEST);
+			}
+
+		wikiEntryToUpdate.setName(wikiEntry.getName());
+		wikiEntryToUpdate.setLatinName(wikiEntry.getLatinName());
+		wikiEntryToUpdate.setShortDescription(wikiEntry.getShortDescription());
+		wikiEntryToUpdate.setLongDescription(wikiEntry.getLongDescription());
+		wikiEntryToUpdate.setTreatment(wikiEntry.getTreatment());
+		wikiEntryToUpdate.setTips(wikiEntry.getTips());
+		wikiEntryToUpdate.setTags(wikiEntry.getTags());
+
+		wikiEntryDAO.update(wikiEntryToUpdate);
+
+		return new ResponseEntity<WikiEntry>(wikiEntryToUpdate, HttpStatus.OK);
+
 	}
 
 }

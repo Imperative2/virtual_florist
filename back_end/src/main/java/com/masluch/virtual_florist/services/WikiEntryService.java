@@ -22,4 +22,6 @@ public interface WikiEntryService
 	public ResponseEntity<WikiEntry> addWikiEntry(WikiEntry wikiEntry);
 	
 	public ResponseEntity<String> deleteWikiEntry(String wikiEntryId);
+	
+	public ResponseEntity<WikiEntry> updateWikiEntry(String wikiEntryId, WikiEntry wikiEntry);
 }

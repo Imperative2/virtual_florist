@@ -44,11 +44,10 @@ public class WikiEntryController
 		return wikiEntryService.addWikiEntry(wikiEntry);
 	}
 	
-	@PostMapping("/update")
-	public ResponseEntity<String> updateWikiEntry(@RequestBody WikiEntry wikiEntry)
+	@PostMapping("/{id}")
+	public ResponseEntity<WikiEntry> updateWikiEntry(@PathVariable(name= "id") String wikiEntryId,@RequestBody WikiEntry wikiEntry)
 	{
-		System.out.println(wikiEntry);
-		return new ResponseEntity("OK",HttpStatus.OK);
+		return wikiEntryService.updateWikiEntry(wikiEntryId, wikiEntry);
 	}
 	
 	@DeleteMapping("/{id}")

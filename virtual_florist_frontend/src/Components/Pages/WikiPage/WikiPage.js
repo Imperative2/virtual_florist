@@ -146,27 +146,27 @@ class WikiPage extends Component {
             <EditIcon />
           </Fab>
           <Grid container spacing={1}>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <h1>
                 {wikiEntry.name} - {wikiEntry.latinName}
               </h1>
             </Grid>
 
-            <Grid item md={9}>
+            <Grid item xs={12} md={9}>
               <h3 className={styleClass.H3}>Description:</h3>
               <p className={styleClass.Text}>{wikiEntry.longDescription}</p>
             </Grid>
             <Grid item md={3}>
               {photos[0] != null ? photos[0] : ""}
             </Grid>
-            <Grid item md={9}>
+            <Grid item xs={12} md={9}>
               <h3 className={styleClass.H3}>Treatment:</h3>
               <p className={styleClass.Text}>{wikiEntry.treatment}</p>
             </Grid>
             <Grid item md={3}>
               {photos[1] != null ? photos[1] : ""}
             </Grid>
-            <Grid item md={9}>
+            <Grid item xs={12} md={9}>
               <h3 className={styleClass.H3}>Tips:</h3>
               {tips}
             </Grid>

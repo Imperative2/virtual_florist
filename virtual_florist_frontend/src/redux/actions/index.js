@@ -1,4 +1,9 @@
-export { fetchWikiEntries, addWikiEntry, deleteWikiEntry } from "./WikiActions";
+export {
+  fetchWikiEntries,
+  addWikiEntry,
+  deleteWikiEntry,
+  updateWikiEntry
+} from "./WikiActions";
 export {
   fetchProducts,
   addProduct,

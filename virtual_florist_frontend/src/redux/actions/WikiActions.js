@@ -26,6 +26,28 @@ export const deleteWikiEntry = wikiEntryId => {
   };
 };
 
+export const updateWikiEntry = wikiEntry => {
+  console.log(wikiEntry);
+  const path = "/wiki/" + wikiEntry.wikiEntryId;
+
+  const wikiEntryToSend = {
+    name: wikiEntry.name,
+    latinName: wikiEntry.latinName,
+    shortDescription: wikiEntry.shortDescription,
+    longDescription: wikiEntry.longDescription,
+    treatment: wikiEntry.treatment,
+    tips: wikiEntry.tips,
+    tags: wikiEntry.tags
+  };
+
+  return dispatch => {
+    axios.post(path, wikiEntryToSend).then(res => {
+      console.log(res);
+      dispatch(fetchWikiEntries());
+    });
+  };
+};
+
 export const setWikiEntries = entries => {
   return {
     type: actionTypes.SET_WIKI_ENTRIES,

@@ -157,7 +157,7 @@ public class ProductServiceImpl implements ProductService
 				return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
 			}
 		
-		if(product.getPrice()<0)
+		if(product.getPrice()!=null ||product.getPrice()<0)
 			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
 		productToUpdate.setPrice(product.getPrice());
 		productToUpdate.setName(product.getName());

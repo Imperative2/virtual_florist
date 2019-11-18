@@ -46,11 +46,11 @@ class WikiEntryModify extends Component {
   }
 
   onFormSubmitHandler = () => {
-    const newWikiEntry = {
+    const updatedWikiEntry = {
       ...this.state
     };
 
-    this.props.onFormSubmit(newWikiEntry);
+    this.props.onFormSubmit(updatedWikiEntry);
     this.props.history.replace("/wiki");
   };
 
@@ -141,7 +141,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onDataFetch: () => dispatch(actions.fetchWikiEntries()),
-    onFormSubmit: newWikiEntry => dispatch(actions.addWikiEntry(newWikiEntry))
+    onFormSubmit: wikiEntry => dispatch(actions.updateWikiEntry(wikiEntry))
   };
 };
 
