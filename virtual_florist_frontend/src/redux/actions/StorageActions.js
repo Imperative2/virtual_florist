@@ -11,9 +11,21 @@ export const fetchStorages = () => {
 };
 
 export const addNewStorage = storage => {
-  // return dispatch =>{
-  //     axios.put("")
-  // }
+  console.log(storage);
+
+  const newStorage = {
+    quantity: storage.quantity,
+    available: storage.available
+  };
+  return dispatch => {
+    axios
+      .put("/storage/newStorage", newStorage, {
+        params: { productId: storage.selectedProductId }
+      })
+      .then(res => {
+        console.log(res);
+      });
+  };
 };
 
 export const setStorages = storages => {

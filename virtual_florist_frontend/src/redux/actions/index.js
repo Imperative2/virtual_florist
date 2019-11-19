@@ -10,6 +10,6 @@ export {
   deleteProduct,
   updateProduct
 } from "./ProductActions";
-export { fetchStorages } from "./StorageActions";
+export { fetchStorages, addNewStorage } from "./StorageActions";
 export { uploadFiles } from "./PhotoActions";
 export { registerUser } from "./UserActions";

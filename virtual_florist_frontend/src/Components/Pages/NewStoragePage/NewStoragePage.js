@@ -28,7 +28,6 @@ class NewStoragePage extends Component {
   }
 
   onTextInputHandler = (event, inputIdentifier) => {
-    console.log(event.target.value);
     if (inputIdentifier === "quantity") {
       this.setState({ quantity: event.target.value });
     } else if (inputIdentifier === "product") {
@@ -63,9 +62,6 @@ class NewStoragePage extends Component {
         this.props.storages.storages[i].product.productId
       );
     }
-    console.log(this.props.storages.storages);
-    console.log(this.props.products.products);
-    console.log(invalidStoragesProducts);
 
     for (let i = 0; i < productLength; i++) {
       if (this.props.products.products[i].available === true) {
@@ -79,8 +75,6 @@ class NewStoragePage extends Component {
       }
     }
 
-    console.log(validProducts);
-
     const productOptions = validProducts.map(product => {
       return (
         <option key={product.productId} value={product.productId}>
@@ -92,7 +86,6 @@ class NewStoragePage extends Component {
 
     let selectedProduct = null;
     for (let i = 0; i < this.props.products.products.length; i++) {
-      console.log(this.props.products.products[i].productId);
       if (
         this.props.products.products[i].productId ==
         this.state.selectedProductId
@@ -100,10 +93,6 @@ class NewStoragePage extends Component {
         selectedProduct = this.props.products.products[i];
       }
     }
-
-    console.log("selectedProduct:");
-    console.log(selectedProduct);
-    console.log(this.state);
 
     const selectedProductInfo = (
       <Fragment>
@@ -170,6 +159,7 @@ class NewStoragePage extends Component {
           </Grid>
           <Grid item xs={12} md={10} lg={10}>
             <NumberInput
+              value={0}
               name={"Quantity:"}
               onChangeAction={event =>
                 this.onTextInputHandler(event, "quantity")
@@ -209,7 +199,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onFetchProducts: () => dispatch(actions.fetchProducts()),
     onFetchStorages: () => dispatch(actions.fetchStorages()),
-    onFormSubmit: newProduct => dispatch(actions.addProduct(newProduct))
+    onFormSubmit: newStorage => dispatch(actions.addNewStorage(newStorage))
   };
 };
 

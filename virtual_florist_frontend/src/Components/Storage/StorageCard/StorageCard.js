@@ -47,10 +47,15 @@ const ProductCard = props => {
         <MDBCardBody>
           <a onClick={e => props.history.replace(path)}>
             <MDBCardTitle>
-              {props.name}-{props.latinName}
+              {props.name.substring(0, 25)}
+              {props.name.length > 25 ? "..." : ""}-{props.latinName}
             </MDBCardTitle>
           </a>
-          <MDBCardText>{props.description}</MDBCardText>
+          <MDBCardText>
+            {" "}
+            {props.description.substring(0, 220)}
+            {props.description.length > 219 ? "..." : ""}
+          </MDBCardText>
           <hr />
           <a href={redirect} className="card-meta m-2">
             <span>

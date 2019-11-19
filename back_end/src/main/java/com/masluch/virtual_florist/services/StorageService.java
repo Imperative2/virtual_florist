@@ -19,7 +19,7 @@ public interface StorageService
 	
 	public ResponseEntity<String> deleteById(int storageId);
 	
-	public ResponseEntity<Storage> addNewStorage(Storage newStorage);
+	public ResponseEntity<Storage> addNewStorage(Storage newStorage, String productId);
 	
 	public ResponseEntity<String> deleteProduct(Storage storageId);
 	

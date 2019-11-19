@@ -116,6 +116,7 @@ class NewWikiEntryPage extends Component {
           </Grid>
           <Grid item xs={12} md={9} lg={9}>
             <NumberInput
+              value={0.0}
               name={"Price:"}
               onChangeAction={event => this.onTextInputHandler(event, "price")}
               rows={1}

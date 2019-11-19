@@ -148,20 +148,20 @@ public class ProductServiceImpl implements ProductService
 				wikiId = Integer.decode(wikiEntryId);
 		}
 		catch(Exception ex) {
-			System.out.println("1");
+
 			return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
 		}
 		
 		Product productToUpdate = productDAO.findById(id);
 		if(productToUpdate == null)
 			{
-				System.out.println("2");
+
 				return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
 			}
 		
 		if(product.getPrice()==null || product.getPrice()<0.0)
 			{
-				System.out.println("3");
+
 				return new ResponseEntity<Product>(HttpStatus.BAD_REQUEST);
 			}
 			

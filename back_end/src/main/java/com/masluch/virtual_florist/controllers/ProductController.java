@@ -33,7 +33,7 @@ public class ProductController
 	}
 	
 	@PutMapping(path ="/newProduct")
-	public ResponseEntity<Product> addProduct(@RequestBody Product newProduct,@RequestParam(name = "wikiEntryId",required = false) String wikiEntryId )
+	public ResponseEntity<Product> addNewProduct(@RequestBody Product newProduct,@RequestParam(name = "wikiEntryId",required = false) String wikiEntryId )
 	{
 		if(wikiEntryId == null)
 			return productService.addNewProduct(newProduct);
