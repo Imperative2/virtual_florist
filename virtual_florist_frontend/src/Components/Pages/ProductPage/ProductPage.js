@@ -206,13 +206,8 @@ class ProductPage extends Component {
           </Fab>
           <TitleLabel name="Product Page"></TitleLabel>
 
-          <Grid
-            container
-            justify="flex-start"
-            alignItems="flex-end"
-            spacing={1}
-          >
-            <Grid container spacing={1} justify="center" alignItems="flex-end">
+          <Grid container justify="center" alignItems="center" spacing={1}>
+            <Grid container spacing={1} justify="center" alignItems="center">
               <Grid item xs={12} md={9} lg={9}>
                 <TextInput
                   name={"Name:"}
@@ -238,7 +233,7 @@ class ProductPage extends Component {
                   onChangeAction={event =>
                     this.onTextInputHandler(event, "description")
                   }
-                  rows={2}
+                  rows={5}
                 ></TextAreaInput>
               </Grid>
               <Grid item xs={12} md={6} lg={6}>

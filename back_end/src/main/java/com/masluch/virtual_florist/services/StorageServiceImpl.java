@@ -61,6 +61,7 @@ public class StorageServiceImpl implements StorageService
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Storage> addNewStorage(Storage newStorage, String productId)
 	{
 		Integer prodId;
@@ -111,17 +112,99 @@ public class StorageServiceImpl implements StorageService
 	}
 
 	@Override
-	public ResponseEntity<String> deleteProduct(Storage storageId)
+	@Transactional
+	public ResponseEntity<String> deleteStorage(String storageId)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Integer id;
+		try {
+			id = Integer.decode(storageId);
+		}
+		catch(Exception ex) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+		Storage storage = storageDAO.findById(id);
+		if(storage == null)
+			{
+				return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+			}
+		
+		storageDAO.deleteById(storage.getStorageId());
+		
+		return new ResponseEntity<String>(HttpStatus.OK);
+		
 	}
 
 	@Override
-	public ResponseEntity<Storage> updateProduct(String storageId, Storage storage)
+	@Transactional
+	public ResponseEntity<Storage> updateStorage(String storageId, Storage storage)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Integer id = null;
+		try {
+			id = Integer.decode(storageId);
+
+		}
+		catch(Exception ex) {
+			return new ResponseEntity<Storage>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Storage storageToUpdate = storageDAO.findById(id);
+		if(storageToUpdate == null)
+			{
+
+				return new ResponseEntity<Storage>(HttpStatus.BAD_REQUEST);
+			}
+		
+		storageToUpdate.setEnabled(storage.isEnabled());
+		
+		storageDAO.update(storageToUpdate);
+		
+		return new ResponseEntity<Storage>(storageToUpdate, HttpStatus.OK);
+
+				
 	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Storage> changeQuantity(String storageId, String quantity)
+	{
+		Integer id = null;
+		Integer quan = null;
+		try {
+			id = Integer.decode(storageId);
+			quan = Integer.decode(quantity);
+
+		}
+		catch(Exception ex) {
+			return new ResponseEntity<Storage>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Storage storageToUpdate = storageDAO.findById(id);
+		if(storageToUpdate == null)
+			{
+
+				return new ResponseEntity<Storage>(HttpStatus.BAD_REQUEST);
+			}
+		
+		if(quan == null)
+			{
+				return new ResponseEntity<Storage>(HttpStatus.BAD_REQUEST);
+			}
+		
+		if((storageToUpdate.getQuantity()+quan) < 0)
+			{
+				storageToUpdate.setQuantity(0);
+			}
+		else
+			{
+				storageToUpdate.setQuantity(storageToUpdate.getQuantity()+ quan);
+			}
+		
+		storageDAO.update(storageToUpdate);
+		
+		return new ResponseEntity<Storage>(storageToUpdate, HttpStatus.OK);
+
+	}
+
+	
 
 }

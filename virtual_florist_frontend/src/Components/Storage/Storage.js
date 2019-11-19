@@ -34,8 +34,6 @@ class Store extends Component {
       zIndex: 1000
     };
 
-    console.log(this.props);
-
     let storages = this.props.storages.storages.map((storage, index) => {
       let mainPhoto = noImage;
 

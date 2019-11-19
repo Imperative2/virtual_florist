@@ -1,3 +1,10 @@
 .Wiki {
   text-align: center;
+  background-image: url("../../Assets/mainScreen.jpg");
+  background-repeat: no-repeat;
+  background-blend-mode: lighten;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  padding-top: 47px;
 }

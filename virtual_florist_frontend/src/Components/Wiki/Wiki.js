@@ -89,7 +89,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Wiki);
+export default connect(mapStateToProps, mapDispatchToProps)(Wiki);

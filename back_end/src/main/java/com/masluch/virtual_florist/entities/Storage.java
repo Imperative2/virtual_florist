@@ -24,7 +24,7 @@ public class Storage
 	private Product product;
 	
 	@Column(name = "quantity")
-	private int quantity;
+	private Integer quantity;
 	
 	@Column(name = "enabled", columnDefinition = "BOOLEAN")
 	private boolean enabled;
@@ -49,12 +49,12 @@ public class Storage
 		this.product = product;
 	}
 
-	public int getQuantity()
+	public Integer getQuantity()
 	{
 		return quantity;
 	}
 
-	public void setQuantity(int quantity)
+	public void setQuantity(Integer quantity)
 	{
 		this.quantity = quantity;
 	}

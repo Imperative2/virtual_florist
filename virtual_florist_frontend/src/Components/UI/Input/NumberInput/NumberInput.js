@@ -14,6 +14,7 @@ const NumberInput = props => {
           id="formGroupExampleInput"
           onChange={props.onChangeAction}
           value={props.value}
+          disabled={props.disabled}
         ></input>
       </div>
     </div>

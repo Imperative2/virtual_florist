@@ -10,6 +10,7 @@ import NewWikiEntryPage from "./Components/Pages/NewWikiEntryPage/NewWIkiEntryPa
 import ProductPage from "./Components/Pages/ProductPage/ProductPage";
 import NewProductPage from "./Components/Pages/NewProductPage/NewProductPage";
 import NewStoragePage from "./Components/Pages/NewStoragePage/NewStoragePage";
+import StoragePage from "./Components/Pages/StoragePage/StoragePage";
 
 import Layout from "./Components/Layout/Layout";
 import Wiki from "./Components/Wiki/Wiki";
@@ -36,6 +37,7 @@ function App() {
           <Route exact path="/product/:id" component={ProductPage} />
           <Route exact path="/storage/" component={Storage} />
           <Route exact path="/storage/newStorage" component={NewStoragePage} />
+          <Route exact path="/storage/:id" component={StoragePage} />
           <Route exact path="/order/" component={Orders} />
         </Switch>
       </Layout>

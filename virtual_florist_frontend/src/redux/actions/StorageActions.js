@@ -23,8 +23,51 @@ export const addNewStorage = storage => {
         params: { productId: storage.selectedProductId }
       })
       .then(res => {
+        dispatch(fetchStorages());
         console.log(res);
       });
+  };
+};
+
+export const updateStorage = storage => {
+  console.log(storage);
+  const path = "/storage/" + storage.storageId;
+
+  return dispatch => {
+    axios.post(path, storage).then(res => {
+      dispatch(fetchStorages());
+      console.log(res);
+    });
+  };
+};
+
+export const changeQuantity = form => {
+  console.log(form);
+  const path = "/storage/" + form.storageId + "/changeQuantity";
+
+  return dispatch => {
+    axios
+      .post(path, form, {
+        params: {
+          quantity: form.quantity
+        }
+      })
+      .then(res => {
+        dispatch(fetchStorages());
+        console.log(res);
+      });
+  };
+};
+
+export const deleteStorage = storage => {
+  console.log(storage);
+  const path = "/storage/" + storage.storageId;
+
+  return dispatch => {
+    axios.delete(path).then(res => {
+      dispatch(fetchStorages());
+      console.log(res);
+    });
   };
 };
 

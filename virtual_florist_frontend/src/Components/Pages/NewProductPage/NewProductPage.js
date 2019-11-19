@@ -96,7 +96,7 @@ class NewWikiEntryPage extends Component {
               onChangeAction={event =>
                 this.onTextInputHandler(event, "description")
               }
-              rows={2}
+              rows={5}
             ></TextAreaInput>
           </Grid>
 

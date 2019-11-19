@@ -21,8 +21,10 @@ public interface StorageService
 	
 	public ResponseEntity<Storage> addNewStorage(Storage newStorage, String productId);
 	
-	public ResponseEntity<String> deleteProduct(Storage storageId);
+	public ResponseEntity<String> deleteStorage(String storageId);
 	
-	public ResponseEntity<Storage> updateProduct(String storageId, Storage storage);
+	public ResponseEntity<Storage> updateStorage(String storageId, Storage storage);
+
+	public ResponseEntity<Storage> changeQuantity(String storageId, String quantity);
 
 }

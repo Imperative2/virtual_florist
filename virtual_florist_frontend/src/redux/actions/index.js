@@ -10,6 +10,12 @@ export {
   deleteProduct,
   updateProduct
 } from "./ProductActions";
-export { fetchStorages, addNewStorage } from "./StorageActions";
+export {
+  fetchStorages,
+  addNewStorage,
+  updateStorage,
+  changeQuantity,
+  deleteStorage
+} from "./StorageActions";
 export { uploadFiles } from "./PhotoActions";
 export { registerUser } from "./UserActions";

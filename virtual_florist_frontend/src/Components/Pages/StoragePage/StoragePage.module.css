@@ -1,0 +1,22 @@
+.All {
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.LabelPar {
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  font-weight: 700;
+  font-size: 130%;
+  padding-top: 5px;
+}
+
+.ProductDiv {
+  border-radius: 15px;
+  border: 2px solid #73ad21;
+}
