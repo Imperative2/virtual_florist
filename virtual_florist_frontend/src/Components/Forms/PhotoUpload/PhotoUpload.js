@@ -12,7 +12,7 @@ class InputPage extends Component {
   state = {
     selectedFile: null,
     fileName: "Choose file",
-    description: "asdf",
+    description: "",
     type: "MAIN"
   };
 
@@ -128,7 +128,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(InputPage);
+export default connect(null, mapDispatchToProps)(InputPage);

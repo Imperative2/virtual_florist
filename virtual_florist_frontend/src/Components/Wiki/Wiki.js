@@ -13,6 +13,8 @@ import styleClass from "./Wiki.module.css";
 import WikiEntry from "./WikiEntry/WikiEntry";
 import TitleLabel from "../UI/Label/TitleLabel";
 
+import { config } from "../../config";
+
 class Wiki extends Component {
   componentWillMount() {
     this.props.onDataFetch();
@@ -29,7 +31,7 @@ class Wiki extends Component {
       for (let i = 0; i < wikiEntry.photos.length; i++) {
         let photo = wikiEntry.photos[i];
         if (photo.type == "MAIN") {
-          mainPhoto = photo.path;
+          mainPhoto = config.serverURL + photo.path;
         }
       }
 

@@ -1,95 +1,100 @@
-import React, { Component } from "react";
-import {
-  MDBContainer,
-  MDBTabPane,
-  MDBTabContent,
-  MDBNav,
-  MDBNavItem,
-  MDBNavLink
-} from "mdbreact";
+import React from "react";
+import PropTypes from "prop-types";
+import SwipeableViews from "react-swipeable-views";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
 
-class Orders extends Component {
-  state = {
-    activeItem: "1"
-  };
+import styleClass from "./Order.module.css";
 
-  toggle = tab => e => {
-    if (this.state.activeItem !== tab) {
-      this.setState({
-        activeItem: tab
-      });
-    }
-  };
+import TitleLabel from "../UI/Label/TitleLabel";
 
-  render() {
-    return (
-      <MDBContainer>
-        <MDBNav className="nav-tabs mt-5">
-          <MDBNavItem>
-            <MDBNavLink
-              to="#"
-              active={this.state.activeItem === "1"}
-              onClick={this.toggle("1")}
-              role="tab"
-            >
-              Orders Fulfilled
-            </MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink
-              to="#"
-              active={this.state.activeItem === "2"}
-              onClick={this.toggle("2")}
-              role="tab"
-            >
-              Orders In Progress
-            </MDBNavLink>
-          </MDBNavItem>
-          <MDBNavItem>
-            <MDBNavLink
-              to="#"
-              active={this.state.activeItem === "3"}
-              onClick={this.toggle("3")}
-              role="tab"
-            >
-              Orders Cancelled
-            </MDBNavLink>
-          </MDBNavItem>
-        </MDBNav>
-        <MDBTabContent activeItem={this.state.activeItem}>
-          <MDBTabPane tabId="1" role="tabpanel">
-            <p className="mt-2">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil
-              odit magnam minima, soluta doloribus reiciendis molestiae placeat
-              unde eos molestias. Quisquam aperiam, pariatur. Tempora, placeat
-              ratione porro voluptate odit minima.
-            </p>
-          </MDBTabPane>
-          <MDBTabPane tabId="2" role="tabpanel">
-            <p className="mt-2">
-              Quisquam aperiam, pariatur. Tempora, placeat ratione porro
-              voluptate odit minima. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Nihil odit magnam minima, soluta doloribus
-              reiciendis molestiae placeat unde eos molestias.
-            </p>
-            <p>
-              Quisquam aperiam, pariatur. Tempora, placeat ratione porro
-              voluptate odit minima. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Nihil odit magnam minima, soluta doloribus
-              reiciendis molestiae placeat unde eos molestias.
-            </p>
-          </MDBTabPane>
-          <MDBTabPane tabId="3" role="tabpanel">
-            <p className="mt-2">
-              Quisquam aperiam, pariatur. Tempora, placeat ratione porro
-              voluptate odit minima. Lorem ipsum dolor sit amet, consectetur
-              adipisicing elit. Nihil odit magnam minima, soluta doloribus
-              reiciendis molestiae placeat unde eos molestias.
-            </p>
-          </MDBTabPane>
-        </MDBTabContent>
-      </MDBContainer>
-    );
-  }
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <Typography
+      component="div"
+      role="tabpanel"
+      hidden={value !== index}
+      id={`full-width-tabpanel-${index}`}
+      aria-labelledby={`full-width-tab-${index}`}
+      {...other}
+    >
+      <Box p={3}>{children}</Box>
+    </Typography>
+  );
 }
-export default Orders;
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired
+};
+
+function a11yProps(index) {
+  return {
+    id: `full-width-tab-${index}`,
+    "aria-controls": `full-width-tabpanel-${index}`
+  };
+}
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    backgroundColor: theme.palette.background.paper
+  }
+}));
+
+export default function FullWidthTabs() {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const handleChangeIndex = index => {
+    setValue(index);
+  };
+
+  return (
+    <div className={styleClass.All}>
+      <TitleLabel name="Order Page"></TitleLabel>
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            indicatorColor="primary"
+            textColor="primary"
+            variant="fullWidth"
+            aria-label="full width tabs example"
+          >
+            <Tab label="Completed" {...a11yProps(0)} />
+            <Tab label="Pending" {...a11yProps(1)} />
+            <Tab label="Cancelled" {...a11yProps(2)} />
+          </Tabs>
+        </AppBar>
+        <SwipeableViews
+          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+          index={value}
+          onChangeIndex={handleChangeIndex}
+        >
+          <TabPanel value={value} index={0} dir={theme.direction}>
+            Item Oneasdf
+          </TabPanel>
+          <TabPanel value={value} index={1} dir={theme.direction}>
+            Item Two
+          </TabPanel>
+          <TabPanel value={value} index={2} dir={theme.direction}>
+            Item Three
+          </TabPanel>
+        </SwipeableViews>
+      </div>
+    </div>
+  );
+}

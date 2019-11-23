@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import styleClass from "./ImageLigthbox.module.css";
+import { config } from "../../../config";
 
 const images = [
   "//placekitten.com/1500/500",
@@ -28,12 +29,12 @@ export default class LightboxExample extends Component {
         <img
           className={styleClass.Image}
           onClick={() => this.setState({ isOpen: true })}
-          src={this.props.photo.path}
+          src={config.serverURL + this.props.photo.path}
         ></img>
 
         {isOpen && (
           <Lightbox
-            mainSrc={this.props.photo.path}
+            mainSrc={config.serverURL + this.props.photo.path}
             nextSrc={images[(photoIndex + 1) % images.length]}
             prevSrc={images[(photoIndex + images.length - 1) % images.length]}
             onCloseRequest={() => this.setState({ isOpen: false })}

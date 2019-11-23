@@ -13,7 +13,8 @@ const NumberInput = props => {
           className="form-control"
           id="formGroupExampleInput"
           onChange={props.onChangeAction}
-          value={props.value}
+          value={props.currentValue}
+          defaultValue={props.value}
           disabled={props.disabled}
         ></input>
       </div>

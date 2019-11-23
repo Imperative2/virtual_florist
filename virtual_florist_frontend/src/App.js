@@ -17,6 +17,7 @@ import Wiki from "./Components/Wiki/Wiki";
 import Products from "./Components/Products/Products";
 import Storage from "./Components/Storage/Storage";
 import Orders from "./Components/Orders/Orders";
+import Shop from "./Components/Shop/Shop";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -39,6 +40,7 @@ function App() {
           <Route exact path="/storage/newStorage" component={NewStoragePage} />
           <Route exact path="/storage/:id" component={StoragePage} />
           <Route exact path="/order/" component={Orders} />
+          <Route exact path="/shop/" component={Shop} />
         </Switch>
       </Layout>
     </div>

@@ -27,6 +27,8 @@ import { MDBModal, MDBBtn } from "mdbreact";
 class StoragePage extends Component {
   state = {
     showQuantityModal: false,
+    modalQuantity: 0,
+    quantityChanged: false,
     storage: {
       enabled: false,
       quantity: 0,
@@ -68,12 +70,14 @@ class StoragePage extends Component {
     let storage = null;
     for (let i = 0; i < this.props.storages.storages.length; i++) {
       if (
-        this.props.storages.storages[i].productId == this.props.match.params.id
+        this.props.storages.storages[i].storageId == this.props.match.params.id
       ) {
         storage = this.props.storages.storages[i];
       }
     }
     if (storage !== null) {
+      console.log(storage);
+      console.log(this.state);
       this.setState({ storage });
     }
   };
@@ -91,6 +95,16 @@ class StoragePage extends Component {
     this.props.history.replace("/storage");
   };
 
+  onQuantityAddButtonHandler = () => {
+    let form = {
+      storageId: this.state.storage.storageId,
+      quantity: this.state.modalQuantity
+    };
+    this.props.onStorageQuantityChange(form);
+    this.toggleQuantityModal();
+    this.forceUpdate();
+  };
+
   onModifyButtonClicked = () => {
     const storage = {
       storageId: this.state.storage.storageId,
@@ -105,35 +119,15 @@ class StoragePage extends Component {
   onTextInputHandler = (event, inputIdentifier) => {
     let newState = { ...this.state };
 
-    if (inputIdentifier === "name") {
-      newState.product.name = event.target.value;
-      this.setState(newState);
-    } else if (inputIdentifier === "latinName") {
-      newState.product.latinName = event.target.value;
-      this.setState(newState);
-    } else if (inputIdentifier === "description") {
-      newState.product.description = event.target.value;
-      this.setState(newState);
-    } else if (inputIdentifier === "tags") {
-      newState.product.tags = event.target.value;
-      this.setState(newState);
-    } else if (inputIdentifier === "price") {
-      newState.product.price = event.target.value;
-      this.setState(newState);
-    } else if (inputIdentifier === "type") {
-      newState.product.type = event.target.value;
-      this.setState(newState);
-    } else if (inputIdentifier === "wikiId") {
-      if (newState.product.wikiEntry === null) {
-        newState.product.wikiEntry = { wikiEntryId: null };
-      }
-
-      newState.product.wikiEntry.wikiEntryId = event.target.value;
+    if (inputIdentifier === "quantity") {
+      newState.modalQuantity = event.target.value;
+      newState.quantityChanged = true;
       this.setState(newState);
     } else if (inputIdentifier === "available") {
       newState.storage.enabled = !this.state.storage.enabled;
       this.setState(newState);
     }
+    console.log(this.state);
   };
 
   render() {
@@ -186,7 +180,21 @@ class StoragePage extends Component {
             isOpen={this.state.showQuantityModal}
             toggle={this.toggleQuantityModal}
           >
-            <p>asdfasdf</p>
+            <NumberInput
+              value={0}
+              name={"Add or remove Quantity of an item:"}
+              onChangeAction={event =>
+                this.onTextInputHandler(event, "quantity")
+              }
+              rows={1}
+            ></NumberInput>
+            <div className={styleClass.Button}>
+              <ButtonGood
+                isDisabled={!this.state.quantityChanged}
+                name={"Add/Remove"}
+                onClickAction={event => this.onQuantityAddButtonHandler()}
+              ></ButtonGood>
+            </div>
           </MDBModal>
           <Fab
             color="primary"
@@ -252,7 +260,7 @@ class StoragePage extends Component {
             <Grid item xs={12} md={8} lg={8}>
               <NumberInput
                 disabled={true}
-                value={this.state.storage.quantity}
+                currentValue={this.state.storage.quantity}
                 name={"Quantity:"}
                 onChangeAction={event =>
                   this.onTextInputHandler(event, "quantity")

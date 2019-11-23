@@ -8,6 +8,7 @@ import styleClass from "./Products.module.css";
 
 import TitleLabel from "../UI/Label/TitleLabel";
 import noImage from "../../Assets/noImage.png";
+import { config } from "../../config";
 
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
@@ -38,7 +39,7 @@ class Products extends Component {
       for (let i = 0; i < product.photos.length; i++) {
         let photo = product.photos[i];
         if (photo.type == "MAIN") {
-          mainPhoto = photo.path;
+          mainPhoto = config.serverURL + photo.path;
         }
       }
 
@@ -90,7 +91,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Products);
+export default connect(mapStateToProps, mapDispatchToProps)(Products);

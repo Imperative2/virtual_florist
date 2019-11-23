@@ -9,6 +9,7 @@ import styleClass from "./Storage.module.css";
 import TitleLabel from "../UI/Label/TitleLabel";
 import noImage from "../../Assets/noImage.png";
 import StorageCard from "./StorageCard/StorageCard";
+import { config } from "../../config";
 
 import { connect } from "react-redux";
 import * as actions from "../../redux/actions/index";
@@ -40,7 +41,7 @@ class Store extends Component {
       for (let i = 0; i < storage.product.photos.length; i++) {
         let photo = storage.product.photos[i];
         if (photo.type == "MAIN") {
-          mainPhoto = photo.path;
+          mainPhoto = config.serverURL + photo.path;
         }
       }
 
