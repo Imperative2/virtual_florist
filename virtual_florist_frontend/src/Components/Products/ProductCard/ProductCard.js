@@ -12,6 +12,8 @@ import {
   MDBCardText
 } from "mdbreact";
 
+import { NavLink } from "react-router-dom";
+
 import styleClass from "./ProductCard.module.css";
 
 const ProductCard = props => {
@@ -32,11 +34,13 @@ const ProductCard = props => {
     const redirect = "/wiki/" + props.wikiEntry.wikiEntryId;
 
     wiki = (
-      <a href={redirect} className="card-meta m-2">
-        <span>
-          <MDBIcon fab icon="wikipedia-w" />
-        </span>
-      </a>
+      <NavLink to={redirect} exac>
+        <a className="card-meta m-2">
+          <span>
+            <MDBIcon fab icon="wikipedia-w" />
+          </span>
+        </a>
+      </NavLink>
     );
   }
 
@@ -57,7 +61,7 @@ const ProductCard = props => {
           </a>
 
           <MDBCardBody>
-            <a onClick={e => props.history.replace(path)}>
+            <a onClick={e => props.history.push(path)}>
               <MDBCardTitle>
                 {props.name.substring(0, 25)}
                 {props.name.length > 25 ? "..." : ""}-{props.latinName}

@@ -12,14 +12,14 @@ import styleClass from "./WikiEntry.module.css";
 
 class WikiEntry extends Component {
   onClickHandler = () => {
-    this.props.history.replace("/wiki/" + this.props.id);
+    this.props.history.push("/wiki/" + this.props.id);
   };
 
   render() {
     const style = {
       maxWidth: 345,
       padding: 20,
-      margin: 20
+      margin: 5
     };
 
     return (

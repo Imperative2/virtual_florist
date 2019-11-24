@@ -21,7 +21,7 @@ class Wiki extends Component {
   }
 
   addClickHandler = () => {
-    this.props.history.replace("/wiki/newPage");
+    this.props.history.push("/wiki/newPage");
   };
 
   render() {

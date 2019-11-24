@@ -21,7 +21,7 @@ class Store extends Component {
   }
 
   addClickHandler = () => {
-    this.props.history.replace("/storage/newStorage");
+    this.props.history.push("/storage/newStorage");
   };
 
   render() {

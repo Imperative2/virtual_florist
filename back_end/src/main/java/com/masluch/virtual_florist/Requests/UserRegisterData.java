@@ -12,6 +12,7 @@ public class UserRegisterData
 	private String password;
 	private String phoneNumber;
 	
+	private String country;
 	private String city;
 	private String street;
 	private String localNumber;
@@ -58,6 +59,17 @@ public class UserRegisterData
 	{
 		this.phoneNumber = phoneNumber;
 	}
+	
+	
+	
+	public String getCountry()
+	{
+		return country;
+	}
+	public void setCountry(String country)
+	{
+		this.country = country;
+	}
 	public String getCity()
 	{
 		return city;
@@ -93,10 +105,12 @@ public class UserRegisterData
 	@Override
 	public String toString()
 	{
-		return "UserRegisterData ["   + "name=" + name + ", surname=" + surname + ", email=" + email
-				+ ", password=" + password + ", phoneNumber=" + phoneNumber + ", city=" + city + ", street=" + street
+		return "UserRegisterData [name=" + name + ", surname=" + surname + ", email=" + email + ", password=" + password
+				+ ", phoneNumber=" + phoneNumber + ", country=" + country + ", city=" + city + ", street=" + street
 				+ ", localNumber=" + localNumber + ", zipCode=" + zipCode + "]";
 	}
+
+	
 	
 	
 	

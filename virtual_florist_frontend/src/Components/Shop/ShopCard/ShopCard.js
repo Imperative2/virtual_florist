@@ -12,6 +12,8 @@ import {
   MDBCardText
 } from "mdbreact";
 
+import { NavLink } from "react-router-dom";
+
 import ButtonGood from "../../UI/Button/ButtonGood/ButtonGood";
 
 import styleClass from "./ShopCard.module.css";
@@ -34,11 +36,13 @@ const ShopCard = props => {
     const redirect = "/wiki/" + props.wikiEntry.wikiEntryId;
 
     wiki = (
-      <a href={redirect} className="card-meta m-2">
-        <span>
-          <MDBIcon fab icon="wikipedia-w" />
-        </span>
-      </a>
+      <NavLink to={redirect} exact>
+        <a className="card-meta m-2">
+          <span>
+            <MDBIcon fab icon="wikipedia-w" />
+          </span>
+        </a>
+      </NavLink>
     );
   }
 
@@ -59,7 +63,7 @@ const ShopCard = props => {
           </a>
 
           <MDBCardBody>
-            <a onClick={e => props.history.replace(path)}>
+            <a onClick={e => props.history.push(path)}>
               <MDBCardTitle>
                 {props.name.substring(0, 25)}
                 {props.name.length > 25 ? "..." : ""}-{props.latinName}
@@ -70,11 +74,19 @@ const ShopCard = props => {
               {props.description.length > 219 ? "..." : ""}
             </MDBCardText>
             <hr />
-            {wiki}
-            <a className="card-meta float-center">
+
+            <a className="card-meta float-left">
               <span>
                 <MDBIcon icon="dollar-sign" />
                 {props.price}
+              </span>
+            </a>
+            {wiki}
+            <a className="card-meta float-right">
+              <span>
+                {" "}
+                Quantity:
+                {props.quantity}
               </span>
             </a>
             <a className="card-meta float-right">

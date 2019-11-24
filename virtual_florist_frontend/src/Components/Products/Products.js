@@ -19,7 +19,7 @@ class Products extends Component {
   }
 
   addClickHandler = () => {
-    this.props.history.replace("/product/newProduct");
+    this.props.history.push("/product/newProduct");
   };
 
   render() {

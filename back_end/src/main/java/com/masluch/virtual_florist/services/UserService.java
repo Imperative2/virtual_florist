@@ -22,4 +22,6 @@ public interface UserService
 	
 	public ResponseEntity<String> registerUser(UserRegisterData userRegisterData);
 	
+	public ResponseEntity<User> login(String email, String password);
+	
 }

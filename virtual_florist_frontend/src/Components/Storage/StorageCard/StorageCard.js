@@ -12,6 +12,8 @@ import {
   MDBCardText
 } from "mdbreact";
 
+import { NavLink } from "react-router-dom";
+
 import styleClass from "./StorageCard.module.css";
 
 const ProductCard = props => {
@@ -45,7 +47,7 @@ const ProductCard = props => {
         </a>
 
         <MDBCardBody>
-          <a onClick={e => props.history.replace(path)}>
+          <a onClick={e => props.history.push(path)}>
             <MDBCardTitle>
               {props.name.substring(0, 25)}
               {props.name.length > 25 ? "..." : ""}-{props.latinName}
@@ -57,11 +59,13 @@ const ProductCard = props => {
             {props.description.length > 219 ? "..." : ""}
           </MDBCardText>
           <hr />
-          <a href={redirect} className="card-meta m-2">
-            <span>
-              <MDBIcon fab icon="product-hunt" />
-            </span>
-          </a>
+          <NavLink to={redirect} exact>
+            <a className="card-meta m-2">
+              <span>
+                <MDBIcon fab icon="product-hunt" />
+              </span>
+            </a>
+          </NavLink>
           quantity:{props.quantity}
           <a className="card-meta float-center ml-4">
             <span>

@@ -38,14 +38,15 @@ public class AdressDAOImpl implements AdressDAO
 	}
 
 	@Override
-	public Adress findByValues(String country, String city, String localNumber)
+	public Adress findByValues(String country, String city,String street , String localNumber)
 	{
 		Session session = entityManager.unwrap(Session.class);
 		Query<Adress> query = session.createQuery(
-				"FROM Adress a WHERE a.country=:country AND a.city=:city AND a.localNumber=:localNumber", Adress.class);
+				"FROM Adress a WHERE a.country=:country AND a.city=:city AND a.localNumber=:localNumber AND a.street=:street", Adress.class);
 		query.setParameter("country", country);
 		query.setParameter("city", city);
 		query.setParameter("localNumber", localNumber);
+		query.setParameter("street", street);
 		List<Adress> adressList = query.getResultList();
 		if (adressList.size() > 0)
 			return adressList.get(0);
@@ -54,10 +55,11 @@ public class AdressDAOImpl implements AdressDAO
 	}
 
 	@Override
-	public void save(Adress adress)
+	public Adress save(Adress adress)
 	{
 		Session session = entityManager.unwrap(Session.class);
 		session.save(adress);
+		return adress;
 	}
 
 	@Override

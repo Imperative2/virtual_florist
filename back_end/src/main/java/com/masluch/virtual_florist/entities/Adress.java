@@ -16,6 +16,9 @@ public class Adress
 	@Column(name = "adress_id")
 	private int adressId;
 	
+	@Column(name="country")
+	private String country;
+	
 	@Column(name="city")
 	private String city;
 	
@@ -41,6 +44,16 @@ public class Adress
 	public void setAdressId(int adressId)
 	{
 		this.adressId = adressId;
+	}
+
+	public String getCountry()
+	{
+		return country;
+	}
+
+	public void setCountry(String country)
+	{
+		this.country = country;
 	}
 
 	public String getCity()
@@ -86,8 +99,10 @@ public class Adress
 	@Override
 	public String toString()
 	{
-		return "Adress [adressId=" + adressId + ", city=" + city + ", street=" + street + ", localNumber="
-				+ localNumber + ", zipCode=" + zipCode + "]";
+		return "Adress [adressId=" + adressId + ", country=" + country + ", city=" + city + ", street=" + street
+				+ ", localNumber=" + localNumber + ", zipCode=" + zipCode + "]";
 	}
+
+
 	
 }

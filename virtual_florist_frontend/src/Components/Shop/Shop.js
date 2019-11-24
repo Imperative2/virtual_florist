@@ -45,12 +45,17 @@ class Shop extends Component {
     let singles = this.props.storages.storages.map((storage, index) => {
       let mainPhoto = noImage;
 
+      if (storage.product.type !== "SINGLE" || storage.enabled === false)
+        return null;
+
       for (let i = 0; i < storage.product.photos.length; i++) {
         let photo = storage.product.photos[i];
         if (photo.type == "MAIN") {
           mainPhoto = config.serverURL + photo.path;
         }
       }
+
+      console.log(storage);
 
       return (
         <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
@@ -65,7 +70,7 @@ class Shop extends Component {
             available={storage.enabled}
             price={storage.product.price}
             quantity={storage.quantity}
-            wikiEntry={null}
+            wikiEntry={storage.product.wikiEntry}
           ></ShopCard>
         </Grid>
       );
@@ -74,6 +79,8 @@ class Shop extends Component {
     const bouquets = this.props.storages.storages.map((storage, index) => {
       let mainPhoto = noImage;
 
+      if (storage.product.type !== "BOUQUET") return null;
+
       for (let i = 0; i < storage.product.photos.length; i++) {
         let photo = storage.product.photos[i];
         if (photo.type == "MAIN") {
@@ -94,7 +101,7 @@ class Shop extends Component {
             available={storage.enabled}
             price={storage.product.price}
             quantity={storage.quantity}
-            wikiEntry={null}
+            wikiEntry={storage.product.wikiEntry}
           ></ShopCard>
         </Grid>
       );
@@ -103,6 +110,8 @@ class Shop extends Component {
     const other = this.props.storages.storages.map((storage, index) => {
       let mainPhoto = noImage;
 
+      if (storage.product.type !== "OTHER") return null;
+
       for (let i = 0; i < storage.product.photos.length; i++) {
         let photo = storage.product.photos[i];
         if (photo.type == "MAIN") {
@@ -123,7 +132,7 @@ class Shop extends Component {
             available={storage.enabled}
             price={storage.product.price}
             quantity={storage.quantity}
-            wikiEntry={null}
+            wikiEntry={storage.product.wikiEntry}
           ></ShopCard>
         </Grid>
       );
