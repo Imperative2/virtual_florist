@@ -12,6 +12,8 @@ import {
   MDBCardText
 } from "mdbreact";
 
+import Grid from "@material-ui/core/Grid";
+
 import { NavLink } from "react-router-dom";
 
 import ButtonGood from "../../UI/Button/ButtonGood/ButtonGood";
@@ -36,7 +38,7 @@ const ShopCard = props => {
     const redirect = "/wiki/" + props.wikiEntry.wikiEntryId;
 
     wiki = (
-      <NavLink className="card-meta m-2" to={redirect} exact>
+      <NavLink className="card-meta m-0" to={redirect} exact>
         <span>
           <MDBIcon fab icon="wikipedia-w" />
         </span>
@@ -73,25 +75,37 @@ const ShopCard = props => {
             </MDBCardText>
             <hr />
 
-            <a className="card-meta float-left">
-              <span>
-                <MDBIcon icon="dollar-sign" />
-                {props.price}
-              </span>
-            </a>
-            {wiki}
-            <a className="card-meta float-right">
-              <span>
-                {" "}
-                Quantity:
-                {props.quantity}
-              </span>
-            </a>
-            <a className="card-meta float-right">
-              <span>
-                <ButtonGood name={"Add to Card"} />
-              </span>
-            </a>
+            <Grid container spacing={1}>
+              <Grid item xs={3}>
+                <a className="card-meta float-left">
+                  <span>
+                    <MDBIcon icon="dollar-sign" />
+                    {props.price}
+                  </span>
+                </a>
+              </Grid>
+              <Grid item xs={1}>
+                {wiki}
+              </Grid>
+              <Grid item xs={8}>
+                <a className="card-meta float-right">
+                  <span>
+                    Quantity:
+                    {props.quantity}
+                  </span>
+                </a>
+              </Grid>
+              <Grid item xs={12}>
+                <a className="card-meta float-right">
+                  <span>
+                    <ButtonGood
+                      isDisabled={props.quantity > 0 ? false : true}
+                      name={"Add to Card"}
+                    />
+                  </span>
+                </a>
+              </Grid>
+            </Grid>
           </MDBCardBody>
         </MDBCard>
       </div>

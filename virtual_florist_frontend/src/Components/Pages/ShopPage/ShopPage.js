@@ -7,6 +7,7 @@ import styleClass from "./ShopPage.module.css";
 
 import noImage from "../../../Assets/noImage.png";
 import IMG from "../../UI/LightBox/ImageLightBox";
+import BigImg from "../../UI/Image/BigImage/BigImage";
 import NumberInput from "../../UI/Input/NumberInputSmallHeader/NumberInputSmallHeader";
 
 import * as actions from "../../../redux/actions/index";
@@ -15,13 +16,40 @@ import { connect } from "react-redux";
 import { MDBModal, MDBBtn } from "mdbreact";
 
 class ShopPage extends Component {
+  state = {};
+
   componentWillMount() {
     this.props.onStorageFetch();
-  }
 
-  render() {
     let storage = null;
     let photos = null;
+    let photosPaths = [];
+    let mainPhoto = noImage;
+
+    for (let i = 0; i < this.props.storages.storages.length; i++) {
+      if (
+        this.props.storages.storages[i].storageId == this.props.match.params.id
+      ) {
+        storage = this.props.storages.storages[i];
+        this.setState({ productId: storage.product.productId });
+      }
+    }
+  }
+
+  onAddToCartButtonHandler = () => {
+    const form = {
+      productId: this.state.productId,
+      quantity: 1
+    };
+
+    this.props.onAddProductToBasket(form);
+  };
+
+  render() {
+    console.log(this.state);
+    let storage = null;
+    let photos = null;
+    let photosPaths = [];
     let mainPhoto = noImage;
 
     for (let i = 0; i < this.props.storages.storages.length; i++) {
@@ -35,18 +63,14 @@ class ShopPage extends Component {
     if (storage !== null) {
       if (storage.product.photos !== null) {
         photos = storage.product.photos.map((photo, index) => {
-          return (
-            <Grid item key={index} xs={12} xl={6} lg={4}>
-              <IMG photo={photo}></IMG>
-            </Grid>
-          );
+          photosPaths.push(photo.path);
         });
       }
 
       for (let i = 0; i < storage.product.photos.length; i++) {
         let photo = storage.product.photos[i];
         if (photo.type == "MAIN") {
-          mainPhoto = <IMG photo={photo}></IMG>;
+          mainPhoto = <BigImg photo={photo} photos={photosPaths}></BigImg>;
         }
       }
 
@@ -60,7 +84,7 @@ class ShopPage extends Component {
                   {storage.product !== null ? storage.product.latinName : ""}
                 </h1>
               </Grid>
-              <Grid container item xs={12}>
+              <Grid container item xs={12} justify="flex-end">
                 <Grid item xs={12} md={6}>
                   {mainPhoto}
                 </Grid>
@@ -71,21 +95,30 @@ class ShopPage extends Component {
                   xs={12}
                   md={6}
                   justify="flex-start"
+                  alignItems="flex-end"
                 >
                   <Grid item xs={12}>
-                    <p>Price: {storage.product.price}</p>
+                    <p>Price: ${storage.product.price}</p>
                   </Grid>
                   <Grid item xs={12}>
                     <p>Quantity: {storage.quantity}</p>
                   </Grid>
 
                   <Grid className={styleClass.ButtonPadding} item md={3} xs={4}>
-                    <MDBBtn className="align-bottom" color="primary">
+                    <MDBBtn
+                      disabled={storage.quantity > 0 ? false : true}
+                      className="align-bottom"
+                      color="primary"
+                      onClick={this.onAddToCartButtonHandler}
+                    >
                       <AddShoppingCartIcon></AddShoppingCartIcon>
                     </MDBBtn>
                   </Grid>
                   <Grid item md={4} xs={6}>
-                    <NumberInput name={"Number of items:"}></NumberInput>
+                    <NumberInput
+                      value={0}
+                      name={"Number of items:"}
+                    ></NumberInput>
                   </Grid>
                 </Grid>
               </Grid>
@@ -113,7 +146,8 @@ const mapDispatchToProps = dispatch => {
     onProductFetch: () => dispatch(actions.fetchProducts()),
     onStorageUpdate: storage => dispatch(actions.updateStorage(storage)),
     onStorageQuantityChange: form => dispatch(actions.changeQuantity(form)),
-    onStorageDelete: storage => dispatch(actions.deleteStorage(storage))
+    onStorageDelete: storage => dispatch(actions.deleteStorage(storage)),
+    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form))
   };
 };
 

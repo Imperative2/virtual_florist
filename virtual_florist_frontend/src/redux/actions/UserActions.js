@@ -1,5 +1,6 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
+import { fetchBasket } from "./BasketActions";
 
 export const registerUser = form => {
   console.log(form);
@@ -24,6 +25,7 @@ export const login = form => {
       })
       .then(res => {
         console.log(res);
+        dispatch(fetchBasket(res.data.userId));
         dispatch(setUser(res.data));
       });
   };

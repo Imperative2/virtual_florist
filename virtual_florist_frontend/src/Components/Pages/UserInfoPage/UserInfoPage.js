@@ -30,7 +30,7 @@ class UserInfoPage extends Component {
           required: true,
           lettersOnly: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
       lastName: {
@@ -39,7 +39,7 @@ class UserInfoPage extends Component {
           required: true,
           lettersOnly: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
       email1: {
@@ -48,34 +48,16 @@ class UserInfoPage extends Component {
           required: true,
           email: true
         },
-        valid: false,
-        touched: false
-      },
-      email2: {
-        value: "",
-        validation: {
-          required: true,
-          email2: true
-        },
-        valid: false,
+        valid: true,
         touched: false
       },
       password1: {
         value: "",
         validation: {
-          required: true,
+          required: false,
           minLength: 6
         },
-        valid: false,
-        touched: false
-      },
-      password2: {
-        value: "",
-        validation: {
-          required: true,
-          password2: true
-        },
-        valid: false,
+        valid: true,
         touched: false
       },
       phoneNumber: {
@@ -83,7 +65,7 @@ class UserInfoPage extends Component {
         validation: {
           required: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
 
@@ -93,7 +75,7 @@ class UserInfoPage extends Component {
           required: true,
           lettersOnly: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
       city: {
@@ -101,7 +83,7 @@ class UserInfoPage extends Component {
         validation: {
           required: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
       street: {
@@ -109,7 +91,7 @@ class UserInfoPage extends Component {
         validation: {
           required: true
         },
-        valid: false,
+        valid: true,
         touched: false
       },
       localNumber: {
@@ -125,7 +107,7 @@ class UserInfoPage extends Component {
         validation: {
           required: true
         },
-        valid: false,
+        valid: true,
         touched: false
       }
     },
@@ -218,6 +200,7 @@ class UserInfoPage extends Component {
   };
 
   render() {
+    console.log(this.props.user.user);
     return (
       <div className={styleClass.All}>
         <TitleLabel name={"User information"}></TitleLabel>
@@ -234,6 +217,7 @@ class UserInfoPage extends Component {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                defaultValue={this.props.user.user.name}
                 error={
                   this.state.form.firstName.touched !== false &&
                   this.state.form.firstName.valid === false
@@ -252,6 +236,7 @@ class UserInfoPage extends Component {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                defaultValue={this.props.user.user.surname}
                 error={
                   this.state.form.lastName.touched !== false &&
                   this.state.form.lastName.valid === false
@@ -271,6 +256,7 @@ class UserInfoPage extends Component {
                 name="email"
                 type="e-mail"
                 autoComplete="email"
+                defaultValue={this.props.user.user.email}
                 error={
                   this.state.form.email1.touched !== false &&
                   this.state.form.email1.valid === false
@@ -312,6 +298,7 @@ class UserInfoPage extends Component {
                 type="country"
                 id="country"
                 autoComplete="country"
+                defaultValue={this.props.user.user.adress.country}
                 error={
                   this.state.form.country.touched !== false &&
                   this.state.form.country.valid === false
@@ -331,6 +318,7 @@ class UserInfoPage extends Component {
                 type="city"
                 id="city"
                 autoComplete="address-level2"
+                defaultValue={this.props.user.user.adress.city}
                 error={
                   this.state.form.city.touched !== false &&
                   this.state.form.city.valid === false
@@ -350,6 +338,7 @@ class UserInfoPage extends Component {
                 type="street"
                 id="street"
                 autoComplete="address-line1"
+                defaultValue={this.props.user.user.adress.street}
                 error={
                   this.state.form.street.touched !== false &&
                   this.state.form.street.valid === false
@@ -368,6 +357,7 @@ class UserInfoPage extends Component {
                 type="text"
                 id="localNumber"
                 autoComplete="address-line2"
+                defaultValue={this.props.user.user.adress.localNumber}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -381,6 +371,7 @@ class UserInfoPage extends Component {
                 type="zipCode"
                 id="zipCode"
                 autoComplete="postal-code"
+                defaultValue={this.props.user.user.adress.zipCode}
                 error={
                   this.state.form.zipCode.touched !== false &&
                   this.state.form.zipCode.valid === false
@@ -400,6 +391,7 @@ class UserInfoPage extends Component {
                 label="Phone Number"
                 type="phoneNumber"
                 id="phoneNumber"
+                defaultValue={this.props.user.user.phoneNumber}
                 error={
                   this.state.form.phoneNumber.touched !== false &&
                   this.state.form.phoneNumber.valid === false

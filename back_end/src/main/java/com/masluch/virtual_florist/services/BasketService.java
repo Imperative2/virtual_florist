@@ -19,5 +19,7 @@ public interface BasketService
 	
 	public ResponseEntity<String> deleteById(int storageId);
 	
+	public ResponseEntity<Basket> getUserBasket(String userId);
+	
 
 }

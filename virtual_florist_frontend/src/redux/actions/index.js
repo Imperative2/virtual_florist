@@ -19,3 +19,5 @@ export {
 } from "./StorageActions";
 export { uploadFiles } from "./PhotoActions";
 export { registerUser, login, logout } from "./UserActions";
+
+export { fetchBasket, addItemToBasket } from "./BasketActions";

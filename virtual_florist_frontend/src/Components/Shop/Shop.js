@@ -55,8 +55,6 @@ class Shop extends Component {
         }
       }
 
-      console.log(storage);
-
       return (
         <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
           <ShopCard
@@ -193,7 +191,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onProductFetch: () => dispatch(actions.fetchProducts()),
-    onStorageFetch: () => dispatch(actions.fetchStorages())
+    onStorageFetch: () => dispatch(actions.fetchStorages()),
+    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form))
   };
 };
 

@@ -16,6 +16,13 @@ class UserMenu extends Component {
     anchorElement: null
   };
 
+  componentWillMount() {
+    if (this.props.user.user.role !== "GUEST") {
+      this.props.onFetchStorage();
+      this.props.onFetchBasket(this.props.user.user.userId);
+    }
+  }
+
   handleClick = event => {
     this.setState({ anchorElement: event.currentTarget });
   };
@@ -24,16 +31,7 @@ class UserMenu extends Component {
     this.setState({ anchorElement: null });
   };
 
-  handleLogOut = () => {
-    this.setState({ anchorElement: null });
-    this.props.onUserLogOut();
-    console.log(this.props.user);
-  };
-
   render() {
-    console.log(this.props.basket);
-    console.log(this.props.storage);
-
     if (
       this.props.basket !== null &&
       this.props.basket.basketProducts !== null
@@ -41,8 +39,6 @@ class UserMenu extends Component {
       const cartProducts = this.props.basket.basketProducts.map(
         (basketProduct, index) => {
           let product = null;
-          console.log(basketProduct.product.productId);
-          console.log(this.props.storage.storages);
 
           for (let i = 0; i < this.props.storage.storages.length; i++) {
             if (
@@ -50,7 +46,6 @@ class UserMenu extends Component {
               basketProduct.product.productId
             ) {
               product = this.props.storage.storages[i].product;
-              console.log(product);
               return (
                 <NavLink
                   key={index}
@@ -58,7 +53,8 @@ class UserMenu extends Component {
                 >
                   <MenuItem onClick={this.handleClose}>
                     {product.name}-{product.latinName} Qt:
-                    {basketProduct.quantity}
+                    {basketProduct.quantity} total: $
+                    {product.price * basketProduct.quantity}
                   </MenuItem>
                 </NavLink>
               );
@@ -109,7 +105,7 @@ class UserMenu extends Component {
               open={Boolean(this.state.anchorElement)}
               onClose={this.handleClose}
             >
-              <label>Cart:</label>
+              <label className={styleClass.Label}>Cart:</label>
               <h5>Empty Cart</h5>
             </Menu>
           </div>
@@ -130,7 +126,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUserLogOut: () => dispatch(actions.logout())
+    onFetchStorage: () => dispatch(actions.fetchStorages()),
+    onFetchBasket: userId => dispatch(actions.fetchBasket(userId))
   };
 };
 

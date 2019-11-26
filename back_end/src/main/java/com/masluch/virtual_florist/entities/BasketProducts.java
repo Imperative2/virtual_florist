@@ -19,6 +19,7 @@ public class BasketProducts
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "basket_products_id")
+	@JsonIgnore
 	private int basketProductsId;
 	
 	@JsonIgnore

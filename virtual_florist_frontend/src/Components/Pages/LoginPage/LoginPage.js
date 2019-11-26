@@ -27,7 +27,6 @@ class LoginPage extends Component {
   };
 
   onEmailChangeHandler = event => {
-    console.log(this.state);
     this.setState({ email: event.target.value });
     if (this.state.password !== "" && event.target.value !== "")
       this.setState({ buttonEnabled: true });
@@ -35,7 +34,6 @@ class LoginPage extends Component {
   };
 
   onPasswordChangeHandler = event => {
-    console.log(this.state);
     this.setState({ password: event.target.value });
     if (this.state.email !== "" && event.target.value !== "")
       this.setState({ buttonEnabled: true });

@@ -26,11 +26,10 @@ public class Basket
 	private int basketId;
 	
 	@JsonIgnore
-	@OneToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@Column(name = "user_id")
+	private Integer userId;
 	
-	@JsonIgnoreProperties({"name", "description" })
+	
 	@OneToMany()
 	@JoinColumn(name = "basket_id")
 	private List<BasketProducts> basketProducts;
@@ -48,14 +47,15 @@ public class Basket
 		this.basketId = basketId;
 	}
 
-	public User getUser()
+
+	public Integer getUserId()
 	{
-		return user;
+		return userId;
 	}
 
-	public void setUser(User user)
+	public void setUserId(Integer userId)
 	{
-		this.user = user;
+		this.userId = userId;
 	}
 
 	public List<BasketProducts> getBasketProducts()
@@ -81,9 +81,10 @@ public class Basket
 	@Override
 	public String toString()
 	{
-		return "Basket [basketId=" + basketId + ", user=" + user + ", basketProducts=" + basketProducts + ", valid="
+		return "Basket [basketId=" + basketId + ", userId=" + userId + ", basketProducts=" + basketProducts + ", valid="
 				+ valid + "]";
 	}
+
 
 	
 	
