@@ -2,12 +2,16 @@ package com.masluch.virtual_florist.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class BasketProducts
@@ -17,9 +21,11 @@ public class BasketProducts
 	@Column(name = "basket_products_id")
 	private int basketProductsId;
 	
+	@JsonIgnore
 	@Column(name = "basket_id")
 	private int basketId;
 	
+	@JsonIgnoreProperties({"name", "description", "price", "wikiEntry", "photos", "latinName", "type", "tags", "available" })
 	@OneToOne
 	@JoinColumn(name = "product_id")
 	private Product product;

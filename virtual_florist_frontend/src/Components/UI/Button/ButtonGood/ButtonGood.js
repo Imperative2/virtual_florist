@@ -11,6 +11,7 @@ const ButtonPage = props => {
         onClick={props.onClickAction}
       >
         {props.name}
+        {props.children}
       </MDBBtn>
     </Fragment>
   );

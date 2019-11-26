@@ -6,7 +6,6 @@ import UserMenu from "./userMenu/UserMenu";
 import Cart from "./Cart/Cart";
 
 const navigationItems = props => {
-  console.log(props.role);
   if (props.role === "ADMIN") {
     return (
       <ul className={styleClasses.NavigationItems}>

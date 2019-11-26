@@ -13,7 +13,7 @@ class InputPage extends Component {
     selectedFile: null,
     fileName: "Choose file",
     description: "",
-    type: "MAIN"
+    type: "SIDE"
   };
 
   onFileChangeHandler = e => {
@@ -28,6 +28,10 @@ class InputPage extends Component {
 
   onDescriptionChangeHandler = event => {
     this.setState({ description: event.target.value });
+  };
+
+  onTypeChangeHandler = event => {
+    this.setState({ type: event.target.value });
   };
 
   onSendPhotoHandler = () => {
@@ -96,7 +100,10 @@ class InputPage extends Component {
         </Grid>
         <Grid item>
           <label>Photo type:</label>
-          <select className="browser-default custom-select">
+          <select
+            className="browser-default custom-select"
+            onChange={event => this.onTypeChangeHandler(event)}
+          >
             <option value="SIDE">SIDE</option>
             <option value="MAIN">MAIN</option>
           </select>

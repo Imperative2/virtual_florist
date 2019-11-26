@@ -59,8 +59,6 @@ class Wiki extends Component {
       zIndex: 1000
     };
 
-    console.log(this.props.user);
-
     return (
       <div className={styleClass.Wiki}>
         {this.props.user.user.role === "ADMIN" ? (

@@ -149,7 +149,7 @@ class WikiPage extends Component {
             </div>
           ) : null}
 
-          <Grid container spacing={1}>
+          <Grid container spacing={1} justify="center">
             <Grid item xs={12}>
               <h1>
                 {wikiEntry.name} - {wikiEntry.latinName}

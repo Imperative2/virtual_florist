@@ -14,6 +14,7 @@ export const MODIFY_PRODUCT = "MODIFY_PRODUCT";
 export const CHANGE_VISIBILITY = "CHANGE_VISIBILITY";
 export const CHANGE_PRICE = "CHANGE_PRICE";
 
+//storage
 export const FETCH_STORAGE = "FETCH_STORAGE";
 export const SET_STORAGE = "SET_STORAGE";
 export const ADD_STORAGE = "ADD_STORAGE";
@@ -29,3 +30,10 @@ export const SET_USER = "SET_USER";
 export const REGISTER_USER = "REGISTER_USER";
 export const LOGIN_USER = "LOGIN_USER";
 export const LOG_OUT = "LOG_OUT";
+
+//basket
+export const FETCH_BASKET = "FETCH_BASKET";
+export const SEND_ITEM_TO_BASKET = "SEND_ITEM_TO_BASKET";
+export const SEND_REMOVE_ITEM_FROM_BASKET = "SEND_REMOVE_ITEM_FROM_BASKET";
+export const ADD_ITEM_TO_BASKET = "ADD_ITEM_TO_BASKET";
+export const REMOVE_ITEM_FROM_BASKET = "REMOVE_ITEM_FROM_BASKET";

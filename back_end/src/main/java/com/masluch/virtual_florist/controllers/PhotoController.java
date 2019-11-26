@@ -82,8 +82,7 @@ public class PhotoController
 			{
 				e.printStackTrace();
 			}
-//		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/photo/download/")
-//				.path(fileName).toUriString();
+
 		
 		String fileDownloadUri = "/photo/download/"+ fileName;
 		
