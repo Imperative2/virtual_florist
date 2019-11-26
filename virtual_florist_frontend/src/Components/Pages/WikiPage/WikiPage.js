@@ -75,7 +75,6 @@ class WikiPage extends Component {
     };
 
     let wikiEntry = null;
-    console.log(this.props.wiki);
 
     for (let i = 0; i < this.props.wiki.wikiEntries.length; i++) {
       if (
@@ -122,29 +121,34 @@ class WikiPage extends Component {
               entryToModify={wikiEntry}
             ></WikiModify>
           </MDBModal>
-          <Fab
-            color="primary"
-            aria-label="add"
-            style={buttonAddStyle}
-            onClick={this.addPictureButtonHandler}
-          >
-            <AddIcon></AddIcon>
-          </Fab>
-          <Fab
-            color="secondary"
-            aria-label="delete"
-            style={buttonDeleteStyle}
-            onClick={this.deleteButtonHandler}
-          >
-            <DeleteIcon />
-          </Fab>
-          <Fab
-            aria-label="modify"
-            style={buttonModifyStyle}
-            onClick={this.modifyButtonHandler}
-          >
-            <EditIcon />
-          </Fab>
+          {this.props.user.user.role === "ADMIN" ? (
+            <div>
+              <Fab
+                color="primary"
+                aria-label="add"
+                style={buttonAddStyle}
+                onClick={this.addPictureButtonHandler}
+              >
+                <AddIcon></AddIcon>
+              </Fab>
+              <Fab
+                color="secondary"
+                aria-label="delete"
+                style={buttonDeleteStyle}
+                onClick={this.deleteButtonHandler}
+              >
+                <DeleteIcon />
+              </Fab>
+              <Fab
+                aria-label="modify"
+                style={buttonModifyStyle}
+                onClick={this.modifyButtonHandler}
+              >
+                <EditIcon />
+              </Fab>
+            </div>
+          ) : null}
+
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <h1>

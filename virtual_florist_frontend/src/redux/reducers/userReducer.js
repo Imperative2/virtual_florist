@@ -23,6 +23,25 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.SET_USER: {
+      return {
+        ...state,
+        user: action.user
+      };
+    }
+    case actionTypes.LOGIN_USER: {
+      return {
+        ...state,
+        user: { logged: true }
+      };
+    }
+
+    case actionTypes.LOG_OUT: {
+      return {
+        ...state,
+        user: { ...initialState.user, logged: false, role: "GUEST" }
+      };
+    }
   }
 
   return state;

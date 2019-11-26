@@ -4,6 +4,7 @@ import styleClasses from "../Layout/Layout.module.css";
 import Toolbar from "../Navigation/Toolbar/Toolbar.js";
 import SideDrawer from "../Navigation/SideDrawer/SideDrawer.js";
 import Footer from "../UI/Footer/Footer";
+import CookieBanner from "react-cookie-banner";
 
 import * as actions from "../../redux/actions/index";
 import { connect } from "react-redux";
@@ -26,6 +27,11 @@ class Layout extends Component {
   render() {
     return (
       <Aux>
+        <CookieBanner
+          message="Yes, we use cookies. If you don't like it change website, we won't miss you!"
+          onAccept={() => {}}
+          cookie="user-has-accepted-cookies"
+        />
         <Toolbar
           role={this.props.user.user.role}
           drawerToggleClicked={this.sideDrawerToggleHandler}

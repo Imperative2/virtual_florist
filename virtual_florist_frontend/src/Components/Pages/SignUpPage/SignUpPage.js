@@ -13,6 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 
+import { NavLink } from "react-router-dom";
+
 import styleClass from "./SignUpPage.module.css";
 
 import * as actions from "../../../redux/actions/index";
@@ -215,41 +217,16 @@ class signUp extends Component {
   };
 
   render() {
-    const classes = makeStyles(theme => ({
-      body: {
-        backgroundColor: theme.palette.common.white
-      },
-
-      paper: {
-        marginTop: theme.spacing(8),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center"
-      },
-      avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main
-      },
-      form: {
-        width: "100%", // Fix IE 11 issue.
-        marginTop: theme.spacing(3)
-      },
-      submit: {
-        margin: theme.spacing(3, 0, 2)
-      }
-    }));
-
     return (
       <div className={styleClass.All}>
         <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <div className={classes.paper}>
-            <Avatar>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign up
-            </Typography>
+          <Avatar className={styleClass.avatar}>
+            <LockOutlinedIcon className={styleClass.icon} />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign up
+          </Typography>
+          <div className={styleClass.All}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -485,16 +462,15 @@ class signUp extends Component {
               variant="contained"
               color="primary"
               disabled={!this.state.formIsValid}
-              className={classes.submit}
               onClick={this.onFormSubmitHandle}
             >
               Sign Up
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="/login" variant="body2">
+                <NavLink to={"/login"} exact>
                   Already have an account? Sign in
-                </Link>
+                </NavLink>
               </Grid>
             </Grid>
           </div>

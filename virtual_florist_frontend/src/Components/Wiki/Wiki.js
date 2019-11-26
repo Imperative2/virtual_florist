@@ -36,7 +36,7 @@ class Wiki extends Component {
       }
 
       return (
-        <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+        <Grid key={index} item xs={11} sm={6} md={4} lg={3}>
           <WikiEntry
             id={wikiEntry.wikiEntryId}
             name={wikiEntry.name}
@@ -59,16 +59,20 @@ class Wiki extends Component {
       zIndex: 1000
     };
 
+    console.log(this.props.user);
+
     return (
       <div className={styleClass.Wiki}>
-        <Fab
-          color="primary"
-          aria-label="add"
-          style={buttonStyle}
-          onClick={this.addClickHandler}
-        >
-          <AddIcon />
-        </Fab>
+        {this.props.user.user.role === "ADMIN" ? (
+          <Fab
+            color="primary"
+            aria-label="add"
+            style={buttonStyle}
+            onClick={this.addClickHandler}
+          >
+            <AddIcon />
+          </Fab>
+        ) : null}
         <TitleLabel name="Wiki"></TitleLabel>
 
         <Grid container spacing={1}>
@@ -81,7 +85,8 @@ class Wiki extends Component {
 
 const mapStateToProps = state => {
   return {
-    wiki: state.wiki
+    wiki: state.wiki,
+    user: state.user
   };
 };
 

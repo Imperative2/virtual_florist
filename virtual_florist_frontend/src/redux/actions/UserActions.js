@@ -11,16 +11,40 @@ export const registerUser = form => {
   };
 };
 
-export const addProduct = newProduct => {
-  console.log(newProduct);
+export const login = form => {
+  console.log(form);
   return dispatch => {
-    let path = "/product/newProduct";
-    if (newProduct.wikiEntryId !== null) {
-      path = "/product/newProduct?wikiEntryId=" + newProduct.wikiEntryId;
-    }
+    let path = "/user/login";
+    axios
+      .post(path, null, {
+        params: {
+          email: form.email,
+          password: form.password
+        }
+      })
+      .then(res => {
+        console.log(res);
+        dispatch(setUser(res.data));
+      });
+  };
+};
 
-    axios.put(path, newProduct).then(res => {
-      console.log(res.status);
-    });
+export const logout = () => {
+  return {
+    type: actionTypes.LOG_OUT
+  };
+};
+
+export const setUser = user => {
+  return {
+    type: actionTypes.SET_USER,
+    user: user
+  };
+};
+
+export const logIntoSystem = role => {
+  return {
+    type: actionTypes.LOGIN_USER,
+    role: role
   };
 };

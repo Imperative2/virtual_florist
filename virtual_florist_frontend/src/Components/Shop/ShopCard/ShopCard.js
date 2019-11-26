@@ -36,17 +36,15 @@ const ShopCard = props => {
     const redirect = "/wiki/" + props.wikiEntry.wikiEntryId;
 
     wiki = (
-      <NavLink to={redirect} exact>
-        <a className="card-meta m-2">
-          <span>
-            <MDBIcon fab icon="wikipedia-w" />
-          </span>
-        </a>
+      <NavLink className="card-meta m-2" to={redirect} exact>
+        <span>
+          <MDBIcon fab icon="wikipedia-w" />
+        </span>
       </NavLink>
     );
   }
 
-  const path = "/product/" + props.id;
+  const path = "/shop/" + props.id;
 
   return (
     <div className={styleClass.All}>

@@ -18,4 +18,4 @@ export {
   deleteStorage
 } from "./StorageActions";
 export { uploadFiles } from "./PhotoActions";
-export { registerUser } from "./UserActions";
+export { registerUser, login, logout } from "./UserActions";

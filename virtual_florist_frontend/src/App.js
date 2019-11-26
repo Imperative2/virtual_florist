@@ -11,6 +11,9 @@ import ProductPage from "./Components/Pages/ProductPage/ProductPage";
 import NewProductPage from "./Components/Pages/NewProductPage/NewProductPage";
 import NewStoragePage from "./Components/Pages/NewStoragePage/NewStoragePage";
 import StoragePage from "./Components/Pages/StoragePage/StoragePage";
+import ShopPage from "./Components/Pages/ShopPage/ShopPage";
+import UserInfoPage from "./Components/Pages/UserInfoPage/UserInfoPage";
+import StartPage from "./Components/Pages/StartPage/StartPage";
 
 import Layout from "./Components/Layout/Layout";
 import Wiki from "./Components/Wiki/Wiki";
@@ -41,6 +44,9 @@ function App() {
           <Route exact path="/storage/:id" component={StoragePage} />
           <Route exact path="/order/" component={Orders} />
           <Route exact path="/shop/" component={Shop} />
+          <Route exact path="/shop/:id" component={ShopPage} />
+          <Route exact path="/user/userInfo" component={UserInfoPage} />
+          <Route path="/" component={StartPage} />
         </Switch>
       </Layout>
     </div>

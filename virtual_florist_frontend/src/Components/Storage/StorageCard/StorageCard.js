@@ -59,12 +59,10 @@ const ProductCard = props => {
             {props.description.length > 219 ? "..." : ""}
           </MDBCardText>
           <hr />
-          <NavLink to={redirect} exact>
-            <a className="card-meta m-2">
-              <span>
-                <MDBIcon fab icon="product-hunt" />
-              </span>
-            </a>
+          <NavLink to={redirect} exact={true}>
+            <span>
+              <MDBIcon fab icon="product-hunt" />
+            </span>
           </NavLink>
           quantity:{props.quantity}
           <a className="card-meta float-center ml-4">

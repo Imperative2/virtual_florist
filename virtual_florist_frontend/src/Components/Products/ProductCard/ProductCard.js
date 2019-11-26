@@ -34,12 +34,10 @@ const ProductCard = props => {
     const redirect = "/wiki/" + props.wikiEntry.wikiEntryId;
 
     wiki = (
-      <NavLink to={redirect} exac>
-        <a className="card-meta m-2">
-          <span>
-            <MDBIcon fab icon="wikipedia-w" />
-          </span>
-        </a>
+      <NavLink to={redirect}>
+        <span>
+          <MDBIcon fab icon="wikipedia-w" />
+        </span>
       </NavLink>
     );
   }

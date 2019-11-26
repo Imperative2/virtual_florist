@@ -1,3 +1,14 @@
 .All {
-  padding-top: 47 px;
+  padding-top: 47px;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+}
+.avatar {
+  color: green;
+  background-color: green;
+  align-content: center;
+}
+
+.icon {
 }

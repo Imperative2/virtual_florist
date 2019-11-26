@@ -3,8 +3,10 @@ import styleClasses from "./NavigationItems.module.css";
 import NavigationItem from "./NavigationItem/NavigationItem.js";
 import Router from "react-dom";
 import UserMenu from "./userMenu/UserMenu";
+import Cart from "./Cart/Cart";
 
 const navigationItems = props => {
+  console.log(props.role);
   if (props.role === "ADMIN") {
     return (
       <ul className={styleClasses.NavigationItems}>
@@ -18,6 +20,7 @@ const navigationItems = props => {
         <NavigationItem link="/shop">Shop</NavigationItem>
         <NavigationItem link="/login">Login</NavigationItem>
         <UserMenu></UserMenu>
+        <Cart></Cart>
       </ul>
     );
   } else if (props.role === "USER") {
@@ -29,6 +32,7 @@ const navigationItems = props => {
         <NavigationItem link="/wiki">Wiki</NavigationItem>
         <NavigationItem link="/shop">Shop</NavigationItem>
         <UserMenu></UserMenu>
+        <Cart></Cart>
       </ul>
     );
   } else {
@@ -40,6 +44,7 @@ const navigationItems = props => {
         <NavigationItem link="/wiki">Wiki</NavigationItem>
         <NavigationItem link="/shop">Shop</NavigationItem>
         <NavigationItem link="/login">Login</NavigationItem>
+        <Cart></Cart>
       </ul>
     );
   }
