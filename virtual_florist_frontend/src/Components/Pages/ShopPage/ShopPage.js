@@ -47,12 +47,20 @@ class ShopPage extends Component {
 
   onAddToCartButtonHandler = () => {
     if (this.state.quantity > 0 && this.state.productId !== null) {
-      const form = {
+      let form = {
         productId: this.state.productId,
         quantity: Number(this.state.quantity)
       };
 
-      this.props.onAddProductToBasket(form);
+      console.log(this.props.user);
+
+      if (this.props.user.user.role === "GUEST") {
+        this.props.onAddProductToBasket(form);
+      } else {
+        form = { ...form, userId: this.props.user.user.userId };
+        console.log(form);
+        this.props.onSentProductToBasket(form);
+      }
     }
   };
 
@@ -150,7 +158,8 @@ class ShopPage extends Component {
 const mapStateToProps = state => {
   return {
     storages: state.storages,
-    products: state.products
+    products: state.products,
+    user: state.user
   };
 };
 
@@ -161,7 +170,8 @@ const mapDispatchToProps = dispatch => {
     onStorageUpdate: storage => dispatch(actions.updateStorage(storage)),
     onStorageQuantityChange: form => dispatch(actions.changeQuantity(form)),
     onStorageDelete: storage => dispatch(actions.deleteStorage(storage)),
-    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form))
+    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form)),
+    onSentProductToBasket: form => dispatch(actions.sendItemToBasket(form))
   };
 };
 

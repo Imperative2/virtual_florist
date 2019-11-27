@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import Paper from "@material-ui/core/Paper";
 
 import ButtonGood from "../UI/Button/ButtonGood/ButtonGood";
 import SmallImage from "../UI/Image/SmallImage/SmallImage";
@@ -48,13 +49,28 @@ class Checkout extends Component {
                 }
               }
 
+              console.log(basketProduct);
+
+              priceSum += basketProduct.quantity * product.price;
+
               return (
-                <Grid container item>
-                  <Grid item>{mainPhoto}</Grid>
-                  <Grid item>
-                    {product.name}-{product.latinName}
-                  </Grid>
-                </Grid>
+                <div key={index} className={styleClass.Padding}>
+                  <Paper>
+                    <Grid container item spacing={3}>
+                      <Grid item>{mainPhoto}</Grid>
+                      <Grid item>
+                        {product.name}-{product.latinName}
+                      </Grid>
+                      <Grid item>Qty:{basketProduct.quantity}</Grid>
+                      <Grid item>
+                        Total Price: {basketProduct.quantity * product.price}
+                      </Grid>
+                      <Grid item>
+                        <button> X </button>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </div>
               );
             }
           }
@@ -65,11 +81,11 @@ class Checkout extends Component {
 
       return (
         <div className={styleClass.All}>
-          <Container component="main" maxWidth="md" spacing={1}>
-            <Grid container justify="center">
+          <Container component="main" maxWidth="md">
+            <Grid container justify="center" direction="column" spacing={1}>
               {checkoutProducts}
               <Grid item>
-                <ButtonGood name={"$" + this.state.totalPrice}></ButtonGood>
+                <ButtonGood name={"$" + priceSum}></ButtonGood>
               </Grid>
             </Grid>
           </Container>

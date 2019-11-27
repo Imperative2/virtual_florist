@@ -67,6 +67,9 @@ const basketReducer = (state = null, action) => {
       } else {
       }
     }
+    case actionTypes.CLEAR_BASKET: {
+      return null;
+    }
   }
 
   return state;

@@ -18,8 +18,23 @@ export const fetchBasket = userId => {
 };
 
 export const sendItemToBasket = form => {
+  const body = {
+    quantity: form.quantity,
+    product: {
+      productId: form.productId
+    }
+  };
   return dispatch => {
-    axios.post();
+    axios
+      .post("/basket/userBasket/newProduct", body, {
+        params: {
+          userId: form.userId
+        }
+      })
+      .then(res => {
+        console.log(res);
+        dispatch(fetchBasket(form.userId));
+      });
   };
 };
 
@@ -47,5 +62,11 @@ export const setBasket = basket => {
   return {
     type: actionTypes.SET_BASKET,
     basket: basket
+  };
+};
+
+export const clearBasket = () => {
+  return {
+    type: actionTypes.CLEAR_BASKET
   };
 };

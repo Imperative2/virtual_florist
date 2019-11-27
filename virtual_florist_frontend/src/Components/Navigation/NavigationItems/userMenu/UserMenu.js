@@ -27,6 +27,7 @@ class UserMenu extends Component {
   handleLogOut = () => {
     this.setState({ anchorElement: null });
     this.props.onUserLogOut();
+    this.props.clearBasket();
     console.log(this.props.user);
   };
 
@@ -67,7 +68,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUserLogOut: () => dispatch(actions.logout())
+    onUserLogOut: () => dispatch(actions.logout()),
+    clearBasket: () => dispatch(actions.clearBasket())
   };
 };
 

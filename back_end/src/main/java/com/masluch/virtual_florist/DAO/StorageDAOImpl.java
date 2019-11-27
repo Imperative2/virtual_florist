@@ -63,8 +63,13 @@ public class StorageDAOImpl implements StorageDAO
 	@Override
 	public Storage findByProduct(Product product)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Session session = entityManager.unwrap(Session.class);
+		Query<Storage> query = session.createQuery("FROM Storage s WHERE s.product=:product",Storage.class);
+		query.setParameter("product", product);
+		List<Storage> storageList = query.getResultList();
+		if(storageList.isEmpty())
+			return null;
+		return storageList.get(0);
 	}
 
 }

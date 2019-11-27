@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.masluch.virtual_florist.entities.Basket;
+import com.masluch.virtual_florist.entities.BasketProducts;
 import com.masluch.virtual_florist.entities.Storage;
 
 public interface BasketService
@@ -20,6 +21,8 @@ public interface BasketService
 	public ResponseEntity<String> deleteById(int storageId);
 	
 	public ResponseEntity<Basket> getUserBasket(String userId);
+	
+	public ResponseEntity<Basket> addProductToBasket(BasketProducts basketProduct, String userId);
 	
 
 }

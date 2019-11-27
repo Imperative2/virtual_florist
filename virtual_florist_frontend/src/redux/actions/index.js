@@ -20,4 +20,9 @@ export {
 export { uploadFiles } from "./PhotoActions";
 export { registerUser, login, logout } from "./UserActions";
 
-export { fetchBasket, addItemToBasket } from "./BasketActions";
+export {
+  fetchBasket,
+  addItemToBasket,
+  clearBasket,
+  sendItemToBasket
+} from "./BasketActions";
