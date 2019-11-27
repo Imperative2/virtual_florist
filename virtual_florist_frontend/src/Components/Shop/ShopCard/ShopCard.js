@@ -100,7 +100,8 @@ const ShopCard = props => {
                   <span>
                     <ButtonGood
                       isDisabled={props.quantity > 0 ? false : true}
-                      name={"Add to Card"}
+                      name={"Add to Cart"}
+                      onClickAction={props.buttonAction}
                     />
                   </span>
                 </a>

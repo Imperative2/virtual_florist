@@ -1,5 +1,6 @@
 import React from "react";
 import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { NavLink } from "react-router-dom";
 
 const FooterPage = () => {
   return (
@@ -14,16 +15,17 @@ const FooterPage = () => {
             <h5 className="title">Links</h5>
             <ul>
               <li className="list-unstyled">
-                <a href="/contact">Contact Info</a>
+                <NavLink to="/contact">Contact Info</NavLink>
+              </li>
+
+              <li className="list-unstyled">
+                <a href="#!">About us </a>
               </li>
               <li className="list-unstyled">
-                <a href="#!">Link 2</a>
+                <a href="#!">Terms of Service</a>
               </li>
               <li className="list-unstyled">
-                <a href="#!">Link 3</a>
-              </li>
-              <li className="list-unstyled">
-                <a href="#!">Link 4</a>
+                <a href="#!">Help</a>
               </li>
             </ul>
           </MDBCol>

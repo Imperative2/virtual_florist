@@ -1,58 +1,60 @@
 import React from "react";
-import TopLogo from "./TopLogo/topLogo";
-import Carousel from "react-bootstrap/Carousel";
-import "bootstrap/dist/css/bootstrap.min.css";
 
-import ShopFoto1 from "../../../Assets/shop1.jpg";
-import ShopFoto2 from "../../../Assets/shop2.jpg";
-import ShopFoto3 from "../../../Assets/shop3.jpg";
-
-import MainPicture from "../../../Assets/mainScreen.jpg";
-
-import { MDBMask, MDBView, MDBContainer } from "mdbreact";
+import {
+  MDBCarousel,
+  MDBCarouselInner,
+  MDBCarouselItem,
+  MDBView,
+  MDBMask,
+  MDBContainer
+} from "mdbreact";
 
 import styleClass from "./MainPage.module.css";
 
 const mainPage = props => {
   return (
     <div className={styleClass.All}>
-      {/* <MDBView>
-        <img src={MainPicture} className="img-fluid" alt="" />
-        <MDBMask overlay="warning-color-light" className="flex-center">
-          <p className={styleClass.P}>Flowers</p>
-        </MDBMask>
-      </MDBView> */}
-      {/* 
-      <TopLogo></TopLogo> */}
-      <div className={styleClass.Carousel}>
-        {/* <Carousel>
-          <Carousel.Item>
-            <img className="d-block w-100" src={ShopFoto1} alt="First slide" />
-            <Carousel.Caption>
-              <h3>First slide label</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100" src={ShopFoto3} alt="Third slide" />
-
-            <Carousel.Caption>
-              <h3>Second slide label</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100" src={ShopFoto2} alt="Third slide" />
-
-            <Carousel.Caption>
-              <h3>Third slide label</h3>
-              <p>
-                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-              </p>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel> */}
-      </div>
+      <MDBContainer>
+        <MDBCarousel
+          activeItem={1}
+          length={3}
+          showControls={true}
+          showIndicators={true}
+          className="z-depth-1"
+        >
+          <MDBCarouselInner>
+            <MDBCarouselItem itemId="1">
+              <MDBView>
+                <img
+                  className="d-block w-100"
+                  src="https://mdbootstrap.com/img/Others/documentation/img%20(136)-mini.jpg"
+                  alt="First slide"
+                />
+              </MDBView>
+            </MDBCarouselItem>
+            <MDBCarouselItem itemId="2">
+              <MDBView>
+                <img
+                  className="d-block w-100"
+                  src="https://mdbootstrap.com/img/Others/documentation/img%20(137)-mini.jpg"
+                  alt="Second slide"
+                />
+                <MDBMask overlay="black-strong" />
+              </MDBView>
+            </MDBCarouselItem>
+            <MDBCarouselItem itemId="3">
+              <MDBView>
+                <img
+                  className="d-block w-100"
+                  src="https://mdbootstrap.com/img/Others/documentation/img%20(141)-mini.jpg"
+                  alt="Third slide"
+                />
+                <MDBMask overlay="black-slight" />
+              </MDBView>
+            </MDBCarouselItem>
+          </MDBCarouselInner>
+        </MDBCarousel>
+      </MDBContainer>
     </div>
   );
 };

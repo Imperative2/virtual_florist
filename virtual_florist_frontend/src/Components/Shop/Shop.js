@@ -41,6 +41,27 @@ class Shop extends Component {
     this.setState({ value });
   };
 
+  handleAddItemToBasket = productId => {
+    console.log(productId);
+
+    if (this.props.user.user.role === "GUEST") {
+      const form = {
+        productId: productId,
+        quantity: 1
+      };
+
+      this.props.onAddProductToBasket(form);
+    } else {
+      const form = {
+        userId: this.props.user.user.userId,
+        productId: productId,
+        quantity: 1
+      };
+
+      this.props.onSendProductToBasket(form);
+    }
+  };
+
   render() {
     let singles = this.props.storages.storages.map((storage, index) => {
       let mainPhoto = noImage;
@@ -69,6 +90,9 @@ class Shop extends Component {
             price={storage.product.price}
             quantity={storage.quantity}
             wikiEntry={storage.product.wikiEntry}
+            buttonAction={() =>
+              this.handleAddItemToBasket(storage.product.productId)
+            }
           ></ShopCard>
         </Grid>
       );
@@ -100,6 +124,9 @@ class Shop extends Component {
             price={storage.product.price}
             quantity={storage.quantity}
             wikiEntry={storage.product.wikiEntry}
+            buttonAction={() =>
+              this.handleAddItemToBasket(storage.product.productId)
+            }
           ></ShopCard>
         </Grid>
       );
@@ -131,6 +158,9 @@ class Shop extends Component {
             price={storage.product.price}
             quantity={storage.quantity}
             wikiEntry={storage.product.wikiEntry}
+            buttonAction={() =>
+              this.handleAddItemToBasket(storage.product.productId)
+            }
           ></ShopCard>
         </Grid>
       );
@@ -184,7 +214,9 @@ class Shop extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    storages: state.storages
+    storages: state.storages,
+    user: state.user,
+    basket: state.basket
   };
 };
 
@@ -192,7 +224,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onProductFetch: () => dispatch(actions.fetchProducts()),
     onStorageFetch: () => dispatch(actions.fetchStorages()),
-    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form))
+    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form)),
+    onSendProductToBasket: form => dispatch(actions.sendItemToBasket(form))
   };
 };
 

@@ -85,6 +85,10 @@ const basketReducer = (state = null, action) => {
           if (product !== null) return product;
         });
 
+        if (products.length == 0) {
+          return null;
+        }
+
         let newState = { ...state, basketProducts: [...products] };
         console.log(products);
         console.log(newState);
