@@ -62,11 +62,36 @@ const basketReducer = (state = null, action) => {
     }
 
     case actionTypes.REMOVE_ITEM_FROM_BASKET: {
+      console.log(action);
       if (state === null) {
         return state;
       } else {
+        let products = state.basketProducts.map(basketProduct => {
+          console.log(basketProduct);
+          if (basketProduct.product.productId === action.form.productId) {
+            if (basketProduct.quantity + action.form.quantity <= 0) {
+              return null;
+            } else {
+              return {
+                ...basketProduct,
+                quantity: basketProduct.quantity + action.form.quantity
+              };
+            }
+          }
+          return { ...basketProduct };
+        });
+
+        products = products.filter(product => {
+          if (product !== null) return product;
+        });
+
+        let newState = { ...state, basketProducts: [...products] };
+        console.log(products);
+        console.log(newState);
+        return newState;
       }
     }
+
     case actionTypes.CLEAR_BASKET: {
       return null;
     }

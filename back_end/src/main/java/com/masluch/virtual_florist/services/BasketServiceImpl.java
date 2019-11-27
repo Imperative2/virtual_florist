@@ -133,16 +133,20 @@ public class BasketServiceImpl implements BasketService
 					}
 
 				List<BasketProducts> basketProducts = foundBasket.getBasketProducts();
-				for (BasketProducts baskProd : basketProducts)
+				if(basketProducts != null)
 					{
-						if (baskProd.getProduct().getProductId() == basketProduct.getProduct().getProductId())
+						for (BasketProducts baskProd : basketProducts)
 							{
-								baskProd.setQuantity(baskProd.getQuantity() + basketProduct.getQuantity());
-								baskProd = basketProductsDAO.update(baskProd);
-								System.out.println("4");
-								return new ResponseEntity<Basket>(foundBasket, HttpStatus.OK);
+								if (baskProd.getProduct().getProductId() == basketProduct.getProduct().getProductId())
+									{
+										baskProd.setQuantity(baskProd.getQuantity() + basketProduct.getQuantity());
+										baskProd = basketProductsDAO.update(baskProd);
+										System.out.println("4");
+										return new ResponseEntity<Basket>(foundBasket, HttpStatus.OK);
+									}
 							}
 					}
+
 
 				BasketProducts newBasketProduct = new BasketProducts();
 				newBasketProduct.setQuantity(basketProduct.getQuantity());
@@ -153,6 +157,92 @@ public class BasketServiceImpl implements BasketService
 
 				System.out.println("5");
 				return new ResponseEntity<Basket>(foundBasket, HttpStatus.OK);
+
+			} else
+				{
+					System.out.println("6");
+					return new ResponseEntity<Basket>(HttpStatus.BAD_REQUEST);
+
+				}
+
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<Basket> removeProductFromBasket(BasketProducts basketProduct, String userId)
+	{
+		Integer id;
+		try
+			{
+				id = Integer.decode(userId);
+			}
+		catch (Exception ex)
+			{
+				System.out.println("1");
+				return new ResponseEntity<Basket>(HttpStatus.BAD_REQUEST);
+			}
+		Basket foundBasket = basketDAO.findByUserId(id);
+		
+		
+		if (basketProduct.getQuantity() < 0 || basketProduct.getProduct() != null
+				|| basketProduct.getProduct().getProductId() != 0)
+			{
+				Product foundProduct = productDAO.findById(basketProduct.getProduct().getProductId());
+				if (foundProduct == null)
+					{
+						System.out.println("2");
+						return new ResponseEntity<Basket>(HttpStatus.BAD_REQUEST);
+					}
+
+				Storage foundStorage = storageDAO.findByProduct(foundProduct);
+				if (foundStorage == null || foundStorage.isEnabled() == false)
+						
+					{
+						System.out.println("3");
+						return new ResponseEntity<Basket>(HttpStatus.BAD_REQUEST);
+					}
+
+				if (foundBasket == null)
+					{
+						return new ResponseEntity<Basket>(HttpStatus.OK);
+					}
+
+				List<BasketProducts> basketProducts = foundBasket.getBasketProducts();
+				
+				basketProducts.toString();
+				if(basketProducts != null && basketProducts.isEmpty() == false)
+					{
+						for (BasketProducts baskProd : basketProducts)
+							{
+								//System.out.println(baskProd);
+								if (baskProd.getProduct().getProductId() == basketProduct.getProduct().getProductId())
+									{
+										baskProd.setQuantity(baskProd.getQuantity() + basketProduct.getQuantity());
+										System.out.println(baskProd.getQuantity());
+										if(baskProd.getQuantity()<=0)
+											{
+												basketProductsDAO.deleteById(baskProd.getBasketProductsId());
+											}
+										else {
+											baskProd = basketProductsDAO.update(baskProd);
+										}
+										
+										if(foundBasket.getBasketProducts() == null || foundBasket.getBasketProducts().isEmpty() == true)
+											{
+												basketDAO.deleteById(foundBasket.getBasketId());
+											}
+
+										System.out.println("4");
+										return new ResponseEntity<Basket>(foundBasket, HttpStatus.OK);
+									}
+							}
+					}
+
+
+
+
+				System.out.println("5");
+				return new ResponseEntity<Basket>( HttpStatus.BAD_REQUEST);
 
 			} else
 				{

@@ -39,15 +39,30 @@ export const sendItemToBasket = form => {
 };
 
 export const sendRemoveItemFromBasket = form => {
+  const body = {
+    quantity: form.quantity,
+    product: {
+      productId: form.productId
+    }
+  };
   return dispatch => {
-    axios.delete();
+    axios
+      .post("/basket/userBasket/deleteProduct", body, {
+        params: {
+          userId: form.userId
+        }
+      })
+      .then(res => {
+        console.log(res);
+        dispatch(fetchBasket(form.userId));
+      });
   };
 };
 
-export const removeItemFromBasket = itemId => {
+export const removeItemFromBasket = form => {
   return {
-    type: actionTypes.ADD_ITEM_TO_BASKET,
-    itemId: itemId
+    type: actionTypes.REMOVE_ITEM_FROM_BASKET,
+    form: form
   };
 };
 

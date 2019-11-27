@@ -43,8 +43,8 @@ public class BasketController
 		return basketService.addProductToBasket(basketProduct, userId);
 	}
 	
-	@DeleteMapping("/userBasket/deleteProduct")
-	public ResponseEntity<String> removeProductFromBasket(@RequestBody BasketProducts basketProduct, @RequestParam(name = "userId", required = true)String userId){
-		return null;
+	@PostMapping("/userBasket/deleteProduct")
+	public ResponseEntity<Basket> removeProductFromBasket(@RequestBody BasketProducts basketProduct, @RequestParam(name = "userId", required = true)String userId){
+		return basketService.removeProductFromBasket(basketProduct, userId);
 	}
 }

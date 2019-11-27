@@ -24,5 +24,7 @@ export {
   fetchBasket,
   addItemToBasket,
   clearBasket,
-  sendItemToBasket
+  sendItemToBasket,
+  removeItemFromBasket,
+  sendRemoveItemFromBasket
 } from "./BasketActions";

@@ -13,8 +13,27 @@ import * as actions from "../../redux/actions/index";
 import { connect } from "react-redux";
 
 class Checkout extends Component {
-  state = {
-    totalPrice: 0
+  buttonRemoveHandler = (event, productId, quantity) => {
+    console.log(event);
+    console.log(productId);
+    console.log(quantity);
+
+    if (this.props.user.user.role === "GUEST") {
+      const form = {
+        productId: productId,
+        quantity: -quantity
+      };
+
+      this.props.onRemoveItemFromBasket(form);
+    } else {
+      const form = {
+        userId: this.props.user.user.userId,
+        productId: productId,
+        quantity: -quantity
+      };
+
+      this.props.onSentRemoveItemFromBasket(form);
+    }
   };
 
   render() {
@@ -22,7 +41,8 @@ class Checkout extends Component {
 
     if (
       this.props.basket !== null &&
-      this.props.basket.basketProducts !== null
+      this.props.basket.basketProducts !== null &&
+      this.props.basket.basketProducts.length > 0
     ) {
       console.log(this.props);
 
@@ -49,8 +69,6 @@ class Checkout extends Component {
                 }
               }
 
-              console.log(basketProduct);
-
               priceSum += basketProduct.quantity * product.price;
 
               return (
@@ -66,7 +84,18 @@ class Checkout extends Component {
                         Total Price: {basketProduct.quantity * product.price}
                       </Grid>
                       <Grid item>
-                        <button> X </button>
+                        <button
+                          onClick={event =>
+                            this.buttonRemoveHandler(
+                              event,
+                              product.productId,
+                              basketProduct.quantity
+                            )
+                          }
+                        >
+                          {" "}
+                          X{" "}
+                        </button>
                       </Grid>
                     </Grid>
                   </Paper>
@@ -102,7 +131,8 @@ const mapStateToProps = state => {
   return {
     storages: state.storages,
     products: state.products,
-    basket: state.basket
+    basket: state.basket,
+    user: state.user
   };
 };
 
@@ -112,7 +142,11 @@ const mapDispatchToProps = dispatch => {
     onProductFetch: () => dispatch(actions.fetchProducts()),
     onWikiEntriesFetch: () => dispatch(actions.fetchWikiEntries()),
 
-    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form))
+    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form)),
+    onRemoveItemFromBasket: form =>
+      dispatch(actions.removeItemFromBasket(form)),
+    onSentRemoveItemFromBasket: form =>
+      dispatch(actions.sendRemoveItemFromBasket(form))
   };
 };
 

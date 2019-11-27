@@ -24,5 +24,6 @@ public interface BasketService
 	
 	public ResponseEntity<Basket> addProductToBasket(BasketProducts basketProduct, String userId);
 	
+	public ResponseEntity<Basket> removeProductFromBasket(BasketProducts basketProduct, String userId);
 
 }

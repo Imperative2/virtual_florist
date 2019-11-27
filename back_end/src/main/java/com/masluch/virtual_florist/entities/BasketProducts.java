@@ -1,5 +1,6 @@
 package com.masluch.virtual_florist.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,7 +28,7 @@ public class BasketProducts
 	private int basketId;
 	
 	@JsonIgnoreProperties({"name", "description", "price", "wikiEntry", "photos", "latinName", "type", "tags", "available" })
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
 	@JoinColumn(name = "product_id")
 	private Product product;
 	
