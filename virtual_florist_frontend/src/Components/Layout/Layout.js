@@ -28,7 +28,7 @@ class Layout extends Component {
     return (
       <Aux>
         <CookieBanner
-          message="Yes, we use cookies. If you don't like it change website, we won't miss you!"
+          message="We use cookies. If you don't like it change website."
           onAccept={() => {}}
           cookie="user-has-accepted-cookies"
         />

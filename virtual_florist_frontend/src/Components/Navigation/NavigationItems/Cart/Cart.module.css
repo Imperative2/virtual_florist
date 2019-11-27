@@ -1,6 +1,13 @@
 .Label {
   padding-left: 10px;
   text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.H1 {
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .Menu {

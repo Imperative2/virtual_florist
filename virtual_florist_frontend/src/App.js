@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
 
 import MainPage from "./Components/Pages/MainPage/MainPage";
@@ -21,36 +21,75 @@ import Products from "./Components/Products/Products";
 import Storage from "./Components/Storage/Storage";
 import Orders from "./Components/Orders/Orders";
 import Shop from "./Components/Shop/Shop";
+import Checkout from "./Components/Checkout/Checkout";
 
 import { Route, Switch } from "react-router-dom";
 
-function App() {
-  return (
-    <div>
-      <Layout>
-        <Switch>
-          <Route path="/mainPage" component={MainPage} />
-          <Route exact path="/wiki" component={Wiki} />
-          <Route exact path="/wiki/newPage" component={NewWikiEntryPage} />
-          <Route exact path="/wiki/:id" component={WikiPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/signUp" component={SignUpPage} />
-          <Route exact path="/contact" component={ContactPage} />
-          <Route exact path="/product" component={Products} />
-          <Route exact path="/product/newProduct" component={NewProductPage} />
-          <Route exact path="/product/:id" component={ProductPage} />
-          <Route exact path="/storage/" component={Storage} />
-          <Route exact path="/storage/newStorage" component={NewStoragePage} />
-          <Route exact path="/storage/:id" component={StoragePage} />
-          <Route exact path="/order/" component={Orders} />
-          <Route exact path="/shop/" component={Shop} />
-          <Route exact path="/shop/:id" component={ShopPage} />
-          <Route exact path="/user/userInfo" component={UserInfoPage} />
-          <Route path="/" component={StartPage} />
-        </Switch>
-      </Layout>
-    </div>
-  );
+import * as actions from "./redux/actions/index";
+import { connect } from "react-redux";
+
+class App extends Component {
+  componentWillMount() {
+    this.props.onProductFetch();
+    this.props.onStorageFetch();
+    this.props.onWikiEntriesFetch();
+  }
+
+  render() {
+    return (
+      <div>
+        <Layout>
+          <Switch>
+            <Route path="/mainPage" component={MainPage} />
+            <Route exact path="/wiki" component={Wiki} />
+            <Route exact path="/wiki/newPage" component={NewWikiEntryPage} />
+            <Route exact path="/wiki/:id" component={WikiPage} />
+            <Route exact path="/login" component={LoginPage} />
+            <Route exact path="/signUp" component={SignUpPage} />
+            <Route exact path="/contact" component={ContactPage} />
+            <Route exact path="/product" component={Products} />
+            <Route
+              exact
+              path="/product/newProduct"
+              component={NewProductPage}
+            />
+            <Route exact path="/product/:id" component={ProductPage} />
+            <Route exact path="/storage/" component={Storage} />
+            <Route
+              exact
+              path="/storage/newStorage"
+              component={NewStoragePage}
+            />
+            <Route exact path="/storage/:id" component={StoragePage} />
+            <Route exact path="/order/" component={Orders} />
+            <Route exact path="/shop/" component={Shop} />
+            <Route exact path="/shop/:id" component={ShopPage} />
+            <Route exact path="/user/userInfo" component={UserInfoPage} />
+            <Route exact path="/checkout/" component={Checkout} />
+            <Route path="/" component={StartPage} />
+          </Switch>
+        </Layout>
+      </div>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    storages: state.storages,
+    products: state.products,
+    basket: state.basket
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onStorageFetch: () => dispatch(actions.fetchStorages()),
+    onProductFetch: () => dispatch(actions.fetchProducts()),
+    onWikiEntriesFetch: () => dispatch(actions.fetchWikiEntries()),
+
+    onAddProductToBasket: form => dispatch(actions.addItemToBasket(form))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

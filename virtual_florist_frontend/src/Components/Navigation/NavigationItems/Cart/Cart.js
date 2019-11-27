@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
+import Button from "../../../UI/Button/ButtonGood/ButtonGood";
 
 import { NavLink } from "react-router-dom";
 
@@ -56,6 +57,7 @@ class UserMenu extends Component {
                     {basketProduct.quantity} total: $
                     {product.price * basketProduct.quantity}
                   </MenuItem>
+                  <hr></hr>
                 </NavLink>
               );
             }
@@ -78,11 +80,14 @@ class UserMenu extends Component {
               open={Boolean(this.state.anchorElement)}
               onClose={this.handleClose}
             >
-              <label>Cart:</label>
+              <h1 className={styleClass.Label}>Cart:</h1>
+              <hr></hr>
 
               {cartProducts}
               <MenuItem>
-                <button>clicasdfasdfaasdfas</button>
+                <NavLink to="/checkout">
+                  <Button name="Checkout"></Button>
+                </NavLink>
               </MenuItem>
             </Menu>
           </div>
@@ -105,8 +110,9 @@ class UserMenu extends Component {
               open={Boolean(this.state.anchorElement)}
               onClose={this.handleClose}
             >
-              <label className={styleClass.Label}>Cart:</label>
-              <h5>Empty Cart</h5>
+              <h1 className={styleClass.Label}>Cart:</h1>
+              <hr></hr>
+              <h5 className={styleClass.Label}>Empty Cart</h5>
             </Menu>
           </div>
         </li>

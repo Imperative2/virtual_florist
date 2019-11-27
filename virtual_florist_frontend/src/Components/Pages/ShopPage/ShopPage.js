@@ -16,33 +16,44 @@ import { connect } from "react-redux";
 import { MDBModal, MDBBtn } from "mdbreact";
 
 class ShopPage extends Component {
-  state = {};
+  state = { quantity: null, storageQuantity: 0 };
 
   componentWillMount() {
     this.props.onStorageFetch();
 
     let storage = null;
-    let photos = null;
-    let photosPaths = [];
-    let mainPhoto = noImage;
 
     for (let i = 0; i < this.props.storages.storages.length; i++) {
       if (
         this.props.storages.storages[i].storageId == this.props.match.params.id
       ) {
         storage = this.props.storages.storages[i];
-        this.setState({ productId: storage.product.productId });
+        this.setState({
+          productId: storage.product.productId,
+          storageQuantity: storage.quantity
+        });
       }
     }
   }
 
-  onAddToCartButtonHandler = () => {
-    const form = {
-      productId: this.state.productId,
-      quantity: 1
-    };
+  onInputChange = event => {
+    console.log(this.state);
+    const regex = new RegExp("^\\d*$");
+    const result = event.target.value.match(regex);
+    if (result !== null && result[0] <= this.state.storageQuantity) {
+      this.setState({ quantity: result[0] });
+    }
+  };
 
-    this.props.onAddProductToBasket(form);
+  onAddToCartButtonHandler = () => {
+    if (this.state.quantity > 0 && this.state.productId !== null) {
+      const form = {
+        productId: this.state.productId,
+        quantity: Number(this.state.quantity)
+      };
+
+      this.props.onAddProductToBasket(form);
+    }
   };
 
   render() {
@@ -116,8 +127,11 @@ class ShopPage extends Component {
                   </Grid>
                   <Grid item md={4} xs={6}>
                     <NumberInput
-                      value={0}
                       name={"Number of items:"}
+                      currentValue={
+                        this.state.quantity !== null ? this.state.quantity : ""
+                      }
+                      onChangeAction={event => this.onInputChange(event)}
                     ></NumberInput>
                   </Grid>
                 </Grid>
