@@ -1,5 +1,11 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import ButtonGood from "../../UI/Button/ButtonGood/ButtonGood";
 import ButtonBad from "../../UI/Button/ButtonBad/ButtonBad";
 import TitleLabel from "../../UI/Label/TitleLabel";
@@ -29,6 +35,7 @@ class StoragePage extends Component {
     showQuantityModal: false,
     modalQuantity: 0,
     quantityChanged: false,
+    dialogOpen: false,
     storage: {
       enabled: false,
       quantity: 0,
@@ -91,8 +98,7 @@ class StoragePage extends Component {
   };
 
   deleteButtonHandler = () => {
-    this.props.onStorageDelete(this.state.storage);
-    this.props.history.replace("/storage");
+    this.setState({ dialogOpen: true });
   };
 
   onQuantityAddButtonHandler = () => {
@@ -128,6 +134,16 @@ class StoragePage extends Component {
       this.setState(newState);
     }
     console.log(this.state);
+  };
+
+  handleDialogClose = () => {
+    this.setState({ dialogOpen: false });
+  };
+
+  handleDialogConfirm = () => {
+    this.setState({ dialogOpen: false });
+    this.props.onStorageDelete(this.state.storage);
+    this.props.history.replace("/storage");
   };
 
   render() {
@@ -176,6 +192,30 @@ class StoragePage extends Component {
 
       return (
         <div className={styleClass.All}>
+          <Dialog
+            open={this.state.dialogOpen}
+            onClose={this.handleDialogClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Are you sure you want to delete this wiki entry?"}
+            </DialogTitle>
+            <DialogContent></DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleDialogConfirm} color="primary">
+                Yes
+              </Button>
+              <Button
+                onClick={this.handleDialogClose}
+                color="primary"
+                autoFocus
+              >
+                No
+              </Button>
+            </DialogActions>
+          </Dialog>
+
           <MDBModal
             isOpen={this.state.showQuantityModal}
             toggle={this.toggleQuantityModal}

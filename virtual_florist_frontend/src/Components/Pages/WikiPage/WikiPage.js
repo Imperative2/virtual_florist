@@ -1,4 +1,12 @@
 import React, { Component } from "react";
+
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import Grid from "@material-ui/core/Grid";
@@ -18,7 +26,8 @@ import WikiModify from "../../Forms/WikiEntryModify/WikiEntryModify";
 class WikiPage extends Component {
   state = {
     showAddFotoModal: false,
-    showModifyEntryModal: false
+    showModifyEntryModal: false,
+    dialogOpen: false
   };
 
   componentWillMount() {
@@ -26,8 +35,7 @@ class WikiPage extends Component {
   }
 
   deleteButtonHandler = () => {
-    this.props.onEntryDelete(this.props.match.params.id);
-    this.props.history.replace("/wiki");
+    this.setState({ dialogOpen: true });
   };
 
   addPictureButtonHandler = () => {
@@ -43,6 +51,16 @@ class WikiPage extends Component {
   };
   toggleModifyModal = () => {
     this.setState({ showModifyEntryModal: false });
+  };
+
+  handleDialogClose = () => {
+    this.setState({ dialogOpen: false });
+  };
+
+  handleDialogConfirm = () => {
+    this.setState({ dialogOpen: false });
+    this.props.onEntryDelete(this.props.match.params.id);
+    this.props.history.replace("/wiki");
   };
 
   render() {
@@ -102,6 +120,29 @@ class WikiPage extends Component {
 
       return (
         <div className={styleClass.All}>
+          <Dialog
+            open={this.state.dialogOpen}
+            onClose={this.handleDialogClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Are you sure you want to delete this wiki entry?"}
+            </DialogTitle>
+            <DialogContent></DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleDialogConfirm} color="primary">
+                Yes
+              </Button>
+              <Button
+                onClick={this.handleDialogClose}
+                color="primary"
+                autoFocus
+              >
+                No
+              </Button>
+            </DialogActions>
+          </Dialog>
           <Modal
             show={this.state.showAddFotoModal}
             modalClosed={this.closePhotoAddModal}
