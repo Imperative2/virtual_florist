@@ -25,7 +25,7 @@ class UserInfoPage extends Component {
   state = {
     form: {
       firstName: {
-        value: "",
+        value: this.props.user.user.name,
         validation: {
           required: true,
           lettersOnly: true
@@ -34,7 +34,7 @@ class UserInfoPage extends Component {
         touched: false
       },
       lastName: {
-        value: "",
+        value: this.props.user.user.surname,
         validation: {
           required: true,
           lettersOnly: true
@@ -43,7 +43,7 @@ class UserInfoPage extends Component {
         touched: false
       },
       email1: {
-        value: "",
+        value: this.props.user.user.email,
         validation: {
           required: true,
           email: true
@@ -61,7 +61,7 @@ class UserInfoPage extends Component {
         touched: false
       },
       phoneNumber: {
-        value: "",
+        value: this.props.user.user.phoneNumber,
         validation: {
           required: true
         },
@@ -70,7 +70,7 @@ class UserInfoPage extends Component {
       },
 
       country: {
-        value: "",
+        value: this.props.user.user.adress.country,
         validation: {
           required: true,
           lettersOnly: true
@@ -79,7 +79,7 @@ class UserInfoPage extends Component {
         touched: false
       },
       city: {
-        value: "",
+        value: this.props.user.user.adress.city,
         validation: {
           required: true
         },
@@ -87,7 +87,7 @@ class UserInfoPage extends Component {
         touched: false
       },
       street: {
-        value: "",
+        value: this.props.user.user.adress.street,
         validation: {
           required: true
         },
@@ -95,7 +95,7 @@ class UserInfoPage extends Component {
         touched: false
       },
       localNumber: {
-        value: "",
+        value: this.props.user.user.adress.localNumber,
         validation: {
           required: false
         },
@@ -103,7 +103,7 @@ class UserInfoPage extends Component {
         touched: false
       },
       zipCode: {
-        value: "",
+        value: this.props.user.user.adress.zipCode,
         validation: {
           required: true
         },
@@ -185,6 +185,7 @@ class UserInfoPage extends Component {
 
   onFormSubmitHandle = () => {
     const form = {
+      userId: this.props.user.user.userId,
       name: this.state.form.firstName.value,
       surname: this.state.form.lastName.value,
       email: this.state.form.email1.value,
@@ -196,7 +197,7 @@ class UserInfoPage extends Component {
       localNumber: this.state.form.localNumber.value,
       zipCode: this.state.form.zipCode.value
     };
-    this.props.onUserRegister(form);
+    this.props.onUserUpdate(form);
   };
 
   render() {
@@ -426,7 +427,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUserRegister: form => dispatch(actions.registerUser(form))
+    onUserUpdate: form => dispatch(actions.updateUser(form))
   };
 };
 

@@ -9,11 +9,14 @@ import ButtonBad from "../../UI/Button/ButtonBad/ButtonBad";
 
 import TitleLabel from "../../UI/Label/TitleLabel";
 
+import SelectSearch from "react-select-search";
+
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 import styleClass from "./NewProductPage.module.css";
+import cssStyle from "./style.css";
 
 class NewWikiEntryPage extends Component {
   state = {
@@ -61,8 +64,21 @@ class NewWikiEntryPage extends Component {
   };
 
   render() {
+    let options = [{ name: "NONE", value: "-1" }];
+
     const wikiEntryOptions = this.props.wiki.wikiEntries.map(
       (wikiEntry, index) => {
+        const option = {
+          name:
+            wikiEntry.wikiEntryId +
+            ": " +
+            wikiEntry.name +
+            "-" +
+            wikiEntry.latinName,
+          value: wikiEntry.wikiEntryId
+        };
+        options.push(option);
+
         return (
           <option key={index} value={wikiEntry.wikiEntryId}>
             {wikiEntry.wikiEntryId}: {wikiEntry.name}-{wikiEntry.latinName}
@@ -71,10 +87,19 @@ class NewWikiEntryPage extends Component {
       }
     );
 
+    console.log(options);
+
     return (
       <div className={styleClass.All}>
         <TitleLabel name="New Product Page"></TitleLabel>
-
+        {/* <SelectSearch
+          className="select-search-box"
+          options={options}
+          name="language"
+          placeholder="wikiEntry"
+          value=""
+          onChange={value => console.log(value)}
+        ></SelectSearch> */}
         <Grid container spacing={1} justify="center" alignItems="flex-end">
           <Grid item xs={12} md={9} lg={9}>
             <TextInput
@@ -138,6 +163,8 @@ class NewWikiEntryPage extends Component {
               {wikiEntryOptions}
             </select>
           </Grid>
+
+          <Grid item xs={12}></Grid>
 
           <Grid item xs={6} sm={6} md={6} lg={6}>
             <ButtonGood

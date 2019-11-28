@@ -31,6 +31,19 @@ export const login = form => {
   };
 };
 
+export const updateUser = form => {
+  console.log(form.userId);
+  console.log(form);
+  return dispatch => {
+    axios
+      .post("/user/updateUser", form, { params: { userId: form.userId } })
+      .then(res => {
+        console.log(res);
+        dispatch(logout());
+      });
+  };
+};
+
 export const logout = () => {
   return {
     type: actionTypes.LOG_OUT

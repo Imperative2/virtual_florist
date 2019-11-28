@@ -45,4 +45,10 @@ public class UserController
 		System.out.println(email+ " "+ password);
 		return userService.login(email, password);
 	}
+	
+	@PostMapping("/updateUser")
+	public ResponseEntity<String> updateUser(@RequestBody UserRegisterData userUpdateData, @RequestParam(name = "userId") String userId ){
+		System.out.println(userUpdateData);
+		return userService.updateUser(userUpdateData, userId);
+	}
 }

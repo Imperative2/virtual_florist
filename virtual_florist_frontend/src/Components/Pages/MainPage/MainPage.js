@@ -11,10 +11,12 @@ import {
 
 import styleClass from "./MainPage.module.css";
 
+import img1 from "../../../Assets/shop1.jpg";
+
 const mainPage = props => {
   return (
     <div className={styleClass.All}>
-      <MDBContainer>
+      {/* <MDBContainer>
         <MDBCarousel
           activeItem={1}
           length={3}
@@ -25,11 +27,7 @@ const mainPage = props => {
           <MDBCarouselInner>
             <MDBCarouselItem itemId="1">
               <MDBView>
-                <img
-                  className="d-block w-100"
-                  src="https://mdbootstrap.com/img/Others/documentation/img%20(136)-mini.jpg"
-                  alt="First slide"
-                />
+                <img className="d-block w-100" src={img1} alt="First slide" />
               </MDBView>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="2">
@@ -39,7 +37,7 @@ const mainPage = props => {
                   src="https://mdbootstrap.com/img/Others/documentation/img%20(137)-mini.jpg"
                   alt="Second slide"
                 />
-                <MDBMask overlay="black-strong" />
+                <MDBMask overlay="black-light" />
               </MDBView>
             </MDBCarouselItem>
             <MDBCarouselItem itemId="3">
@@ -54,7 +52,7 @@ const mainPage = props => {
             </MDBCarouselItem>
           </MDBCarouselInner>
         </MDBCarousel>
-      </MDBContainer>
+      </MDBContainer> */}
     </div>
   );
 };
