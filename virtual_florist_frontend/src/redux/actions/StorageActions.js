@@ -1,10 +1,38 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 
+import { store } from "react-notifications-component";
+
+const notificationError = {
+  type: "danger",
+  title: "Error!",
+  message: "Basket",
+  insert: "top",
+  container: "top-right",
+  animationIn: ["animated", "fadeIn"],
+  animationOut: ["animated", "fadeOut"],
+  dismiss: {
+    duration: 5000,
+    onScreen: true
+  }
+};
+
+const notificationOk = {
+  message: "Basket",
+  type: "success",
+  insert: "top",
+  container: "top-right",
+  animationIn: ["animated", "fadeIn"],
+  animationOut: ["animated", "fadeOut"],
+  dismiss: {
+    duration: 5000,
+    onScreen: true
+  }
+};
+
 export const fetchStorages = () => {
   return dispatch => {
     axios.get("/storage/").then(response => {
-      // console.log(response.data);
       dispatch(setStorages(response.data));
     });
   };
@@ -25,6 +53,17 @@ export const addNewStorage = storage => {
       .then(res => {
         dispatch(fetchStorages());
         console.log(res);
+        store.addNotification({
+          ...notificationOk,
+          title: "Storage",
+          message: "Added storage"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Storage adding"
+        });
       });
   };
 };
@@ -34,10 +73,23 @@ export const updateStorage = storage => {
   const path = "/storage/" + storage.storageId;
 
   return dispatch => {
-    axios.post(path, storage).then(res => {
-      dispatch(fetchStorages());
-      console.log(res);
-    });
+    axios
+      .post(path, storage)
+      .then(res => {
+        dispatch(fetchStorages());
+        console.log(res);
+        store.addNotification({
+          ...notificationOk,
+          title: "Storage",
+          message: "Update storage"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Storage update"
+        });
+      });
   };
 };
 
@@ -55,6 +107,17 @@ export const changeQuantity = form => {
       .then(res => {
         dispatch(fetchStorages());
         console.log(res);
+        store.addNotification({
+          ...notificationOk,
+          title: "Storage",
+          message: "changed quantity storage"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Storage change quantity"
+        });
       });
   };
 };
@@ -64,10 +127,23 @@ export const deleteStorage = storage => {
   const path = "/storage/" + storage.storageId;
 
   return dispatch => {
-    axios.delete(path).then(res => {
-      dispatch(fetchStorages());
-      console.log(res);
-    });
+    axios
+      .delete(path)
+      .then(res => {
+        dispatch(fetchStorages());
+        console.log(res);
+        store.addNotification({
+          ...notificationOk,
+          title: "Storage",
+          message: "Deleted storage"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Storage delete"
+        });
+      });
   };
 };
 

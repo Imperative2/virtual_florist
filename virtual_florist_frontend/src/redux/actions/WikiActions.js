@@ -1,6 +1,35 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 
+import { store } from "react-notifications-component";
+
+const notificationError = {
+  type: "danger",
+  title: "Error!",
+  message: "Wiki",
+  insert: "top",
+  container: "top-right",
+  animationIn: ["animated", "fadeIn"],
+  animationOut: ["animated", "fadeOut"],
+  dismiss: {
+    duration: 5000,
+    onScreen: true
+  }
+};
+
+const notificationOk = {
+  message: "Wiki Entry Added",
+  type: "success",
+  insert: "top",
+  container: "top-right",
+  animationIn: ["animated", "fadeIn"],
+  animationOut: ["animated", "fadeOut"],
+  dismiss: {
+    duration: 5000,
+    onScreen: true
+  }
+};
+
 export const fetchWikiEntries = () => {
   return dispatch => {
     axios.get("/wiki/").then(response => {
@@ -11,18 +40,45 @@ export const fetchWikiEntries = () => {
 
 export const addWikiEntry = newWikiEntry => {
   return dispatch => {
-    axios.put("/wiki/newEntry", newWikiEntry).then(res => {
-      dispatch(fetchWikiEntries());
-    });
+    axios
+      .put("/wiki/newEntry", newWikiEntry)
+      .then(res => {
+        dispatch(fetchWikiEntries());
+
+        store.addNotification({
+          ...notificationOk,
+          title: "Wiki Entry",
+          message: "Added"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Wiki Entry adding"
+        });
+      });
   };
 };
 
 export const deleteWikiEntry = wikiEntryId => {
   const path = "/wiki/" + wikiEntryId;
   return dispatch => {
-    axios.delete(path).then(res => {
-      dispatch(fetchWikiEntries());
-    });
+    axios
+      .delete(path)
+      .then(res => {
+        dispatch(fetchWikiEntries());
+        store.addNotification({
+          ...notificationOk,
+          title: "Wiki Entry",
+          message: "Deleted"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Wiki Entry deleting"
+        });
+      });
   };
 };
 
@@ -41,10 +97,24 @@ export const updateWikiEntry = wikiEntry => {
   };
 
   return dispatch => {
-    axios.post(path, wikiEntryToSend).then(res => {
-      console.log(res);
-      dispatch(fetchWikiEntries());
-    });
+    axios
+      .post(path, wikiEntryToSend)
+      .then(res => {
+        console.log(res);
+        dispatch(fetchWikiEntries());
+
+        store.addNotification({
+          ...notificationOk,
+          title: "Wiki Entry",
+          message: "Updated"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Wiki Entry updating"
+        });
+      });
   };
 };
 

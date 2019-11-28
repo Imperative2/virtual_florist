@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+
 import { BrowserRouter } from "react-router-dom";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
@@ -32,11 +35,14 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 const app = (
-  <Provider store={store}>
-    <BrowserRouter>
-      <App></App>
-    </BrowserRouter>
-  </Provider>
+  <div>
+    <ReactNotification />
+    <Provider store={store}>
+      <BrowserRouter>
+        <App></App>
+      </BrowserRouter>
+    </Provider>
+  </div>
 );
 
 ReactDOM.render(app, document.getElementById("root"));

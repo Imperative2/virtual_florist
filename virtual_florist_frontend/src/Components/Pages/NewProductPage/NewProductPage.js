@@ -9,14 +9,13 @@ import ButtonBad from "../../UI/Button/ButtonBad/ButtonBad";
 
 import TitleLabel from "../../UI/Label/TitleLabel";
 
-import SelectSearch from "react-select-search";
+import Select from "react-select";
 
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
 import styleClass from "./NewProductPage.module.css";
-import cssStyle from "./style.css";
 
 class NewWikiEntryPage extends Component {
   state = {
@@ -54,6 +53,10 @@ class NewWikiEntryPage extends Component {
     }
   };
 
+  onWikiSelectHandler = option => {
+    this.setState({ wikiEntryId: option.value });
+  };
+
   onFormSubmitHandler = () => {
     const newProduct = {
       ...this.state
@@ -64,12 +67,12 @@ class NewWikiEntryPage extends Component {
   };
 
   render() {
-    let options = [{ name: "NONE", value: "-1" }];
+    let options = [{ label: "NONE", value: null }];
 
     const wikiEntryOptions = this.props.wiki.wikiEntries.map(
       (wikiEntry, index) => {
         const option = {
-          name:
+          label:
             wikiEntry.wikiEntryId +
             ": " +
             wikiEntry.name +
@@ -87,19 +90,10 @@ class NewWikiEntryPage extends Component {
       }
     );
 
-    console.log(options);
-
     return (
       <div className={styleClass.All}>
         <TitleLabel name="New Product Page"></TitleLabel>
-        {/* <SelectSearch
-          className="select-search-box"
-          options={options}
-          name="language"
-          placeholder="wikiEntry"
-          value=""
-          onChange={value => console.log(value)}
-        ></SelectSearch> */}
+
         <Grid container spacing={1} justify="center" alignItems="flex-end">
           <Grid item xs={12} md={9} lg={9}>
             <TextInput
@@ -148,20 +142,31 @@ class NewWikiEntryPage extends Component {
             ></NumberInput>
           </Grid>
 
-          <Grid item xs={12} md={8} lg={8}>
-            <label className={styleClass.Label}>Type:</label>
-            <select onChange={event => this.onTextInputHandler(event, "type")}>
-              <option value="SINGLE">SINGLE</option>
-              <option value="BOUQUET">BOUQUET</option>
-              <option value="OTHER">OTHER</option>
-            </select>
-            <label className={styleClass.Label}>WikiEntry:</label>
-            <select
+          <Grid container item xs={12} md={8} lg={8}>
+            <Grid item xs={12} md={6}>
+              <label className={styleClass.Label}>Type:</label>
+              <select
+                onChange={event => this.onTextInputHandler(event, "type")}
+              >
+                <option value="SINGLE">SINGLE</option>
+                <option value="BOUQUET">BOUQUET</option>
+                <option value="OTHER">OTHER</option>
+              </select>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Select
+                placeholder={"WikiEntry:"}
+                options={options}
+                onChange={option => this.onWikiSelectHandler(option)}
+              ></Select>
+            </Grid>
+
+            {/* <select
               onChange={event => this.onTextInputHandler(event, "wikiId")}
             >
               <option value={null}>NONE</option>
               {wikiEntryOptions}
-            </select>
+            </select> */}
           </Grid>
 
           <Grid item xs={12}></Grid>

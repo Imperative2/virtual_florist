@@ -1,6 +1,35 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 
+import { store } from "react-notifications-component";
+
+const notificationError = {
+  type: "danger",
+  title: "Error!",
+  message: "Basket",
+  insert: "top",
+  container: "top-right",
+  animationIn: ["animated", "fadeIn"],
+  animationOut: ["animated", "fadeOut"],
+  dismiss: {
+    duration: 5000,
+    onScreen: true
+  }
+};
+
+const notificationOk = {
+  message: "Basket",
+  type: "success",
+  insert: "top",
+  container: "top-right",
+  animationIn: ["animated", "fadeIn"],
+  animationOut: ["animated", "fadeOut"],
+  dismiss: {
+    duration: 5000,
+    onScreen: true
+  }
+};
+
 export const fetchBasket = userId => {
   return dispatch => {
     axios
@@ -34,6 +63,17 @@ export const sendItemToBasket = form => {
       .then(res => {
         console.log(res);
         dispatch(fetchBasket(form.userId));
+        store.addNotification({
+          ...notificationOk,
+          title: "Cart",
+          message: "Added item"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Cart adding"
+        });
       });
   };
 };
@@ -55,11 +95,28 @@ export const sendRemoveItemFromBasket = form => {
       .then(res => {
         console.log(res);
         dispatch(fetchBasket(form.userId));
+
+        store.addNotification({
+          ...notificationOk,
+          title: "Cart",
+          message: "Removed item"
+        });
+      })
+      .catch(err => {
+        store.addNotification({
+          ...notificationError,
+          message: "Cart removing"
+        });
       });
   };
 };
 
 export const removeItemFromBasket = form => {
+  store.addNotification({
+    ...notificationOk,
+    title: "Cart",
+    message: "Removed item"
+  });
   return {
     type: actionTypes.REMOVE_ITEM_FROM_BASKET,
     form: form
@@ -67,6 +124,11 @@ export const removeItemFromBasket = form => {
 };
 
 export const addItemToBasket = form => {
+  store.addNotification({
+    ...notificationOk,
+    title: "Cart",
+    message: "Added item"
+  });
   return {
     type: actionTypes.ADD_ITEM_TO_BASKET,
     form: form
