@@ -21,6 +21,7 @@ import TextInput from "../../UI/Input/TextInput/TextInput";
 import NumberInput from "../../UI/Input/NumberInput/NumberInput";
 
 import IMG from "../../UI/LightBox/ImageLightBox";
+import Select from "react-select";
 
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
@@ -42,7 +43,7 @@ class ProductPage extends Component {
       tags: "",
       available: false,
       wikiEntry: {
-        wikiEntryId: ""
+        wikiEntryId: null
       }
     }
   };
@@ -130,6 +131,16 @@ class ProductPage extends Component {
     }
   };
 
+  onWikiSelectHandler = option => {
+    this.setState({
+      ...this.state,
+      product: {
+        ...this.state.product,
+        wikiEntry: { wikiEntryId: option.value }
+      }
+    });
+  };
+
   handleDialogClose = () => {
     this.setState({ dialogOpen: false });
   };
@@ -141,6 +152,8 @@ class ProductPage extends Component {
   };
 
   render() {
+    console.log(this.state);
+
     const buttonAddStyle = {
       margin: 0,
       top: "auto",
@@ -182,8 +195,31 @@ class ProductPage extends Component {
         });
       }
 
+      let options = [{ label: "NONE", value: null }];
+      let selectedOption = options[0];
+
       const wikiEntryOptions = this.props.wiki.wikiEntries.map(
         (wikiEntry, index) => {
+          const option = {
+            label:
+              wikiEntry.wikiEntryId +
+              ": " +
+              wikiEntry.name +
+              "-" +
+              wikiEntry.latinName,
+            value: wikiEntry.wikiEntryId
+          };
+          options.push(option);
+
+          if (
+            this.state.product.wikiEntry !== null &&
+            this.state.product.wikiEntry.wikiEntryId !== null &&
+            this.state.product.wikiEntry.wikiEntryId === wikiEntry.wikiEntryId
+          ) {
+            console.log(option);
+            selectedOption = option;
+          }
+
           return (
             <option key={wikiEntry.wikiEntryId} value={wikiEntry.wikiEntryId}>
               {wikiEntry.wikiEntryId}: {wikiEntry.name}-{wikiEntry.latinName}
@@ -317,18 +353,14 @@ class ProductPage extends Component {
                   <option value="BOUQUET">BOUQUET</option>
                   <option value="OTHER">OTHER</option>
                 </select>
-                <label>WikiEntry:</label>
-                <select
-                  value={
-                    this.state.product.wikiEntry !== null
-                      ? this.state.product.wikiEntry.wikiEntryId
-                      : ""
-                  }
-                  onChange={event => this.onTextInputHandler(event, "wikiId")}
-                >
-                  <option value={null}>NONE</option>
-                  {wikiEntryOptions}
-                </select>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Select
+                  value={selectedOption}
+                  placeholder={"WikiEntry:"}
+                  options={options}
+                  onChange={option => this.onWikiSelectHandler(option)}
+                ></Select>
               </Grid>
             </Grid>
             <Grid item xs={12} sm={6} md={6} lg={6}>

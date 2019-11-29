@@ -8,6 +8,7 @@ import ButtonGood from "../../UI/Button/ButtonGood/ButtonGood";
 import ButtonBad from "../../UI/Button/ButtonBad/ButtonBad";
 
 import TitleLabel from "../../UI/Label/TitleLabel";
+import Select from "react-select";
 
 import { connect } from "react-redux";
 import * as actions from "../../../redux/actions/index";
@@ -39,6 +40,10 @@ class NewStoragePage extends Component {
     } else if (inputIdentifier === "available") {
       this.setState({ available: !this.state.available });
     }
+  };
+
+  onWikiSelectHandler = option => {
+    this.setState({ selectedProductId: option.value });
   };
 
   onFormSubmitHandler = () => {
@@ -75,7 +80,16 @@ class NewStoragePage extends Component {
       }
     }
 
+    let options = [{ label: "NONE", value: null }];
+
     const productOptions = validProducts.map(product => {
+      const option = {
+        label:
+          product.productId + ": " + product.name + "-" + product.latinName,
+        value: product.productId
+      };
+      options.push(option);
+
       return (
         <option key={product.productId} value={product.productId}>
           {product.productId}: {product.name}-{product.latinName}: $
@@ -142,12 +156,17 @@ class NewStoragePage extends Component {
         <Grid container spacing={1} justify="center" alignItems="flex-end">
           <Grid item xs={12} md={11} lg={11}>
             <label className={styleClass.Label}>Product:</label>
-            <select
+            {/* <select
               onChange={event => this.onTextInputHandler(event, "product")}
             >
               <option value={null}>NONE</option>
               {productOptions}
-            </select>
+            </select> */}
+            <Select
+              placeholder={"Product:"}
+              options={options}
+              onChange={option => this.onWikiSelectHandler(option)}
+            ></Select>
           </Grid>
           {selectedProduct !== null ? selectedProductInfo : null}
           <Grid item xs={12} md={3} lg={3}>

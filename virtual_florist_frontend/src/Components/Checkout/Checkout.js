@@ -7,6 +7,9 @@ import Paper from "@material-ui/core/Paper";
 import ButtonGood from "../UI/Button/ButtonGood/ButtonGood";
 import SmallImage from "../UI/Image/SmallImage/SmallImage";
 
+import { MDBBtn, MDBIcon } from "mdbreact";
+import { MDBCloseIcon } from "mdbreact";
+
 import styleClass from "./Checkout.module.css";
 
 import * as actions from "../../redux/actions/index";
@@ -74,17 +77,21 @@ class Checkout extends Component {
               return (
                 <div key={index} className={styleClass.Padding}>
                   <Paper>
-                    <Grid container item spacing={3}>
-                      <Grid item>{mainPhoto}</Grid>
-                      <Grid item>
+                    <Grid container item spacing={3} alignItems="center">
+                      <Grid item xs={12} sm={2}>
+                        {mainPhoto}
+                      </Grid>
+                      <Grid item xs={12} sm={4}>
                         {product.name}-{product.latinName}
                       </Grid>
-                      <Grid item>Qty:{basketProduct.quantity}</Grid>
-                      <Grid item>
-                        Total Price: {basketProduct.quantity * product.price}
+                      <Grid item xs={12} sm={2}>
+                        Qty:{basketProduct.quantity}
                       </Grid>
-                      <Grid item>
-                        <button
+                      <Grid item xs={12} sm={2}>
+                        Total Price: ${basketProduct.quantity * product.price}
+                      </Grid>
+                      <Grid item xs={12} sm={2}>
+                        <MDBBtn
                           onClick={event =>
                             this.buttonRemoveHandler(
                               event,
@@ -92,10 +99,10 @@ class Checkout extends Component {
                               basketProduct.quantity
                             )
                           }
+                          color="danger"
                         >
-                          {" "}
-                          X{" "}
-                        </button>
+                          Remove
+                        </MDBBtn>
                       </Grid>
                     </Grid>
                   </Paper>
@@ -113,7 +120,7 @@ class Checkout extends Component {
           <Container component="main" maxWidth="md">
             <Grid container justify="center" direction="column" spacing={1}>
               {checkoutProducts}
-              <Grid item>
+              <Grid container justify="center" item>
                 <ButtonGood name={"$" + priceSum}></ButtonGood>
               </Grid>
             </Grid>

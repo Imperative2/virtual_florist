@@ -178,6 +178,9 @@ public class ProductServiceImpl implements ProductService
 				WikiEntry wikiEntry = wikiEntryDAO.findById(wikiId);
 				productToUpdate.setWikiEntry(wikiEntry);
 			}
+		else {
+			productToUpdate.setWikiEntry(null);
+		}
 		
 		productDAO.update(productToUpdate);
 		

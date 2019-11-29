@@ -8,7 +8,7 @@ const notificationError = {
   title: "Error!",
   message: "Basket",
   insert: "top",
-  container: "top-right",
+  container: "bottom-right",
   animationIn: ["animated", "fadeIn"],
   animationOut: ["animated", "fadeOut"],
   dismiss: {
@@ -21,7 +21,7 @@ const notificationOk = {
   message: "Basket",
   type: "success",
   insert: "top",
-  container: "top-right",
+  container: "bottom-right",
   animationIn: ["animated", "fadeIn"],
   animationOut: ["animated", "fadeOut"],
   dismiss: {

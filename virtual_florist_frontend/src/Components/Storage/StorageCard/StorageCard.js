@@ -36,12 +36,14 @@ const ProductCard = props => {
   return (
     <div className="card-group my-1">
       <MDBCard personal className="mb-md-0 mb-4">
-        <MDBCardImage
-          className={styleClass.Photo}
-          top
-          src={props.mainPhoto}
-          alt="MDBCard image cap"
-        />
+        <NavLink className="card-meta m-0" to={path} exact>
+          <MDBCardImage
+            className={styleClass.Photo}
+            top
+            src={props.mainPhoto}
+            alt="MDBCard image cap"
+          />
+        </NavLink>
         <a>
           <MDBMask overlay="white-slight" />
         </a>
