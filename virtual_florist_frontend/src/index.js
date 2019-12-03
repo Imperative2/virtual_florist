@@ -17,6 +17,7 @@ import productsReducer from "./redux/reducers/productsReducer";
 import userReducer from "./redux/reducers/userReducer";
 import storageReducer from "./redux/reducers/storageReducer";
 import basketReducer from "./redux/reducers/basketReducer";
+import orderReducer from "./redux/reducers/orderReducer";
 
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 // import "bootstrap-css-only/css/bootstrap.min.css";
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   products: productsReducer,
   user: userReducer,
   storages: storageReducer,
-  basket: basketReducer
+  basket: basketReducer,
+  order: orderReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

@@ -39,8 +39,14 @@ class Checkout extends Component {
     }
   };
 
+  handleButtonVerifyClick = () => {
+    this.props.onVerifyBasket(this.props.basket);
+  };
+
   render() {
     console.log(this.props.basket);
+    console.log(this.props.basket.basketProducts.length);
+    console.log(this.props.order);
 
     if (
       this.props.basket !== null &&
@@ -48,6 +54,10 @@ class Checkout extends Component {
       this.props.basket.basketProducts.length > 0
     ) {
       console.log(this.props);
+
+      if (this.props.order.basketVerified == true) {
+        this.props.history.push("/finishOrder");
+      }
 
       let priceSum = 0;
 
@@ -121,7 +131,10 @@ class Checkout extends Component {
             <Grid container justify="center" direction="column" spacing={1}>
               {checkoutProducts}
               <Grid container justify="center" item>
-                <ButtonGood name={"$" + priceSum}></ButtonGood>
+                <ButtonGood
+                  name={"$" + priceSum}
+                  onClickAction={this.handleButtonVerifyClick}
+                ></ButtonGood>
               </Grid>
             </Grid>
           </Container>
@@ -139,7 +152,8 @@ const mapStateToProps = state => {
     storages: state.storages,
     products: state.products,
     basket: state.basket,
-    user: state.user
+    user: state.user,
+    order: state.order
   };
 };
 
@@ -153,7 +167,8 @@ const mapDispatchToProps = dispatch => {
     onRemoveItemFromBasket: form =>
       dispatch(actions.removeItemFromBasket(form)),
     onSentRemoveItemFromBasket: form =>
-      dispatch(actions.sendRemoveItemFromBasket(form))
+      dispatch(actions.sendRemoveItemFromBasket(form)),
+    onVerifyBasket: form => dispatch(actions.verifyBasket(form))
   };
 };
 

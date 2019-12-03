@@ -1,6 +1,7 @@
 package com.masluch.virtual_florist.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "orders")
 public class Order
 {
 	@Id
@@ -22,9 +26,6 @@ public class Order
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@ManyToOne
-	@JoinColumn(name = "buyer_adress_id")
-	private Adress buyerAdress;
 	
 	@ManyToOne
 	@JoinColumn(name = "delivery_adress_id")
@@ -41,6 +42,10 @@ public class Order
 	
 	@Column(name = "status")
 	private String status;
+	
+	@OneToMany()
+	@JoinColumn(name = "order_id")
+	private List<OrderProducts> orderProducts;
 
 	public int getOrder_id()
 	{
@@ -62,15 +67,6 @@ public class Order
 		this.user = user;
 	}
 
-	public Adress getBuyerAdress()
-	{
-		return buyerAdress;
-	}
-
-	public void setBuyerAdress(Adress buyerAdress)
-	{
-		this.buyerAdress = buyerAdress;
-	}
 
 	public Adress getDeliveryAdress()
 	{
@@ -125,10 +121,12 @@ public class Order
 	@Override
 	public String toString()
 	{
-		return "Order [order_id=" + order_id + ", user=" + user + ", buyerAdress=" + buyerAdress + ", deliveryAdress="
-				+ deliveryAdress + ", deliveryDate=" + deliveryDate + ", comment=" + comment + ", date=" + date
-				+ ", status=" + status + "]";
+		return "Order [order_id=" + order_id + ", user=" + user + ", deliveryAdress=" + deliveryAdress
+				+ ", deliveryDate=" + deliveryDate + ", comment=" + comment + ", date=" + date + ", status=" + status
+				+ "]";
 	}
+
+
 	
 	
 }

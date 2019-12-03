@@ -24,7 +24,7 @@ public class ProductDAOImpl implements ProductDAO
 	public List<Product> findAll()
 	{
 		Session session = entityManager.unwrap(Session.class);
-		
+
 		Query<Product> query = session.createQuery("FROM Product ORDER BY name", Product.class);
 		List<Product> result = query.getResultList();
 		return result;
@@ -37,12 +37,12 @@ public class ProductDAOImpl implements ProductDAO
 		Product product = session.get(Product.class, productId);
 		return product;
 	}
-	
+
 	@Override
 	public List<Product> findProducts(int numOfProducts)
 	{
 		Session session = entityManager.unwrap(Session.class);
-		Query<Product> query = session.createQuery("FROM Product p LIMIT :numOfProducts",Product.class);
+		Query<Product> query = session.createQuery("FROM Product p LIMIT :numOfProducts", Product.class);
 		query.setParameter("numOfProducts", numOfProducts);
 		List<Product> productList = query.getResultList();
 		return productList;
@@ -52,7 +52,7 @@ public class ProductDAOImpl implements ProductDAO
 	public Product save(Product product)
 	{
 		Session session = entityManager.unwrap(Session.class);
-		session.save(product);	
+		session.save(product);
 		return product;
 	}
 
@@ -75,13 +75,12 @@ public class ProductDAOImpl implements ProductDAO
 	public Product findByWikiEntry(WikiEntry wikiEntry)
 	{
 		Session session = entityManager.unwrap(Session.class);
-		Query<Product> query = session.createQuery("FROM Product p WHERE p.wikiEntry=:wikiEntry",Product.class);
+		Query<Product> query = session.createQuery("FROM Product p WHERE p.wikiEntry=:wikiEntry", Product.class);
 		query.setParameter("wikiEntry", wikiEntry);
 		List<Product> productsList = query.getResultList();
-		if(productsList.isEmpty())
+		if (productsList.isEmpty())
 			return null;
 		return productsList.get(0);
 	}
-
 
 }

@@ -22,6 +22,7 @@ export const MODIFY_STORAGE = "MODIFY_STORAGE";
 
 //photos
 export const UPLOAD_PHOTO = "UPLOAD_PHOTO";
+export const DELETE_PHOTO = "DELETE_PHOTO";
 
 //user
 export const FETCH_USER = "FETCH_USER";
@@ -40,3 +41,12 @@ export const SET_BASKET = "SET_BASKET";
 export const ADD_ITEM_TO_BASKET = "ADD_ITEM_TO_BASKET";
 export const REMOVE_ITEM_FROM_BASKET = "REMOVE_ITEM_FROM_BASKET";
 export const CLEAR_BASKET = "CLEAR_BASKET";
+
+//order
+export const VERIFY_ORDER = "VERIFY_ORDER";
+export const FETCH_ORDERS = "FETCH_ORDERS";
+export const FETCH_USER_ORDERS = "FETCH_USER_ORDERS";
+export const CHANGE_ORDER_STATUS = "CHANGE_ORDER_STATUS";
+export const MAKE_ORDER = "MAKE_ORDER";
+export const SET_ORDERS = "SET_ORDERS";
+export const SET_BASKET_VERIFIED = "SET_BASKET_VERIFIED";

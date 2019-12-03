@@ -22,6 +22,7 @@ import Storage from "./Components/Storage/Storage";
 import Orders from "./Components/Orders/Orders";
 import Shop from "./Components/Shop/Shop";
 import Checkout from "./Components/Checkout/Checkout";
+import FinishOrder from "./Components/FinishOrder/FinishOrder";
 
 import { Route, Switch } from "react-router-dom";
 
@@ -66,6 +67,7 @@ class App extends Component {
             <Route exact path="/shop/:id" component={ShopPage} />
             <Route exact path="/user/userInfo" component={UserInfoPage} />
             <Route exact path="/checkout/" component={Checkout} />
+            <Route exact path="/finishOrder/" component={FinishOrder} />
             <Route path="/" component={StartPage} />
           </Switch>
         </Layout>

@@ -20,7 +20,7 @@ public class Product
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
-	private int productId;
+	private Integer productId;
 	
 	@Column(name = "price")
 	private Double price;
@@ -51,12 +51,12 @@ public class Product
 	@JoinColumn(name = "product_id")
 	private List<Photo> photos;
 
-	public int getProductId()
+	public Integer getProductId()
 	{
 		return productId;
 	}
 
-	public void setProductId(int productId)
+	public void setProductId(Integer productId)
 	{
 		this.productId = productId;
 	}

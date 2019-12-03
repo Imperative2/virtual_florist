@@ -35,7 +35,8 @@ class UserMenu extends Component {
   render() {
     if (
       this.props.basket !== null &&
-      this.props.basket.basketProducts !== null
+      this.props.basket.basketProducts !== null &&
+      this.props.basket.basketProducts.length > 0
     ) {
       const cartProducts = this.props.basket.basketProducts.map(
         (basketProduct, index) => {

@@ -29,6 +29,7 @@ public class ProductServiceImpl implements ProductService
 	private PhotoDAO photoDAO;
 	
 	@Override
+	@Transactional
 	public List<Product> findAll()
 	{
 		return productDAO.findAll();
@@ -63,6 +64,7 @@ public class ProductServiceImpl implements ProductService
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Product> addNewProduct(Product newProduct)
 	{
 		Product savedProduct = productDAO.save(newProduct);
@@ -71,6 +73,7 @@ public class ProductServiceImpl implements ProductService
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<Product> addNewProductWithWiki(Product newProduct, String wikiEntryId)
 	{
 		Integer entryId;
