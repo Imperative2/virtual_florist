@@ -11,15 +11,27 @@ import Button from "@material-ui/core/Button";
 
 import DateFnsUtils from "@date-io/date-fns";
 
+import Select from "react-select";
+
 import TitleLabel from "../UI/Label/TitleLabel";
 
 import * as actions from "../../redux/actions/index";
 import { connect } from "react-redux";
 
+import TextArea from "../UI/Input/TextArea/TextArea";
+
 import styleClass from "./FinishOrder.module.css";
 class FinishOrder extends Component {
   state = {
     datePicked: new Date(),
+    delivery: {
+      deliveryId: this.props.deliveryType.deliveryTypes[1].deliveryTypeId,
+      deliveryDescription: this.props.deliveryType.deliveryTypes[1].description,
+      deliveryPrice: this.props.deliveryType.deliveryTypes[1].cost
+    },
+    deliverySelectedOption: 1,
+    comment: "",
+    productsPrice: 0,
     form: {
       firstName: {
         value: this.props.user.user.name,
@@ -184,12 +196,38 @@ class FinishOrder extends Component {
     this.setState({ datePicked: date });
   };
 
+  handleCommentChange = event => {
+    this.setState({ comment: event.target.value });
+  };
+
+  handleDeliveryMethodChange = option => {
+    console.log(this.state);
+    const id = option.value - 1;
+    this.setState({
+      delivery: {
+        deliveryId: this.props.deliveryType.deliveryTypes[id].deliveryTypeId,
+        deliveryDescription: this.props.deliveryType.deliveryTypes[id]
+          .description,
+        deliveryPrice: this.props.deliveryType.deliveryTypes[id].cost
+      },
+      deliverySelectedOption: id
+    });
+  };
+
   render() {
     console.log(this.state);
+    console.log(this.props.deliveryType);
+
+    let options = this.props.deliveryType.deliveryTypes.map(deliveryType => {
+      return {
+        label: deliveryType.name + " $" + deliveryType.cost,
+        value: deliveryType.deliveryTypeId
+      };
+    });
 
     let deliveryContactInfo = null;
 
-    if (this.state.methodId != 2) {
+    if (this.state.deliverySelectedOption != 1) {
       deliveryContactInfo = (
         <Fragment>
           <Grid item xs={12}>
@@ -418,15 +456,42 @@ class FinishOrder extends Component {
                   />
                 </MuiPickersUtilsProvider>
               </Grid>
+              <Grid item xs={12} container alignItems="center" spacing={2}>
+                <Grid item xs={12}>
+                  <Select
+                    placeholder={"Delivery method:"}
+                    options={options}
+                    value={options[this.state.deliverySelectedOption]}
+                    onChange={option => this.handleDeliveryMethodChange(option)}
+                  ></Select>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextArea
+                    name="Delivery type description:"
+                    rows={2}
+                    value={this.state.delivery.deliveryDescription}
+                    disabled={true}
+                  ></TextArea>
+                </Grid>
+              </Grid>
+              {deliveryContactInfo}
+              <Grid item xs={12}>
+                <TextArea
+                  name="Comment"
+                  rows={5}
+                  value={this.state.comment}
+                  onChangeAction={event => this.handleCommentChange(event)}
+                ></TextArea>
+              </Grid>
             </Grid>
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
-              disabled={!this.state.formIsValid}
+              //          disabled={!this.state.formIsValid}
             >
-              Update
+              Pay ${this.state.delivery.deliveryPrice}
             </Button>
           </Container>
         </div>
@@ -540,7 +605,8 @@ const mapStateToProps = state => {
     products: state.products,
     basket: state.basket,
     user: state.user,
-    order: state.order
+    order: state.order,
+    deliveryType: state.deliveryType
   };
 };
 

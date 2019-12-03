@@ -17,6 +17,8 @@ const TextareaPage = props => {
           rows={props.rows}
           onChange={props.onChangeAction}
           value={props.value}
+          disabled={props.disabled}
+          defaultValue={props.defaultValue}
         ></textarea>
       </div>
     </div>
