@@ -35,9 +35,23 @@ export const registerUser = form => {
   console.log(form);
 
   return dispatch => {
-    axios.put("/user/register", form).then(res => {
-      console.log(res);
-    });
+    axios
+      .put("/user/register", form)
+      .then(res => {
+        console.log(res);
+        store.addNotification({
+          ...notificationOk,
+          title: "User",
+          message: "Created account successfully"
+        });
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        store.addNotification({
+          ...notificationError,
+          message: err.response.data
+        });
+      });
   };
 };
 

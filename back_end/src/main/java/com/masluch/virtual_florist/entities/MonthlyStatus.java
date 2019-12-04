@@ -18,26 +18,26 @@ public class MonthlyStatus
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "monthly_status_id")
-	private int orderedProductId;
+	private Integer monthlyStatusId;
 	
 	@Column(name = "date")
 	private Date date;
 	
-	@OneToOne
-	@JoinColumn(name = "income")
+
+	@Column(name = "income")
 	private Double income;
 	
 	@Column(name = "products_sold")
-	private int productsSold;
+	private Integer productsSold;
 
-	public int getOrderedProductId()
+	public Integer getMonthlyStatusId()
 	{
-		return orderedProductId;
+		return monthlyStatusId;
 	}
 
-	public void setOrderedProductId(int orderedProductId)
+	public void setMonthlyStatusId(Integer monthlyStatusId)
 	{
-		this.orderedProductId = orderedProductId;
+		this.monthlyStatusId = monthlyStatusId;
 	}
 
 	public Date getDate()
@@ -60,12 +60,12 @@ public class MonthlyStatus
 		this.income = income;
 	}
 
-	public int getProductsSold()
+	public Integer getProductsSold()
 	{
 		return productsSold;
 	}
 
-	public void setProductsSold(int productsSold)
+	public void setProductsSold(Integer productsSold)
 	{
 		this.productsSold = productsSold;
 	}
@@ -73,9 +73,11 @@ public class MonthlyStatus
 	@Override
 	public String toString()
 	{
-		return "MonthlyStatus [orderedProductId=" + orderedProductId + ", date=" + date + ", income=" + income
+		return "MonthlyStatus [monthlyStatusId=" + monthlyStatusId + ", date=" + date + ", income=" + income
 				+ ", productsSold=" + productsSold + "]";
 	}
+
+	
 	
 
 }

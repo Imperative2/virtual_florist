@@ -1,7 +1,10 @@
 import * as actionTypes from "./actionTypes";
 import axios from "../../axios";
 
+import * as actions from "./index";
+
 import { store } from "react-notifications-component";
+import { createUnionTypeAnnotation } from "@babel/types";
 
 const notificationError = {
   type: "danger",
@@ -55,6 +58,114 @@ export const verifyBasket = form => {
           message: err.response.data
         });
       });
+  };
+};
+
+export const makeOrderWithAccount = form => {
+  console.log(form);
+
+  const request = {
+    userId: form.userId,
+    deliveryDate: form.deliveryDate,
+    comment: form.comment,
+    deliveryId: form.deliveryId,
+    orderProducts: form.orderedProducts,
+    deliveryDetails: {
+      country: form.country,
+      city: form.city,
+      street: form.street,
+      localNumber: form.localNumber,
+      zipCode: form.zipCode
+    }
+  };
+
+  console.log(request);
+
+  return dispatch => {
+    axios
+      .post("/order/submitWithAccount", request)
+      .then(res => {
+        console.log(res);
+
+        dispatch(actions.clearBasket());
+        dispatch(setOrderComplete(true));
+
+        store.addNotification({
+          ...notificationOk,
+          title: "Order",
+          message: "Transaction complete"
+        });
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        store.addNotification({
+          ...notificationError,
+          message: err.response.data
+        });
+      });
+  };
+};
+
+export const makeOrderWithoutAccount = form => {
+  console.log(form);
+
+  const request = {
+    userId: form.userId,
+    deliveryDate: form.deliveryDate,
+    comment: form.comment,
+    deliveryId: form.deliveryId,
+    orderProducts: form.orderedProducts,
+    deliveryDetails: {
+      country: form.country,
+      city: form.city,
+      street: form.street,
+      localNumber: form.localNumber,
+      zipCode: form.zipCode
+    },
+    userRegisterData: {
+      name: form.name,
+      surname: form.surname,
+      phoneNumber: form.phoneNumber,
+      email: form.email,
+      country: form.userCountry,
+      city: form.userCity,
+      street: form.userStreet,
+      localNumber: form.userLocalNumber,
+      zipCode: form.userZipCode
+    }
+  };
+
+  console.log(request);
+
+  return dispatch => {
+    axios
+      .post("/order/submitWithoutAccount", request)
+      .then(res => {
+        console.log(res);
+
+        dispatch(actions.clearBasket());
+        dispatch(setOrderComplete(true));
+
+        store.addNotification({
+          ...notificationOk,
+          title: "Order",
+          message: "Transaction complete"
+        });
+      })
+      .catch(err => {
+        console.log(err.response.data);
+        store.addNotification({
+          ...notificationError,
+          message: err.response.data
+        });
+      });
+  };
+};
+
+export const setOrderComplete = isComplete => {
+  return {
+    type: actionTypes.SET_ORDER_COMPLETE,
+    isComplete: isComplete
   };
 };
 

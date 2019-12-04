@@ -1,7 +1,8 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  basketVerified: false
+  basketVerified: false,
+  orderComplete: false
 };
 
 const orderReducer = (state = initialState, action) => {
@@ -10,6 +11,13 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         basketVerified: action.isVerified
+      };
+    }
+
+    case actionTypes.SET_ORDER_COMPLETE: {
+      return {
+        ...state,
+        orderComplete: action.isComplete
       };
     }
   }

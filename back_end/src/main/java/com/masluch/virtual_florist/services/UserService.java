@@ -18,7 +18,9 @@ public interface UserService
 	
 	public void update(User user);
 	
-	public ResponseEntity<User> deleteById(int user);
+	public void setUserAsTemporary(Integer userId);
+	
+	public ResponseEntity<User> deleteById(int userId);
 	
 	public ResponseEntity<String> registerUser(UserRegisterData userRegisterData);
 	

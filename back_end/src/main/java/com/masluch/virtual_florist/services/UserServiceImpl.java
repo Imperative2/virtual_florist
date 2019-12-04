@@ -54,10 +54,20 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public ResponseEntity<User> deleteById(int user)
+	@Transactional
+	public ResponseEntity<User> deleteById(int userId)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		userDAO.deleteById(userId);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@Override
+	@Transactional
+	public void setUserAsTemporary(Integer userId)
+	{
+		User user = userDAO.findById(userId);
+		user.setEnabled(false);
+		userDAO.update(user);
 	}
 
 	@Override
@@ -117,11 +127,12 @@ public class UserServiceImpl implements UserService
 
 		userDAO.save(newUser);
 
-		return new ResponseEntity<String>(HttpStatus.OK);
+		return new ResponseEntity<String>(newUser.getUserId()+"",HttpStatus.OK);
 
 	}
 
 	@Override
+	@Transactional
 	public ResponseEntity<User> login(String email, String password)
 	{
 		if (email == null || password == null)
@@ -229,5 +240,7 @@ public class UserServiceImpl implements UserService
 		return new ResponseEntity<String>(HttpStatus.OK);
 
 	}
+
+
 
 }

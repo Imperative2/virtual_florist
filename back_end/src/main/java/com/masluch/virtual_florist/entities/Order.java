@@ -21,7 +21,8 @@ public class Order
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int order_id;
+	@Column(name = "order_id")
+	private Integer orderId;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -55,14 +56,14 @@ public class Order
 	@JoinColumn(name = "order_id")
 	private List<OrderProducts> orderProducts;
 
-	public int getOrder_id()
+	public Integer getOrderId()
 	{
-		return order_id;
+		return orderId;
 	}
 
-	public void setOrder_id(int order_id)
+	public void setOrderId(Integer orderId)
 	{
-		this.order_id = order_id;
+		this.orderId = orderId;
 	}
 
 	public User getUser()
@@ -158,15 +159,11 @@ public class Order
 	@Override
 	public String toString()
 	{
-		return "Order [order_id=" + order_id + ", user=" + user + ", deliveryAdress=" + deliveryAdress
-				+ ", deliveryType=" + deliveryType + ", deliveryDate=" + deliveryDate + ", comment=" + comment
-				+ ", date=" + date + ", status=" + status + ", totalPrice=" + totalPrice + ", orderProducts="
-				+ orderProducts + "]";
+		return "Order [orderId=" + orderId + ", user=" + user + ", deliveryAdress=" + deliveryAdress + ", deliveryType="
+				+ deliveryType + ", deliveryDate=" + deliveryDate + ", comment=" + comment + ", date=" + date
+				+ ", status=" + status + ", totalPrice=" + totalPrice + ", orderProducts=" + orderProducts + "]";
 	}
 
-	
 
-
-	
 	
 }

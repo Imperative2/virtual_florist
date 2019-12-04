@@ -33,4 +33,10 @@ export {
   sendRemoveItemFromBasket
 } from "./BasketActions";
 
-export { verifyBasket, setBasketVerified } from "./OrderActions";
+export {
+  verifyBasket,
+  setBasketVerified,
+  makeOrderWithAccount,
+  makeOrderWithoutAccount,
+  setOrderComplete
+} from "./OrderActions";
