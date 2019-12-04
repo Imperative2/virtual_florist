@@ -1,5 +1,7 @@
 package com.masluch.virtual_florist.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,16 +20,62 @@ public class MonthlyStatus
 	@Column(name = "monthly_status_id")
 	private int orderedProductId;
 	
-	@Column(name = "order_id")
-	private int orderId;
+	@Column(name = "date")
+	private Date date;
 	
 	@OneToOne
-	@JoinColumn(name = "product_id")
-	private Product product;
+	@JoinColumn(name = "income")
+	private Double income;
 	
-	@Column(name = "quantity")
-	private int quantity;
+	@Column(name = "products_sold")
+	private int productsSold;
+
+	public int getOrderedProductId()
+	{
+		return orderedProductId;
+	}
+
+	public void setOrderedProductId(int orderedProductId)
+	{
+		this.orderedProductId = orderedProductId;
+	}
+
+	public Date getDate()
+	{
+		return date;
+	}
+
+	public void setDate(Date date)
+	{
+		this.date = date;
+	}
+
+	public Double getIncome()
+	{
+		return income;
+	}
+
+	public void setIncome(Double income)
+	{
+		this.income = income;
+	}
+
+	public int getProductsSold()
+	{
+		return productsSold;
+	}
+
+	public void setProductsSold(int productsSold)
+	{
+		this.productsSold = productsSold;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "MonthlyStatus [orderedProductId=" + orderedProductId + ", date=" + date + ", income=" + income
+				+ ", productsSold=" + productsSold + "]";
+	}
 	
-	@Column(name = "type")
-	private String type;
+
 }

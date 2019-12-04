@@ -60,15 +60,6 @@ class FinishOrder extends Component {
         valid: true,
         touched: false
       },
-      password1: {
-        value: "",
-        validation: {
-          required: false,
-          minLength: 6
-        },
-        valid: true,
-        touched: false
-      },
       phoneNumber: {
         value: this.props.user.user.phoneNumber,
         validation: {
@@ -123,6 +114,19 @@ class FinishOrder extends Component {
 
     formIsValid: false
   };
+
+  componentWillMount() {
+    if (this.props.order.basketVerified === false) {
+    } else {
+      this.props.onSetBasketVerified(false);
+    }
+
+    if (this.props.user.user.role === "GUEST") {
+      console.log("You are a guest");
+    } else {
+      console.log("You are a client");
+    }
+  }
 
   inputChangedHandler = (event, inputIdentifier) => {
     const updatedForm = {
@@ -621,7 +625,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(actions.removeItemFromBasket(form)),
     onSentRemoveItemFromBasket: form =>
       dispatch(actions.sendRemoveItemFromBasket(form)),
-    onVerifyBasket: form => dispatch(actions.verifyBasket(form))
+    onVerifyBasket: form => dispatch(actions.verifyBasket(form)),
+    onSetBasketVerified: isVerified =>
+      dispatch(actions.setBasketVerified(isVerified))
   };
 };
 

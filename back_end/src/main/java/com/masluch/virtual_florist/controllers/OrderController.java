@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.masluch.virtual_florist.Requests.OrderWithAccount;
 import com.masluch.virtual_florist.entities.Basket;
 import com.masluch.virtual_florist.services.BasketService;
 import com.masluch.virtual_florist.services.OrderService;
@@ -35,6 +36,17 @@ public class OrderController
 	public ResponseEntity<String> verifyBasket(@RequestBody Basket basket){
 		System.out.println(basket);
 		return orderService.verifyBasket(basket);
+		
+	}
+	
+	@PostMapping("/submitWithAccount")
+	public ResponseEntity<String> submitOrderWithAccount(@RequestBody(required = true) OrderWithAccount orderWithAccount){
+		System.out.println(orderWithAccount);
+		return null;
+	}
+	
+	@PostMapping("/submitWithoutAccount")
+	public ResponseEntity<String> submitWithoutAccount(){
 		
 	}
 	

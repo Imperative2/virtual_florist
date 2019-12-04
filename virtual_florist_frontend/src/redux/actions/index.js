@@ -33,4 +33,4 @@ export {
   sendRemoveItemFromBasket
 } from "./BasketActions";
 
-export { verifyBasket } from "./OrderActions";
+export { verifyBasket, setBasketVerified } from "./OrderActions";

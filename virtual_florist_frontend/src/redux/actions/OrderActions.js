@@ -38,16 +38,17 @@ export const verifyBasket = form => {
       .post(path, form)
       .then(res => {
         console.log(res);
-        dispatch(setVerified(true));
+        dispatch(setBasketVerified(true));
+
+        store.addNotification({
+          ...notificationOk,
+          title: "Order",
+          message: "Products verified"
+        });
       })
       .catch(err => {
-        //   store.addNotification({
-        //     ...notificationError,
-        //     message: "Logged unsuccessfully"
-        //   });
-
         console.log(err.response.data);
-        dispatch(setVerified(false));
+        dispatch(setBasketVerified(false));
 
         store.addNotification({
           ...notificationError,
@@ -57,7 +58,7 @@ export const verifyBasket = form => {
   };
 };
 
-export const setVerified = isVerified => {
+export const setBasketVerified = isVerified => {
   return {
     type: actionTypes.SET_BASKET_VERIFIED,
     isVerified: isVerified

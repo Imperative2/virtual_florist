@@ -3,6 +3,7 @@ package com.masluch.virtual_florist.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,6 +32,10 @@ public class Order
 	@JoinColumn(name = "delivery_adress_id")
 	private Adress deliveryAdress;
 	
+	@OneToOne(optional = true, cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+	@JoinColumn(name = "delivery_type_id")
+	private DeliveryType deliveryType;
+	
 	@Column(name = "delivery_date")
 	private Date deliveryDate;
 	
@@ -42,6 +47,9 @@ public class Order
 	
 	@Column(name = "status")
 	private String status;
+	
+	@Column(name = "total_price")
+	private Double totalPrice;
 	
 	@OneToMany()
 	@JoinColumn(name = "order_id")
@@ -67,7 +75,6 @@ public class Order
 		this.user = user;
 	}
 
-
 	public Adress getDeliveryAdress()
 	{
 		return deliveryAdress;
@@ -76,6 +83,16 @@ public class Order
 	public void setDeliveryAdress(Adress deliveryAdress)
 	{
 		this.deliveryAdress = deliveryAdress;
+	}
+
+	public DeliveryType getDeliveryType()
+	{
+		return deliveryType;
+	}
+
+	public void setDeliveryType(DeliveryType deliveryType)
+	{
+		this.deliveryType = deliveryType;
 	}
 
 	public Date getDeliveryDate()
@@ -118,13 +135,36 @@ public class Order
 		this.status = status;
 	}
 
+	public Double getTotalPrice()
+	{
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice)
+	{
+		this.totalPrice = totalPrice;
+	}
+
+	public List<OrderProducts> getOrderProducts()
+	{
+		return orderProducts;
+	}
+
+	public void setOrderProducts(List<OrderProducts> orderProducts)
+	{
+		this.orderProducts = orderProducts;
+	}
+
 	@Override
 	public String toString()
 	{
 		return "Order [order_id=" + order_id + ", user=" + user + ", deliveryAdress=" + deliveryAdress
-				+ ", deliveryDate=" + deliveryDate + ", comment=" + comment + ", date=" + date + ", status=" + status
-				+ "]";
+				+ ", deliveryType=" + deliveryType + ", deliveryDate=" + deliveryDate + ", comment=" + comment
+				+ ", date=" + date + ", status=" + status + ", totalPrice=" + totalPrice + ", orderProducts="
+				+ orderProducts + "]";
 	}
+
+	
 
 
 	
