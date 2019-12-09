@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class OrderProducts
 {
@@ -19,6 +21,7 @@ public class OrderProducts
 	@Column(name = "order_id")
 	private int orderId;
 	
+	@JsonIgnoreProperties({"name", "description", "price", "wikiEntry", "photos", "latinName", "type", "tags", "available" })
 	@OneToOne
 	@JoinColumn(name = "product_id")
 	private Product product;

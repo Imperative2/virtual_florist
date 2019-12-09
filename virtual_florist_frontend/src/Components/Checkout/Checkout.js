@@ -17,10 +17,6 @@ import { connect } from "react-redux";
 
 class Checkout extends Component {
   buttonRemoveHandler = (event, productId, quantity) => {
-    console.log(event);
-    console.log(productId);
-    console.log(quantity);
-
     if (this.props.user.user.role === "GUEST") {
       const form = {
         productId: productId,
@@ -44,17 +40,11 @@ class Checkout extends Component {
   };
 
   render() {
-    console.log(this.props.basket);
-    console.log(this.props.basket.basketProducts.length);
-    console.log(this.props.order);
-
     if (
       this.props.basket !== null &&
       this.props.basket.basketProducts !== null &&
       this.props.basket.basketProducts.length > 0
     ) {
-      console.log(this.props);
-
       if (this.props.order.basketVerified == true) {
         this.props.history.push("/finishOrder");
       }

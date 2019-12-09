@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -8,93 +8,196 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
-import styleClass from "./Order.module.css";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import Paper from "@material-ui/core/Paper";
+
+import ButtonGood from "../UI/Button/ButtonGood/ButtonGood";
+import SmallImage from "../UI/Image/SmallImage/SmallImage";
+import TabPanel from "../UI/TabPanel/TabPanel";
+
+import { MDBBtn, MDBIcon } from "mdbreact";
+import { MDBCloseIcon } from "mdbreact";
+import { MDBModal } from "mdbreact";
+
+import * as actions from "../../redux/actions/index";
+import { connect } from "react-redux";
+
+import styleClass from "./Orders.module.css";
 
 import TitleLabel from "../UI/Label/TitleLabel";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+import Order from "./Order/Order";
+import OrderProduct from "./OrderProduct/OrderProduct";
 
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      <Box p={3}>{children}</Box>
-    </Typography>
-  );
+class Orders extends Component {
+  state = {
+    value: 0,
+    showModal: false
+  };
+
+  componentWillMount() {
+    this.props.onStorageFetch();
+    this.props.onProductFetch();
+    this.props.onOrdersFetch();
+  }
+
+  a11yProps(index) {
+    return {
+      id: `full-width-tab-${index}`,
+      "aria-controls": `full-width-tabpanel-${index}`
+    };
+  }
+
+  handleChangeIndex = index => {
+    this.setState({ value: index });
+  };
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
+  detailsButtonHandler = () => {
+    console.log("we are invoked");
+    this.setState({ showModal: true });
+  };
+  closeModal = () => {
+    this.setState({ showModal: false });
+  };
+
+  render() {
+    console.log(this.props.order);
+    console.log(this.props.products);
+
+    let pending = "PENDING";
+    let completed = "COMPLETED";
+    let cancelled = "CANCELED";
+
+    let pendingOrders = [];
+    let completedOrders = [];
+    let cancelledOrders = [];
+
+    this.props.order.orders.map(order => {
+      if (order.status === "COMPLETED") {
+        completedOrders.push(order);
+      } else if (order.status === "CANCELLED") {
+        cancelledOrders.push(order);
+      } else {
+        pendingOrders.push(order);
+      }
+    });
+
+    let selectedOrder = this.props.order.orders[0];
+
+    let products = selectedOrder.orderProducts.filter(orderProduct => {
+      let foundProduct = null;
+      let mainPhoto = null;
+      for (let i = 0; i < this.props.products.products.length; i++) {
+        if (
+          orderProduct.orderedProductId ==
+          this.props.products.products[i].productId
+        ) {
+          foundProduct = this.props.products.products[i];
+          break;
+        }
+        if (foundProduct !== null) {
+          for (let i = 0; i < foundProduct.photos.length; i++) {
+            let photo = foundProduct.photos[i];
+            if (photo.type == "MAIN") {
+              mainPhoto = <SmallImage photo={photo}></SmallImage>;
+            }
+          }
+
+          return (
+            <OrderProduct
+              mainPhoto={mainPhoto}
+              name={products.name}
+              latinName={products.latinName}
+              quantity={orderProduct.quantity}
+              price={products.price}
+            ></OrderProduct>
+          );
+        }
+      }
+    });
+
+    pending = pendingOrders.map(order => {
+      return (
+        <Grid item xs={12}>
+          <Order buttonAction={this.detailsButtonHandler} order={order}>
+            {" "}
+          </Order>
+        </Grid>
+      );
+    });
+
+    return (
+      <div>
+        <MDBModal isOpen={this.state.showModal} toggle={this.closeModal}>
+          {products}
+        </MDBModal>
+
+        <div className={styleClass.All}>
+          <TitleLabel name="Shop Page"></TitleLabel>
+          <div>
+            <AppBar position="static" color="default">
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor="primary"
+                textColor="primary"
+                variant="fullWidth"
+                aria-label="full width tabs example"
+              >
+                <Tab label="COMPLETED" {...this.a11yProps(0)} />
+                <Tab label="PENDING" {...this.a11yProps(1)} />
+                <Tab label="CANCELLED" {...this.a11yProps(2)} />
+              </Tabs>
+            </AppBar>
+            <SwipeableViews
+              axis={"x"}
+              index={this.state.value}
+              onChangeIndex={index => this.handleChangeIndex(index)}
+            >
+              <TabPanel value={this.state.value} index={0} dir={"x"}>
+                <Grid container alignContent="center" spacing={2}>
+                  {completed}
+                </Grid>
+              </TabPanel>
+              <TabPanel value={this.state.value} index={1} dir={"x"}>
+                <Grid container spacing={2}>
+                  {pending}
+                </Grid>
+              </TabPanel>
+              <TabPanel value={this.state.value} index={2} dir={"x"}>
+                <Grid container spacing={2}>
+                  {cancelled}
+                </Grid>
+              </TabPanel>
+            </SwipeableViews>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired
+const mapStateToProps = state => {
+  return {
+    products: state.products,
+    storages: state.storages,
+    user: state.user,
+    basket: state.basket,
+    order: state.order
+  };
 };
 
-function a11yProps(index) {
+const mapDispatchToProps = dispatch => {
   return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`
+    onProductFetch: () => dispatch(actions.fetchProducts()),
+    onStorageFetch: () => dispatch(actions.fetchStorages()),
+    onOrdersFetch: () => dispatch(actions.fetchAllOrders())
   };
-}
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper
-  }
-}));
-
-export default function FullWidthTabs() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = index => {
-    setValue(index);
-  };
-
-  return (
-    <div className={styleClass.All}>
-      <TitleLabel name="Order Page"></TitleLabel>
-      <div className={classes.root}>
-        <AppBar position="static" color="default">
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            indicatorColor="primary"
-            textColor="primary"
-            variant="fullWidth"
-            aria-label="full width tabs example"
-          >
-            <Tab label="Completed" {...a11yProps(0)} />
-            <Tab label="Pending" {...a11yProps(1)} />
-            <Tab label="Cancelled" {...a11yProps(2)} />
-          </Tabs>
-        </AppBar>
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={handleChangeIndex}
-        >
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            Item Oneasdf
-          </TabPanel>
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            Item Two
-          </TabPanel>
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            Item Three
-          </TabPanel>
-        </SwipeableViews>
-      </div>
-    </div>
-  );
-}
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

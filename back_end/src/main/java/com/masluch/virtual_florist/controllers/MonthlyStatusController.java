@@ -22,7 +22,7 @@ public class MonthlyStatusController
 	private MonthlyStatusService monthlyStatusService;
 	
 	@GetMapping("/")
-	public List<MonthlyStatus> getAllMonthlyStatuts(){
+	public List<MonthlyStatus> getAllMonthlyStatuses(){
 		return monthlyStatusService.findAll();
 	}
 

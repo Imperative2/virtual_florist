@@ -17,7 +17,6 @@ const navigationItems = props => {
         <NavigationItem link="/storage">Storage</NavigationItem>
         <NavigationItem link="/order">Orders</NavigationItem>
         <NavigationItem link="/shop">Shop</NavigationItem>
-        <NavigationItem link="/login">Login</NavigationItem>
         <UserMenu></UserMenu>
         <Cart></Cart>
       </ul>

@@ -38,7 +38,8 @@ export {
   setBasketVerified,
   makeOrderWithAccount,
   makeOrderWithoutAccount,
-  setOrderComplete
+  setOrderComplete,
+  fetchAllOrders
 } from "./OrderActions";
 
 export { fetchMonthlyStatus } from "./MonthlyStatusActions";

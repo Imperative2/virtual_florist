@@ -32,6 +32,20 @@ class UserMenu extends Component {
   };
 
   render() {
+    let historyOrManagment = (
+      <NavLink to={"/user/history"}>
+        <MenuItem onClick={this.handleClose}>History</MenuItem>
+      </NavLink>
+    );
+
+    if (this.props.user.user.role === "ADMIN") {
+      historyOrManagment = (
+        <NavLink to={"/managment/"}>
+          <MenuItem onClick={this.handleClose}>Managment</MenuItem>
+        </NavLink>
+      );
+    }
+
     return (
       <li className={styleClass.Menu}>
         <div>
@@ -48,9 +62,7 @@ class UserMenu extends Component {
             <NavLink to={"/user/userInfo"}>
               <MenuItem onClick={this.handleClose}>My account</MenuItem>
             </NavLink>
-            <NavLink to={"/user/history"}>
-              <MenuItem onClick={this.handleClose}>History</MenuItem>
-            </NavLink>
+            {historyOrManagment}
 
             <MenuItem onClick={this.handleLogOut}>Logout</MenuItem>
           </Menu>

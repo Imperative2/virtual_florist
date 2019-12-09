@@ -162,6 +162,29 @@ export const makeOrderWithoutAccount = form => {
   };
 };
 
+export const fetchUserOrders = () => {
+  return dispatch => {
+    axios.get("/order/user/").then(response => {
+      dispatch(setOrders(response.data));
+    });
+  };
+};
+
+export const fetchAllOrders = () => {
+  return dispatch => {
+    axios.get("/order/").then(response => {
+      dispatch(setOrders(response.data));
+    });
+  };
+};
+
+export const setOrders = orders => {
+  return {
+    type: actionTypes.SET_ORDERS,
+    orders: orders
+  };
+};
+
 export const setOrderComplete = isComplete => {
   return {
     type: actionTypes.SET_ORDER_COMPLETE,
