@@ -59,6 +59,9 @@ public class OrderServiceImpl implements OrderService
 	@Autowired
 	private MonthlyStatusDAO monthlyStatusDAO;
 	
+	@Autowired
+	private BasketService basketService;
+	
 	
 
 	@Override
@@ -226,6 +229,8 @@ public class OrderServiceImpl implements OrderService
 		savedOrder.setTotalPrice(totalPrice);
 
 		orderDAO.update(savedOrder);
+		
+		basketService.clearAndDeleteBasket(userId);
 
 		return new ResponseEntity<String>("Done", HttpStatus.OK);
 

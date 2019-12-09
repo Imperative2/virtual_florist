@@ -14,6 +14,7 @@ import StoragePage from "./Components/Pages/StoragePage/StoragePage";
 import ShopPage from "./Components/Pages/ShopPage/ShopPage";
 import UserInfoPage from "./Components/Pages/UserInfoPage/UserInfoPage";
 import StartPage from "./Components/Pages/StartPage/StartPage";
+import ManagmentPage from "./Components/Pages/ManagmentPage/ManagmentPage";
 
 import Layout from "./Components/Layout/Layout";
 import Wiki from "./Components/Wiki/Wiki";
@@ -68,6 +69,7 @@ class App extends Component {
             <Route exact path="/user/userInfo" component={UserInfoPage} />
             <Route exact path="/checkout/" component={Checkout} />
             <Route exact path="/finishOrder/" component={FinishOrder} />
+            <Route exact path="/managment/" component={ManagmentPage} />
             <Route path="/" component={StartPage} />
           </Switch>
         </Layout>

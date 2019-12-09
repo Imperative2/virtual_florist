@@ -12,10 +12,12 @@ import com.masluch.virtual_florist.DAO.BasketDAO;
 import com.masluch.virtual_florist.DAO.BasketProductsDAO;
 import com.masluch.virtual_florist.DAO.ProductDAO;
 import com.masluch.virtual_florist.DAO.StorageDAO;
+import com.masluch.virtual_florist.DAO.UserDAO;
 import com.masluch.virtual_florist.entities.Basket;
 import com.masluch.virtual_florist.entities.BasketProducts;
 import com.masluch.virtual_florist.entities.Product;
 import com.masluch.virtual_florist.entities.Storage;
+import com.masluch.virtual_florist.entities.User;
 
 @Service
 public class BasketServiceImpl implements BasketService
@@ -32,6 +34,9 @@ public class BasketServiceImpl implements BasketService
 
 	@Autowired
 	private BasketProductsDAO basketProductsDAO;
+	
+	@Autowired
+	private UserDAO userDAO;
 
 	@Override
 	public List<Basket> findAll()
@@ -251,6 +256,29 @@ public class BasketServiceImpl implements BasketService
 
 				}
 
+	}
+
+	@Override
+	@Transactional
+	public ResponseEntity<String> clearAndDeleteBasket(Integer userId)
+	{
+		User user = userDAO.findById(userId);
+		if(user == null) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
+		Basket basket = basketDAO.findByUserId(user.getUserId());
+		if(basket != null) {
+			List<BasketProducts> basketProductsList = basket.getBasketProducts();
+			for(BasketProducts basketProduct : basketProductsList)
+				{
+					basketProductsDAO.deleteById(basketProduct.getBasketProductsId());
+				}
+			
+//			basketDAO.deleteById(basket.getBasketId());
+		}
+		
+		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 
 }

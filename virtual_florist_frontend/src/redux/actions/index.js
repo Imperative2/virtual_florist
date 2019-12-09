@@ -40,3 +40,5 @@ export {
   makeOrderWithoutAccount,
   setOrderComplete
 } from "./OrderActions";
+
+export { fetchMonthlyStatus } from "./MonthlyStatusActions";

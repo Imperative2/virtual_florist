@@ -65,32 +65,31 @@ public class OrderController
 	{
 		System.out.println(orderWithoutAccount);
 
-//		ResponseEntity<String> userResponse = userService.registerUser(orderWithoutAccount.getUserRegisterData());
-//		if (userResponse.getStatusCode() != HttpStatus.OK)
-//		{
-//			return userResponse;
-//		}
-//		
-//		orderWithoutAccount.setUserId(Integer.decode(userResponse.getBody()));
-//		
-//		OrderWithAccount orderWithAccount = new OrderWithAccount();
-//		orderWithAccount.setUserId(orderWithoutAccount.getUserId());
-//		orderWithAccount.setComment(orderWithoutAccount.getComment());
-//		orderWithAccount.setDeliveryDate(orderWithoutAccount.getDeliveryDate());
-//		orderWithAccount.setDeliveryDetails(orderWithoutAccount.getDeliveryDetails());
-//		orderWithAccount.setDeliveryId(orderWithoutAccount.getDeliveryId());
-//		orderWithAccount.setOrderProducts(orderWithoutAccount.getOrderProducts());
-//
-//		ResponseEntity<String>  orderResponse = orderService.orderWithAccount(orderWithAccount);
-//		if(orderResponse.getStatusCode() != HttpStatus.OK) {
-//			userService.deleteById(orderWithAccount.getUserId());
-//			return orderResponse;
-//		}
-//		else {
-//			userService.setUserAsTemporary(orderWithAccount.getUserId());
-//			return orderResponse;
-//		}
-		return new ResponseEntity<String>(HttpStatus.OK);
+		ResponseEntity<String> userResponse = userService.registerTemporaryUser(orderWithoutAccount.getUserRegisterData());
+		if (userResponse.getStatusCode() != HttpStatus.OK)
+		{
+			return userResponse;
+		}
+		
+		orderWithoutAccount.setUserId(Integer.decode(userResponse.getBody()));
+		
+		OrderWithAccount orderWithAccount = new OrderWithAccount();
+		orderWithAccount.setUserId(orderWithoutAccount.getUserId());
+		orderWithAccount.setComment(orderWithoutAccount.getComment());
+		orderWithAccount.setDeliveryDate(orderWithoutAccount.getDeliveryDate());
+		orderWithAccount.setDeliveryDetails(orderWithoutAccount.getDeliveryDetails());
+		orderWithAccount.setDeliveryId(orderWithoutAccount.getDeliveryId());
+		orderWithAccount.setOrderProducts(orderWithoutAccount.getOrderProducts());
+
+		ResponseEntity<String>  orderResponse = orderService.orderWithAccount(orderWithAccount);
+		if(orderResponse.getStatusCode() != HttpStatus.OK) {
+			userService.deleteById(orderWithAccount.getUserId());
+			return orderResponse;
+		}
+		else {
+			userService.setUserAsTemporary(orderWithAccount.getUserId());
+			return orderResponse;
+		}
 	}
 
 }

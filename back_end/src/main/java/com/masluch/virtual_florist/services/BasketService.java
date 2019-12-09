@@ -20,6 +20,8 @@ public interface BasketService
 	
 	public ResponseEntity<String> deleteById(int storageId);
 	
+	public ResponseEntity<String> clearAndDeleteBasket(Integer userId);
+	
 	public ResponseEntity<Basket> getUserBasket(String userId);
 	
 	public ResponseEntity<Basket> addProductToBasket(BasketProducts basketProduct, String userId);

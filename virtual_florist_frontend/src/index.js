@@ -19,6 +19,7 @@ import storageReducer from "./redux/reducers/storageReducer";
 import basketReducer from "./redux/reducers/basketReducer";
 import orderReducer from "./redux/reducers/orderReducer";
 import deliveryTypeReducer from "./redux/reducers/deliveryTypeReducer";
+import monthlyStatusReducer from "./redux/reducers/monthlyStatusReducer";
 
 // import "@fortawesome/fontawesome-free/css/all.min.css";
 // import "bootstrap-css-only/css/bootstrap.min.css";
@@ -33,7 +34,8 @@ const rootReducer = combineReducers({
   storages: storageReducer,
   basket: basketReducer,
   order: orderReducer,
-  deliveryType: deliveryTypeReducer
+  deliveryType: deliveryTypeReducer,
+  monthlyStatus: monthlyStatusReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

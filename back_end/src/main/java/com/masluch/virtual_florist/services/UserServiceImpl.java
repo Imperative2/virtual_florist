@@ -241,6 +241,68 @@ public class UserServiceImpl implements UserService
 
 	}
 
+	@Override
+	public ResponseEntity<String> registerTemporaryUser(UserRegisterData userRegisterData)
+	{
+		if (userRegisterData.getName() == null || userRegisterData.getSurname() == null
+				|| userRegisterData.getEmail() == null)
+			{
+				return new ResponseEntity<String>("Bad information", HttpStatus.BAD_REQUEST);
+			}
+		if (userRegisterData.getCountry() == null || userRegisterData.getCity() == null
+				|| userRegisterData.getStreet() == null || userRegisterData.getZipCode() == null)
+			{
+				return new ResponseEntity<String>("Bad information", HttpStatus.BAD_REQUEST);
+			}
+		if (userRegisterData.getPhoneNumber() == null)
+			{
+				return new ResponseEntity<String>("Bad information", HttpStatus.BAD_REQUEST);
+			}
+
+
+
+		List<User> userEmailTakenList = userDAO.findByEmail(userRegisterData.getEmail());
+		if(userEmailTakenList.size() !=0 && userEmailTakenList.get(0).isEnabled() == false)
+			{
+				User existingTemporaryUser = userEmailTakenList.get(0);
+				return new ResponseEntity<String>(existingTemporaryUser.getUserId()+"",HttpStatus.OK);
+			}
+		 if (userEmailTakenList.isEmpty() != true)
+			{
+				return new ResponseEntity<String>("Email taken", HttpStatus.BAD_REQUEST);
+			}
+
+		Adress adress = adressDAO.findByValues(userRegisterData.getCountry(), userRegisterData.getCity(),
+				userRegisterData.getStreet(), userRegisterData.getLocalNumber());
+
+		if (adress == null)
+			{
+				adress = new Adress();
+				adress.setCountry(userRegisterData.getCountry());
+				adress.setCity(userRegisterData.getCity());
+				adress.setStreet(userRegisterData.getStreet());
+				adress.setLocalNumber(userRegisterData.getLocalNumber());
+				adress.setZipCode(userRegisterData.getZipCode());
+				adress = adressDAO.save(adress);
+			}
+
+		User newUser = new User();
+		newUser.setName(userRegisterData.getName());
+		newUser.setSurname(userRegisterData.getSurname());
+		newUser.setEmail(userRegisterData.getEmail());
+		newUser.setPassword("temporaryPassword");
+		newUser.setRole("USER");
+		newUser.setEnabled(true);
+		newUser.setPhoneNumber(userRegisterData.getPhoneNumber());
+		newUser.setBusinessClient(false);
+		newUser.setAdress(adress);
+
+		userDAO.save(newUser);
+
+		return new ResponseEntity<String>(newUser.getUserId()+"",HttpStatus.OK);
+
+	}
+
 
 
 }
