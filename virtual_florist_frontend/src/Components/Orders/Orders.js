@@ -34,7 +34,8 @@ import OrderProduct from "./OrderProduct/OrderProduct";
 class Orders extends Component {
   state = {
     value: 0,
-    showModal: false
+    showModal: false,
+    selectedOrder: this.props.order.orders[0]
   };
 
   componentWillMount() {
@@ -58,8 +59,9 @@ class Orders extends Component {
     this.setState({ value });
   };
 
-  detailsButtonHandler = () => {
-    console.log("we are invoked");
+  detailsButtonHandler = index => {
+    console.log("we are invoked index " + index);
+    this.setState({ selectedOrder: this.props.order.orders[index] });
     this.setState({ showModal: true });
   };
   closeModal = () => {
@@ -88,44 +90,47 @@ class Orders extends Component {
       }
     });
 
-    let selectedOrder = this.props.order.orders[0];
-
-    let products = selectedOrder.orderProducts.filter(orderProduct => {
+    let products = this.state.selectedOrder.orderProducts.map(orderProduct => {
       let foundProduct = null;
       let mainPhoto = null;
+
       for (let i = 0; i < this.props.products.products.length; i++) {
         if (
-          orderProduct.orderedProductId ==
+          orderProduct.product.productId ==
           this.props.products.products[i].productId
         ) {
           foundProduct = this.props.products.products[i];
           break;
         }
-        if (foundProduct !== null) {
-          for (let i = 0; i < foundProduct.photos.length; i++) {
-            let photo = foundProduct.photos[i];
-            if (photo.type == "MAIN") {
-              mainPhoto = <SmallImage photo={photo}></SmallImage>;
-            }
-          }
+      }
 
-          return (
-            <OrderProduct
-              mainPhoto={mainPhoto}
-              name={products.name}
-              latinName={products.latinName}
-              quantity={orderProduct.quantity}
-              price={products.price}
-            ></OrderProduct>
-          );
+      if (foundProduct !== null) {
+        for (let i = 0; i < foundProduct.photos.length; i++) {
+          let photo = foundProduct.photos[i];
+          if (photo.type == "MAIN") {
+            mainPhoto = <SmallImage photo={photo}></SmallImage>;
+          }
         }
+
+        return (
+          <OrderProduct
+            mainPhoto={mainPhoto}
+            name={foundProduct.name}
+            latinName={foundProduct.latinName}
+            quantity={orderProduct.quantity}
+            price={foundProduct.price}
+          ></OrderProduct>
+        );
       }
     });
 
-    pending = pendingOrders.map(order => {
+    pending = pendingOrders.map((order, index) => {
       return (
         <Grid item xs={12}>
-          <Order buttonAction={this.detailsButtonHandler} order={order}>
+          <Order
+            buttonAction={() => this.detailsButtonHandler(index)}
+            order={order}
+          >
             {" "}
           </Order>
         </Grid>

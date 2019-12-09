@@ -12,7 +12,7 @@ import { MDBCloseIcon } from "mdbreact";
 
 const orderProduct = props => {
   return (
-    <div key={index}>
+    <div>
       <Paper>
         <Grid container item spacing={3} alignItems="center">
           <Grid item xs={12} sm={2}>
