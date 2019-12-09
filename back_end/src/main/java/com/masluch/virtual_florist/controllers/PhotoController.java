@@ -35,43 +35,44 @@ import com.masluch.virtual_florist.services.PhotoService;
 @CrossOrigin
 public class PhotoController
 {
-	
+
 	@Autowired
 	private PhotoService photoService;
-	
-	
-	
+
 	@GetMapping(path = "/")
 	public List<Photo> getAllPhotos()
 	{
 		return photoService.findAll();
 	}
-	
-	@PostMapping(path="/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public ResponseEntity<Photo> uploadToLocalFileSystem(@RequestParam("file") MultipartFile file , @RequestParam(name = "productId", required = false) Integer productId,@RequestParam(name = "wikiEntryId",  required = false) Integer wikiEntryId, @RequestParam("type") String type, @RequestParam("description") String description, @RequestParam("enabled") boolean enabled)
+
+	@PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<Photo> uploadToLocalFileSystem(@RequestParam("file") MultipartFile file,
+			@RequestParam(name = "productId", required = false) Integer productId,
+			@RequestParam(name = "wikiEntryId", required = false) Integer wikiEntryId,
+			@RequestParam("type") String type, @RequestParam("description") String description,
+			@RequestParam("enabled") boolean enabled)
 	{
-		
+
 		Photo newPhoto = new Photo();
-		
-		if(wikiEntryId != null && wikiEntryId>0)
+
+		if (wikiEntryId != null && wikiEntryId > 0)
 			{
 				newPhoto.setWikiEntryId(wikiEntryId);
 			}
-		
-		if(productId != null && productId>0)
+
+		if (productId != null && productId > 0)
 			{
 				newPhoto.setProductId(productId);
 			}
-		
+
 		newPhoto.setDescription(description);
 		newPhoto.setEnabled(enabled);
 		newPhoto.setType(type);
 		newPhoto.setPath("");
-		
+
 		Photo savedPhoto = photoService.save(newPhoto);
-		
-		
-		String fileName = StringUtils.cleanPath(savedPhoto.getPhotoId()+".png");
+
+		String fileName = StringUtils.cleanPath(savedPhoto.getPhotoId() + ".png");
 		Path path = Paths.get("..//Photos//" + fileName);
 		try
 			{
@@ -83,27 +84,29 @@ public class PhotoController
 				e.printStackTrace();
 			}
 
-		
-		String fileDownloadUri = "/photo/download/"+ fileName;
-		
+		String fileDownloadUri = "/photo/download/" + fileName;
+
 		savedPhoto.setPath(fileDownloadUri);
 		photoService.update(savedPhoto);
-		
-		return  new ResponseEntity<>(savedPhoto, HttpStatus.OK);
-		
+
+		return new ResponseEntity<>(savedPhoto, HttpStatus.OK);
+
 	}
-	
+
 	@GetMapping("/download/{fileName:.+}")
-	public ResponseEntity downloadFileFromLocal(@PathVariable String fileName) {
+	public ResponseEntity downloadFileFromLocal(@PathVariable String fileName)
+	{
 		Path path = Paths.get("..//Photos//" + fileName);
 		Resource resource = null;
-		try {
-			resource = new UrlResource(path.toUri());
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		return ResponseEntity.ok()
-				.contentType(MediaType.IMAGE_PNG)
+		try
+			{
+				resource = new UrlResource(path.toUri());
+			}
+		catch (MalformedURLException e)
+			{
+				e.printStackTrace();
+			}
+		return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG)
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
 				.body(resource);
 	}
