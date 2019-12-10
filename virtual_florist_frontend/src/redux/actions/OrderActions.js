@@ -162,11 +162,17 @@ export const makeOrderWithoutAccount = form => {
   };
 };
 
-export const fetchUserOrders = () => {
+export const fetchUserOrders = userId => {
   return dispatch => {
-    axios.get("/order/user/").then(response => {
-      dispatch(setOrders(response.data));
-    });
+    axios
+      .get("/order/user/", null, {
+        params: {
+          userId: userId
+        }
+      })
+      .then(response => {
+        dispatch(setOrders(response.data));
+      });
   };
 };
 

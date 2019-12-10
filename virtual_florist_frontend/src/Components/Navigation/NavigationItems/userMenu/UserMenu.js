@@ -33,7 +33,7 @@ class UserMenu extends Component {
 
   render() {
     let historyOrManagment = (
-      <NavLink to={"/user/history"}>
+      <NavLink to={"/order"}>
         <MenuItem onClick={this.handleClose}>History</MenuItem>
       </NavLink>
     );

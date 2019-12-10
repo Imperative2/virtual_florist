@@ -10,15 +10,17 @@ import SmallImage from "../../UI/Image/SmallImage/SmallImage";
 import { MDBBtn, MDBIcon } from "mdbreact";
 import { MDBCloseIcon } from "mdbreact";
 
+import styleClass from "./OrderProduct.module.css";
+
 const orderProduct = props => {
   return (
-    <div>
+    <div className={styleClass.All}>
       <Paper>
         <Grid container item spacing={3} alignItems="center">
-          <Grid item xs={12} sm={2}>
+          <Grid item xs={12} sm={3}>
             {props.mainPhoto}
           </Grid>
-          <Grid item xs={12} sm={4}>
+          <Grid item xs={12} sm={5}>
             {props.name}-{props.latinName}
           </Grid>
           <Grid item xs={12} sm={2}>

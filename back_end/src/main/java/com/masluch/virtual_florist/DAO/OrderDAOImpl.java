@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.masluch.virtual_florist.entities.Order;
 import com.masluch.virtual_florist.entities.Product;
+import com.masluch.virtual_florist.entities.Storage;
+import com.masluch.virtual_florist.entities.User;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO
@@ -60,6 +62,16 @@ public class OrderDAOImpl implements OrderDAO
 		Session session = entityManager.unwrap(Session.class);
 		Order order = session.get(Order.class, orderId);
 		session.delete(order);
+	}
+
+	@Override
+	public List<Order> findByUser(User user)
+	{
+		Session session = entityManager.unwrap(Session.class);
+		Query<Order> query = session.createQuery("FROM Order o WHERE o.user=:user",Order.class);
+		query.setParameter("user", user);
+		List<Order> orderList = query.getResultList();
+		return orderList;
 	}
 
 }

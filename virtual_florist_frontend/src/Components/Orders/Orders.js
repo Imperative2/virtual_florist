@@ -7,6 +7,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -30,6 +31,8 @@ import TitleLabel from "../UI/Label/TitleLabel";
 
 import Order from "./Order/Order";
 import OrderProduct from "./OrderProduct/OrderProduct";
+import UserDetails from "./UserDetails/UserDetails";
+import DeliveryDetails from "./DeliveryDetails/DeliveryDetails";
 
 class Orders extends Component {
   state = {
@@ -41,7 +44,16 @@ class Orders extends Component {
   componentWillMount() {
     this.props.onStorageFetch();
     this.props.onProductFetch();
-    this.props.onOrdersFetch();
+
+    console.log(this.props.user.user.role);
+
+    if (this.props.user.user.role === "ADMIN") {
+      this.props.onOrdersFetch();
+    } else if (this.props.user.user.role === "USER") {
+      this.props.onUserOrsersFetch(this.props.user.user.userId);
+    } else {
+      this.props.history.push("/mainMenu");
+    }
   }
 
   a11yProps(index) {
@@ -59,9 +71,8 @@ class Orders extends Component {
     this.setState({ value });
   };
 
-  detailsButtonHandler = index => {
-    console.log("we are invoked index " + index);
-    this.setState({ selectedOrder: this.props.order.orders[index] });
+  detailsButtonHandler = order => {
+    this.setState({ selectedOrder: order });
     this.setState({ showModal: true });
   };
   closeModal = () => {
@@ -69,8 +80,9 @@ class Orders extends Component {
   };
 
   render() {
-    console.log(this.props.order);
-    console.log(this.props.products);
+    // console.log(this.props.order);
+    // console.log(this.props.products);
+    console.log(this.state.selectedOrder);
 
     let pending = "PENDING";
     let completed = "COMPLETED";
@@ -124,11 +136,31 @@ class Orders extends Component {
       }
     });
 
+    let userDetails = (
+      <UserDetails
+        name={this.state.selectedOrder.user.name}
+        surname={this.state.selectedOrder.user.surname}
+        email={this.state.selectedOrder.user.email}
+        phoneNumber={this.state.selectedOrder.user.phoneNumber}
+      ></UserDetails>
+    );
+
+    let deliveryDetails = (
+      <DeliveryDetails
+        country={this.state.selectedOrder.deliveryAdress.country}
+        city={this.state.selectedOrder.deliveryAdress.city}
+        street={this.state.selectedOrder.deliveryAdress.street}
+        localNumber={this.state.selectedOrder.deliveryAdress.localNumber}
+        zipCode={this.state.selectedOrder.deliveryAdress.zipCode}
+        comment={this.state.selectedOrder.comment}
+      ></DeliveryDetails>
+    );
+
     pending = pendingOrders.map((order, index) => {
       return (
         <Grid item xs={12}>
           <Order
-            buttonAction={() => this.detailsButtonHandler(index)}
+            buttonAction={() => this.detailsButtonHandler(order)}
             order={order}
           >
             {" "}
@@ -137,13 +169,74 @@ class Orders extends Component {
       );
     });
 
-    return (
-      <div>
-        <MDBModal isOpen={this.state.showModal} toggle={this.closeModal}>
-          {products}
-        </MDBModal>
+    completed = completedOrders.map((order, index) => {
+      return (
+        <Grid item xs={12}>
+          <Order
+            buttonAction={() => this.detailsButtonHandler(order)}
+            order={order}
+          >
+            {" "}
+          </Order>
+        </Grid>
+      );
+    });
 
-        <div className={styleClass.All}>
+    cancelled = cancelledOrders.map((order, index) => {
+      return (
+        <Grid item xs={12}>
+          <Order
+            buttonAction={() => this.detailsButtonHandler(order)}
+            order={order}
+          >
+            {" "}
+          </Order>
+        </Grid>
+      );
+    });
+
+    let buttons = (
+      <Grid item container xs={12} alignItems="center">
+        <Grid item xs={6} justify="center">
+          <Button variant="contained" color="primary">
+            Complete Order
+          </Button>
+        </Grid>
+        <Grid item xs={6}>
+          <Button variant="contained" color="secondary">
+            Cancel Order
+          </Button>
+        </Grid>
+      </Grid>
+    );
+
+    if (this.state.selectedOrder.status !== "PENDING") {
+      buttons = null;
+    }
+
+    return (
+      <div className={styleClass.All}>
+        <div>
+          <MDBModal
+            size="lg"
+            isOpen={this.state.showModal}
+            toggle={this.closeModal}
+          >
+            <Container component="main" maxWidth="md">
+              <Grid container direction="column" spacing={2}>
+                {products}
+
+                {userDetails}
+                {deliveryDetails}
+                <div className={styleClass.Padding}>
+                  {this.props.user.user.role === "ADMIN" ? buttons : null}
+                </div>
+              </Grid>
+            </Container>
+          </MDBModal>
+        </div>
+
+        <div>
           <TitleLabel name="Shop Page"></TitleLabel>
           <div>
             <AppBar position="static" color="default">
@@ -202,7 +295,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onProductFetch: () => dispatch(actions.fetchProducts()),
     onStorageFetch: () => dispatch(actions.fetchStorages()),
-    onOrdersFetch: () => dispatch(actions.fetchAllOrders())
+    onOrdersFetch: () => dispatch(actions.fetchAllOrders()),
+    onUserOrsersFetch: userId => dispatch(actions.fetchUserOrders(userId))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);

@@ -70,6 +70,28 @@ public class OrderServiceImpl implements OrderService
 	{
 		return orderDAO.findAll();
 	}
+	
+	@Override
+	public List<Order> findUserOrders(String userId)
+	{
+		Integer id;
+		try
+			{
+				id = Integer.decode(userId);
+			}
+		catch (Exception ex)
+			{
+				return null;
+			}
+		
+		User user = userDAO.findById(id);
+		if(user != null)
+			{
+				return orderDAO.findByUser(user);
+			}
+		return null;
+		
+	}
 
 	@Override
 	public Order findById(Integer orderId)
@@ -270,5 +292,7 @@ public class OrderServiceImpl implements OrderService
 
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
+
+
 
 }

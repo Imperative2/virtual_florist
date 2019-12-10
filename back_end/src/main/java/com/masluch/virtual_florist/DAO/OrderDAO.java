@@ -4,14 +4,16 @@ import java.util.List;
 
 import com.masluch.virtual_florist.entities.Order;
 import com.masluch.virtual_florist.entities.Product;
+import com.masluch.virtual_florist.entities.User;
 import com.masluch.virtual_florist.entities.WikiEntry;
 
 public interface OrderDAO
 {
 	public List<Order> findAll();
 	
-	public Order findById(int orderId);
+	public List<Order> findByUser(User user);
 	
+	public Order findById(int orderId);
 	
 	public Order save(Order order);
 	

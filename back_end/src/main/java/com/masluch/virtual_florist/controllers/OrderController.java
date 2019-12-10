@@ -41,6 +41,11 @@ public class OrderController
 	{
 		return orderService.findAll();
 	}
+	
+	@GetMapping("/user/")
+	public List<Order> getUserOrders(@RequestParam String userId){
+		return orderService.findUserOrders(userId);
+	}
 
 	@PostMapping("/verifyBasket")
 	public ResponseEntity<String> verifyBasket(@RequestBody Basket basket)

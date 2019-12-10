@@ -13,6 +13,8 @@ public interface OrderService
 {
 	public List<Order> findAll();
 	
+	public List<Order> findUserOrders(String userId);
+	
 	public Order findById(Integer orderId);
 	
 	public Order save(Order order);

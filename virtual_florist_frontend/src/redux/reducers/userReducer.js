@@ -17,7 +17,7 @@ const initialState = {
       zipCode: ""
     },
     logged: false,
-    role: "GUEST"
+    role: "ADMIN"
   }
 };
 

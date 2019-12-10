@@ -39,7 +39,8 @@ export {
   makeOrderWithAccount,
   makeOrderWithoutAccount,
   setOrderComplete,
-  fetchAllOrders
+  fetchAllOrders,
+  fetchUserOrders
 } from "./OrderActions";
 
 export { fetchMonthlyStatus } from "./MonthlyStatusActions";
